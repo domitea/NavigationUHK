@@ -42,5 +42,7 @@ public class WifiScanner {
                 scanResults = wm.getScanResults();
             }
         }, new IntentFilter(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION));
+
+        wm.startScan();
     }
 }
