@@ -1,5 +1,6 @@
 package uhk.kikm.navigationuhk;
 
+import android.net.wifi.ScanResult;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -13,6 +14,7 @@ import android.widget.Toast;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 
 import uhk.kikm.navigationuhk.utils.WebViewInterface;
 import uhk.kikm.navigationuhk.utils.WifiScanner;
@@ -21,6 +23,8 @@ import uhk.kikm.navigationuhk.utils.WifiScanner;
 public class MainActivity extends ActionBarActivity {
 
     WebViewInterface webInterface;
+    List<ScanResult> scans;
+    WifiScanner wScanner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +42,10 @@ public class MainActivity extends ActionBarActivity {
         view.addJavascriptInterface(webInterface, "android");
 
         final Button newPointButton = (Button) findViewById(R.id.write_point);
+
+        wScanner = new WifiScanner(this);
+        wScanner.findAll();
+
         newPointButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -51,10 +59,9 @@ public class MainActivity extends ActionBarActivity {
         if(webInterface.isChanged())
         {
             Toast.makeText(this, webInterface.getX() + " " + webInterface.getY(), Toast.LENGTH_LONG).show();
-
-            WifiScanner wScanner = new WifiScanner(this);
-            wScanner.findAll();
             webInterface.setChanged(false);
+            Toast.makeText(this, wScanner.getScanResults().toString(), Toast.LENGTH_LONG).show();
+
         }
         else
         {
