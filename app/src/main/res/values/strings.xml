@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Navigation UHK</string>
+    <string name="action_settings">Nastavení</string>
+    <string name="action_about">O programu</string>
+    <string name="write_point">Zapsat bod</string>
+
+</resources>
