@@ -45,4 +45,8 @@ public class WifiScanner {
 
         wm.startScan();
     }
+
+    public List<ScanResult> getScanResults() {
+        return scanResults;
+    }
 }

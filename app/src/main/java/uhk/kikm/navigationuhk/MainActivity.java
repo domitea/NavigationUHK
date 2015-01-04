@@ -11,13 +11,19 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
+import uhk.kikm.navigationuhk.utils.WebViewInterface;
+
 
 public class MainActivity extends ActionBarActivity {
+
+    WebViewInterface webInterface;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        webInterface = new WebViewInterface(this);
 
         WebView view = (WebView) findViewById(R.id.WebView);
         view.getSettings().setJavaScriptEnabled(true);
@@ -25,6 +31,7 @@ public class MainActivity extends ActionBarActivity {
         view.getSettings().setSupportZoom(true);
         view.setWebViewClient(new WebViewClient());
         view.loadData(readTextFromResource(R.drawable.uhk_j_2_level), null, "UTF-8");
+        view.addJavascriptInterface(webInterface, "Android");
     }
 
 
