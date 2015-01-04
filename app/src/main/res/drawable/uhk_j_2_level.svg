@@ -21,7 +21,7 @@
 
       evt.target.ownerDocument.getElementById("ball").setAttribute("cx", x + 5);
       evt.target.ownerDocument.getElementById("ball").setAttribute("cy", y + 5);
-      Android.setXY(x, y)
+      android.setXY(x, y)
     }
     function setPoint(x,y)
     {

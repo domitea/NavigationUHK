@@ -35,7 +35,7 @@ public class MainActivity extends ActionBarActivity {
         view.getSettings().setSupportZoom(true);
         view.setWebViewClient(new WebViewClient());
         view.loadData(readTextFromResource(R.drawable.uhk_j_2_level), null, "UTF-8");
-        view.addJavascriptInterface(webInterface, "Android");
+        view.addJavascriptInterface(webInterface, "android");
 
         final Button newPointButton = (Button) findViewById(R.id.write_point);
         newPointButton.setOnClickListener(new View.OnClickListener() {
@@ -54,8 +54,7 @@ public class MainActivity extends ActionBarActivity {
 
             WifiScanner wScanner = new WifiScanner(this);
             wScanner.findAll();
-
-            Toast.makeText(this, wScanner.getScanResults().get(0).toString(), Toast.LENGTH_LONG).show();
+            webInterface.setChanged(false);
         }
         else
         {

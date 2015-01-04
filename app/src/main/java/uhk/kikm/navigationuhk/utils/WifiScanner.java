@@ -40,10 +40,12 @@ public class WifiScanner {
             @Override
             public void onReceive(Context context, Intent intent) {
                 scanResults = wm.getScanResults();
+                System.out.println(scanResults.toString());
             }
         }, new IntentFilter(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION));
 
         wm.startScan();
+
     }
 
     public List<ScanResult> getScanResults() {
