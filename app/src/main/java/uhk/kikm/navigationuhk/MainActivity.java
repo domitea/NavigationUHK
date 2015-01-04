@@ -4,14 +4,18 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.Button;
+import android.widget.Toast;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
 import uhk.kikm.navigationuhk.utils.WebViewInterface;
+import uhk.kikm.navigationuhk.utils.WifiScanner;
 
 
 public class MainActivity extends ActionBarActivity {
@@ -32,6 +36,31 @@ public class MainActivity extends ActionBarActivity {
         view.setWebViewClient(new WebViewClient());
         view.loadData(readTextFromResource(R.drawable.uhk_j_2_level), null, "UTF-8");
         view.addJavascriptInterface(webInterface, "Android");
+
+        final Button newPointButton = (Button) findViewById(R.id.write_point);
+        newPointButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                writePoint();
+            }
+        });
+    }
+
+    public void writePoint()
+    {
+        if(webInterface.isChanged())
+        {
+            Toast.makeText(this, webInterface.getX() + " " + webInterface.getY(), Toast.LENGTH_LONG).show();
+
+            WifiScanner wScanner = new WifiScanner(this);
+            wScanner.findAll();
+
+            Toast.makeText(this, wScanner.getScanResults().get(0).toString(), Toast.LENGTH_LONG).show();
+        }
+        else
+        {
+            Toast.makeText(this, "Musi byt jine souradnice", Toast.LENGTH_SHORT).show();
+        }
     }
 
 
