@@ -55,6 +55,24 @@ public class BluetoothLEScanner {
         }
     }
 
+    public void stopScan()
+    {
+        bluetoothAdapter.stopLeScan(new BluetoothAdapter.LeScanCallback() {
+            @Override
+            public void onLeScan(BluetoothDevice device, int rssi, byte[] scanRecord) {
+                if (!bleDeviceList.contains(device))
+                {
+                    bleDeviceList.add(device);
+                }
+            }
+        });
+    }
+
+    public void clear()
+    {
+        bleDeviceList.clear();
+    }
+
     public ArrayList<BluetoothDevice> getBleDeviceList() {
         return bleDeviceList;
     }

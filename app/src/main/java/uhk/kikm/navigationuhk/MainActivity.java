@@ -1,6 +1,5 @@
 package uhk.kikm.navigationuhk;
 
-import android.net.wifi.ScanResult;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -41,6 +40,7 @@ public class MainActivity extends ActionBarActivity {
         view.addJavascriptInterface(webInterface, "android");
 
         final Button newPointButton = (Button) findViewById(R.id.write_point);
+        final Button newBlePointButton = (Button) findViewById(R.id.write_point_ble);
 
         wScanner = new WifiScanner(this);
         wScanner.findAll();
@@ -51,6 +51,17 @@ public class MainActivity extends ActionBarActivity {
                 writePoint();
             }
         });
+        newBlePointButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                writeBlePoint();
+            }
+        });
+    }
+
+    public void writeBlePoint()
+    {
+
     }
 
     public void writePoint()

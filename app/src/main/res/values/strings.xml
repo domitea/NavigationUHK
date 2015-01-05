@@ -4,7 +4,7 @@
     <string name="app_name">Navigation UHK</string>
     <string name="action_settings">Nastavení</string>
     <string name="action_about">O programu</string>
-    <string name="write_point">Zapsat bod</string>
-    <string name="write_point_ble">Zapsat ble bod</string>
+    <string name="write_point">Wifi bod</string>
+    <string name="write_point_ble">Ble bod</string>
 
 </resources>
