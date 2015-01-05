@@ -23,7 +23,6 @@ import uhk.kikm.navigationuhk.utils.WifiScanner;
 public class MainActivity extends ActionBarActivity {
 
     WebViewInterface webInterface;
-    List<ScanResult> scans;
     WifiScanner wScanner;
 
     @Override
