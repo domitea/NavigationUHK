@@ -15,6 +15,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 
+import uhk.kikm.navigationuhk.utils.BluetoothLEScanner;
 import uhk.kikm.navigationuhk.utils.WebViewInterface;
 import uhk.kikm.navigationuhk.utils.WifiScanner;
 
@@ -23,6 +24,8 @@ public class MainActivity extends ActionBarActivity {
 
     WebViewInterface webInterface;
     WifiScanner wScanner;
+    BluetoothLEScanner bleScanner;
+    boolean scanningBle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,11 +60,26 @@ public class MainActivity extends ActionBarActivity {
                 writeBlePoint();
             }
         });
+
+        scanningBle = false;
+
+        bleScanner = new BluetoothLEScanner(this);
     }
 
     public void writeBlePoint()
     {
-
+        if (!scanningBle)
+        {
+            bleScanner.findAll();
+            scanningBle = true;
+        }
+        else
+        {
+            bleScanner.stopScan();
+            Toast.makeText(this, bleScanner.getBleDeviceList().toString(), Toast.LENGTH_LONG).show();
+            bleScanner.clear();
+            scanningBle = false;
+        }
     }
 
     public void writePoint()
