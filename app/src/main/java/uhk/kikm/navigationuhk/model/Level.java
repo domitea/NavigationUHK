@@ -3,7 +3,8 @@ package uhk.kikm.navigationuhk.model;
 import java.util.ArrayList;
 
 /**
- * Created by dominik on 13.1.15.
+ * Modelova trida patra budovy
+ *
  */
 public class Level {
     int id;
