@@ -12,6 +12,10 @@ public class Level {
     String description;
     ArrayList<Position> positions;
 
+    public Level(int level) {
+        this.level = level;
+    }
+
     public String getDescription() {
         return description;
     }
