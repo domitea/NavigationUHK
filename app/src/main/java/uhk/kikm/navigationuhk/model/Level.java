@@ -3,11 +3,10 @@ package uhk.kikm.navigationuhk.model;
 import java.util.ArrayList;
 
 /**
- * Modelova trida patra budovy
+ * Modelova trida reprezentujici patra budovy
  *
  */
 public class Level {
-    int id;
     int level;
     String description;
     ArrayList<Position> positions;
@@ -31,14 +30,6 @@ public class Level {
 
     public void setLevel(int level) {
         this.level = level;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public ArrayList<Position> getPositions() {
