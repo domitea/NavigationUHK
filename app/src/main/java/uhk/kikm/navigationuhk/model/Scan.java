@@ -6,7 +6,7 @@ package uhk.kikm.navigationuhk.model;
 public class Scan {
     String SSID;
     String MAC;
-    int strentgh;
+    int strenght;
 
     public Scan() {
     }
@@ -28,11 +28,11 @@ public class Scan {
         this.MAC = MAC;
     }
 
-    public int getStrentgh() {
-        return strentgh;
+    public int getStrenght() {
+        return strenght;
     }
 
-    public void setStrentgh(int strentgh) {
-        this.strentgh = strentgh;
+    public void setStrentgh(int strenght) {
+        this.strenght = strenght;
     }
 }
