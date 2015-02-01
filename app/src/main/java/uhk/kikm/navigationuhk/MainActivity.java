@@ -19,6 +19,10 @@ import uhk.kikm.navigationuhk.utils.BluetoothLEScanner;
 import uhk.kikm.navigationuhk.utils.WebViewInterface;
 import uhk.kikm.navigationuhk.utils.WifiScanner;
 
+import com.couchbase.lite.*;
+import com.couchbase.lite.android.AndroidContext;
+import com.couchbase.lite.util.Log;
+
 
 public class MainActivity extends ActionBarActivity {
 
@@ -64,6 +68,18 @@ public class MainActivity extends ActionBarActivity {
         scanningBle = false;
 
         bleScanner = new BluetoothLEScanner(this);
+
+        Manager manager;
+        try
+        {
+            manager = new Manager(new AndroidContext(this), Manager.DEFAULT_OPTIONS);
+            System.out.println(manager.getDirectory().toURI().toString());
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+
     }
 
     public void writeBlePoint()
