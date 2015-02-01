@@ -40,12 +40,9 @@ public class WifiFinder {
     private Position getPosition(Scan s)
     {
         for (Position p : level.getPositions())
-        {
-            if (p.getScans().contains(s))
-            {
+            if (p.getScans().contains(s)) {
                 return p;
             }
-        }
         return null;
     }
 }

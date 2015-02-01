@@ -21,7 +21,7 @@ import uhk.kikm.navigationuhk.utils.WifiScanner;
 
 import com.couchbase.lite.*;
 import com.couchbase.lite.android.AndroidContext;
-import com.couchbase.lite.util.Log;
+
 
 
 public class MainActivity extends ActionBarActivity {
