@@ -25,8 +25,8 @@ public class couchDBManager {
     Manager manager;
     Database db;
 
-    final String dbname = "ScanUHK";
-    final String viewByMac = "byMac";
+    final String dbname = "Scan_uhk";
+    final String viewByMac = "by_mac";
 
     public couchDBManager(Context context) {
         this.context = context;
@@ -164,6 +164,11 @@ public class couchDBManager {
         {
             cle.printStackTrace();
         }
+    }
+
+    public List<Position> getAllPositions()
+    {
+
     }
 
 
