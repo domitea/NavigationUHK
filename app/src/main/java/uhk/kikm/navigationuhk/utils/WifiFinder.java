@@ -5,7 +5,6 @@ import android.net.wifi.ScanResult;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import uhk.kikm.navigationuhk.model.Level;
 import uhk.kikm.navigationuhk.model.Position;
 import uhk.kikm.navigationuhk.model.Scan;
 
@@ -13,23 +12,23 @@ import uhk.kikm.navigationuhk.model.Scan;
  * Trida reprezentujici vyhledavani polohy
  */
 public class WifiFinder {
-    private Level level;
+    private ArrayList<Position> positions;
     private HashMap<String, ArrayList<Scan>> navigationData;
 
-    public WifiFinder(Level level) {
-        this.level = level;
-        for (Position p : level.getPositions()) // pro vsechny polohy patre
+    public WifiFinder(ArrayList<Position> positions) {
+        this.positions = positions;
+        for (Position p : positions) // pro vsechny polohy patre
         {
             navigationData.put(String.valueOf(p.getX()) + String.valueOf(p.getY()), p.getScans()); // pridej do seznamu vsechny scany s hasem polohy
         }
     }
 
-    public Level getLevel() {
-        return level;
+    public ArrayList<Position> getPositions() {
+        return positions;
     }
 
-    public void setLevel(Level level) {
-        this.level = level;
+    public void setPositions(ArrayList<Position> positions) {
+        this.positions = positions;
     }
 
     public Position getPosition(ScanResult scanForIdentify)
@@ -39,7 +38,7 @@ public class WifiFinder {
 
     private Position getPosition(Scan s)
     {
-        for (Position p : level.getPositions())
+        for (Position p : positions)
             if (p.getScans().contains(s)) {
                 return p;
             }

@@ -10,6 +10,8 @@ public class Position {
     // couchDB identificator
     String id;
 
+    int level;
+
     int x;
     int y;
     String description;
@@ -58,5 +60,13 @@ public class Position {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
     }
 }
