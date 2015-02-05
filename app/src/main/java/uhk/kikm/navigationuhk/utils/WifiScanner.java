@@ -14,6 +14,9 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 
+import uhk.kikm.navigationuhk.model.Position;
+import uhk.kikm.navigationuhk.model.Scan;
+
 /** Trida reprezentujici skanovani Wifi
  *
  */
@@ -49,5 +52,18 @@ public class WifiScanner {
 
     public List<ScanResult> getScanResults() {
         return scanResults;
+    }
+
+    public Position getPosition(int x, int y)
+    {
+        Position p = new Position();
+        p.setX(x);
+        p.setY(y);
+
+        for (ScanResult sr : scanResults)
+        {
+            p.addScan(new Scan(sr.SSID, sr.BSSID, sr.level));
+        }
+        return p;
     }
 }

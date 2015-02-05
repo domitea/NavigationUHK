@@ -16,6 +16,7 @@ import java.io.InputStream;
 import java.util.List;
 
 import uhk.kikm.navigationuhk.model.CouchDBManager;
+import uhk.kikm.navigationuhk.model.Position;
 import uhk.kikm.navigationuhk.utils.BluetoothLEScanner;
 import uhk.kikm.navigationuhk.utils.WebViewInterface;
 import uhk.kikm.navigationuhk.utils.WifiScanner;
@@ -97,13 +98,17 @@ public class MainActivity extends ActionBarActivity {
         {
             Toast.makeText(this, webInterface.getX() + " " + webInterface.getY(), Toast.LENGTH_LONG).show();
             webInterface.setChanged(false);
-
-
+            dbManager.savePosition(wScanner.getPosition(webInterface.getX(),webInterface.getY()));
         }
         else
         {
             Toast.makeText(this, "Musi byt jine souradnice", Toast.LENGTH_SHORT).show();
         }
+
+        // debug....
+
+        List<Position> pos = dbManager.getAllPositions();
+        dbManager.deleteAll();
     }
 
 

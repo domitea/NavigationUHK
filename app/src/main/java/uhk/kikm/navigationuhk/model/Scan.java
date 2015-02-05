@@ -8,6 +8,12 @@ public class Scan {
     String MAC;
     int strenght;
 
+    public Scan(String SSID, String MAC, int strenght) {
+        this.SSID = SSID;
+        this.MAC = MAC;
+        this.strenght = strenght;
+    }
+
     public Scan() {
     }
 
