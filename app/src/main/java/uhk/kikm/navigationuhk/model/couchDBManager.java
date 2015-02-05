@@ -138,7 +138,7 @@ public class couchDBManager {
 
     }
 
-    public void deleteAllPositions()
+    public void deleteAll()
     {
         try
         {
