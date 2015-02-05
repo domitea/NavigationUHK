@@ -4,14 +4,18 @@ import android.content.Context;
 
 import com.couchbase.lite.CouchbaseLiteException;
 import com.couchbase.lite.Database;
+import com.couchbase.lite.Document;
 import com.couchbase.lite.Emitter;
 import com.couchbase.lite.Manager;
 import com.couchbase.lite.Mapper;
 import com.couchbase.lite.android.AndroidContext;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * Trida reprezentujici komunikaci s DB vyuzivajici model (tridy Position a Scan)
@@ -58,6 +62,41 @@ public class couchDBManager {
         catch (CouchbaseLiteException cle)
         {
             cle.printStackTrace();
+        }
+    }
+
+    public void savePositions(List<Position> positions)
+    {
+        for (Position p : positions){
+            Map<String, Object> properties = new HashMap<>();
+            properties.put("x", String.valueOf(p.getX()));
+            properties.put("y", String.valueOf(p.getY()));
+            properties.put("level", String.valueOf(p.getLevel()));
+            properties.put("description", p.getDescription());
+
+            List<Map<String, Object>> scansArray = new ArrayList<>();
+            ArrayList<Scan> scans = p.getScans();
+            for (Scan s : scans)
+            {
+                Map<String, Object> scanProperties = new HashMap<>();
+                scanProperties.put("ssid",s.getSSID());
+                scanProperties.put("mac",s.getMAC());
+                scanProperties.put("strenght",String.valueOf(s.getStrenght()));
+
+                scansArray.add(scanProperties);
+            }
+
+            properties.put("scans",scansArray);
+
+            Document doc = db.createDocument();
+            try {
+                doc.putProperties(properties);
+            }
+            catch (CouchbaseLiteException cle)
+            {
+                cle.printStackTrace();
+            }
+
         }
     }
 }
