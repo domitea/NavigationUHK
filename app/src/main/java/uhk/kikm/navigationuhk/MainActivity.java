@@ -15,6 +15,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 
+import uhk.kikm.navigationuhk.model.CouchDBManager;
 import uhk.kikm.navigationuhk.utils.BluetoothLEScanner;
 import uhk.kikm.navigationuhk.utils.WebViewInterface;
 import uhk.kikm.navigationuhk.utils.WifiScanner;
@@ -30,6 +31,7 @@ public class MainActivity extends ActionBarActivity {
     WifiScanner wScanner;
     BluetoothLEScanner bleScanner;
     boolean scanningBle;
+    CouchDBManager dbManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,17 +71,7 @@ public class MainActivity extends ActionBarActivity {
 
         bleScanner = new BluetoothLEScanner(this);
 
-        Manager manager;
-        try
-        {
-            manager = new Manager(new AndroidContext(this), Manager.DEFAULT_OPTIONS);
-            System.out.println(manager.getDirectory().toURI().toString());
-
-        }
-        catch (IOException e)
-        {
-            e.printStackTrace();
-        }
+        dbManager = new CouchDBManager(this);
 
     }
 
@@ -105,7 +97,7 @@ public class MainActivity extends ActionBarActivity {
         {
             Toast.makeText(this, webInterface.getX() + " " + webInterface.getY(), Toast.LENGTH_LONG).show();
             webInterface.setChanged(false);
-            Toast.makeText(this, wScanner.getScanResults().toString(), Toast.LENGTH_LONG).show();
+
 
         }
         else

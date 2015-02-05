@@ -24,7 +24,7 @@ import java.util.Objects;
 /**
  * Trida reprezentujici komunikaci s DB vyuzivajici model (tridy Position a Scan)
  */
-public class couchDBManager {
+public class CouchDBManager {
     Context context;
     Manager manager;
     Database db;
@@ -32,7 +32,7 @@ public class couchDBManager {
     final String dbname = "Scan_uhk";
     final String viewByMac = "by_mac";
 
-    public couchDBManager(Context context) {
+    public CouchDBManager(Context context) {
         this.context = context;
         try {
 
