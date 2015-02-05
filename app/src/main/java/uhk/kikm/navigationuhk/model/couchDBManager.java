@@ -8,11 +8,15 @@ import com.couchbase.lite.Document;
 import com.couchbase.lite.Emitter;
 import com.couchbase.lite.Manager;
 import com.couchbase.lite.Mapper;
+import com.couchbase.lite.Query;
+import com.couchbase.lite.QueryEnumerator;
+import com.couchbase.lite.QueryRow;
 import com.couchbase.lite.android.AndroidContext;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -41,7 +45,7 @@ public class couchDBManager {
              * Vytvor seznam klic:hodnota, kde klic je MAC a hodnota je poloha, kde byla zaznamenana ->
              * poloha tam bude n-krat, kde n je pocet zaznamenanych MAC.
              *
-             * Vypada to jako redudance, ale pres Querry se tak daji vytahnout jen zaznamy prislusici jedne MAC.
+             * Vypada to jako redudance, ale pres Query se tak daji vytahnout jen zaznamy prislusici jedne MAC.
              */
             db.getView(viewByMac).setMap(new Mapper() {
                 @Override
@@ -147,7 +151,7 @@ public class couchDBManager {
              * Vytvor seznam klic:hodnota, kde klic je MAC a hodnota je poloha, kde byla zaznamenana ->
              * poloha tam bude n-krat, kde n je pocet zaznamenanych MAC.
              *
-             * Vypada to jako redudance, ale pres Querry se tak daji vytahnout jen zaznamy prislusici jedne MAC.
+             * Vypada to jako redudance, ale pres Query se tak daji vytahnout jen zaznamy prislusici jedne MAC.
              */
             db.getView(viewByMac).setMap(new Mapper() {
                 @Override
@@ -168,6 +172,22 @@ public class couchDBManager {
 
     public List<Position> getAllPositions()
     {
+        Query query = db.createAllDocumentsQuery();
+
+        query.setAllDocsMode(Query.AllDocsMode.ALL_DOCS);
+        try {
+            QueryEnumerator result = query.run();
+            for (Iterator<QueryRow> it = result; it.hasNext(); )
+            {
+                QueryRow row = it.next();
+                System.out.println(row.getDocument().toString()); // TODO: Dopsat parsovani...
+            }
+        }
+        catch (CouchbaseLiteException cle)
+        {
+            cle.printStackTrace();
+        }
+        return new ArrayList<>();
 
     }
 
