@@ -18,6 +18,7 @@ public class Position {
     ArrayList<Scan> scans;
 
     public Position() {
+        scans = new ArrayList<>();
     }
 
     public void addScan(Scan s)

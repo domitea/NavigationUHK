@@ -29,7 +29,7 @@ public class CouchDBManager {
     Manager manager;
     Database db;
 
-    final String dbname = "Scan_uhk";
+    final String dbname = "scan_uhk";
     final String viewByMac = "by_mac";
 
     public CouchDBManager(Context context) {
@@ -176,7 +176,7 @@ public class CouchDBManager {
             for (Iterator<QueryRow> it = result; it.hasNext(); )
             {
                 QueryRow row = it.next();
-                System.out.println(row.getDocument().toString()); // TODO: Dopsat parsovani...
+                System.out.println(row.getDocument().getProperty("scans").toString()); // TODO: Dopsat parsovani...
             }
         }
         catch (CouchbaseLiteException cle)
