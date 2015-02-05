@@ -6,6 +6,10 @@ import java.util.ArrayList;
  * Modelova trida reprezentujici nejakou pozici
  */
 public class Position {
+
+    // couchDB identificator
+    String id;
+
     int x;
     int y;
     String description;
@@ -46,5 +50,13 @@ public class Position {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 }

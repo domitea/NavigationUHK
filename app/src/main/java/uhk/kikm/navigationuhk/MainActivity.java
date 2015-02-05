@@ -74,6 +74,7 @@ public class MainActivity extends ActionBarActivity {
         {
             manager = new Manager(new AndroidContext(this), Manager.DEFAULT_OPTIONS);
             System.out.println(manager.getDirectory().toURI().toString());
+
         }
         catch (IOException e)
         {
