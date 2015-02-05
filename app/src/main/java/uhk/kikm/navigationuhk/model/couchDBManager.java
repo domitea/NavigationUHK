@@ -138,7 +138,7 @@ public class couchDBManager {
 
     }
 
-    public void deleteAll()
+    public void deleteAllPositions()
     {
         try
         {
@@ -146,12 +146,8 @@ public class couchDBManager {
             this.db = manager.getDatabase(dbname); // Vybrani/vytvoreni DB
 
             /**
-             * "Deklarace" mapovaci fce.
+             * "Deklarace" mapovaci fce. Popsana o na radku 45
              *
-             * Vytvor seznam klic:hodnota, kde klic je MAC a hodnota je poloha, kde byla zaznamenana ->
-             * poloha tam bude n-krat, kde n je pocet zaznamenanych MAC.
-             *
-             * Vypada to jako redudance, ale pres Query se tak daji vytahnout jen zaznamy prislusici jedne MAC.
              */
             db.getView(viewByMac).setMap(new Mapper() {
                 @Override
