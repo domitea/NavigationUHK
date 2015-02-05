@@ -134,5 +134,37 @@ public class couchDBManager {
 
     }
 
+    public void deleteAll()
+    {
+        try
+        {
+            db.delete();
+            this.db = manager.getDatabase(dbname); // Vybrani/vytvoreni DB
+
+            /**
+             * "Deklarace" mapovaci fce.
+             *
+             * Vytvor seznam klic:hodnota, kde klic je MAC a hodnota je poloha, kde byla zaznamenana ->
+             * poloha tam bude n-krat, kde n je pocet zaznamenanych MAC.
+             *
+             * Vypada to jako redudance, ale pres Querry se tak daji vytahnout jen zaznamy prislusici jedne MAC.
+             */
+            db.getView(viewByMac).setMap(new Mapper() {
+                @Override
+                public void map(Map<String, Object> document, Emitter emitter) {
+                    List<Map<String, Object>> scans = (List) document.get("scans");
+                    for (Map<String, Object> scan : scans)
+                    {
+                        emitter.emit(scan.get("mac"), document);
+                    }
+                }
+            }, "1");
+        }
+        catch (CouchbaseLiteException cle)
+        {
+            cle.printStackTrace();
+        }
+    }
+
 
 }
