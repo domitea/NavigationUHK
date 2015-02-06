@@ -25,6 +25,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.jar.JarEntry;
 
 /**
  * Trida reprezentujici komunikaci s DB vyuzivajici model (tridy Position a Scan)
@@ -159,6 +160,19 @@ public class CouchDBManager {
         }
         return new ArrayList<>();
 
+    }
+
+    public void removePosition(Position p)
+    {
+        Document doc = (Document) db.getDocument(p.getId());
+        try
+        {
+            doc.delete();
+        }
+        catch (CouchbaseLiteException cle)
+        {
+            cle.printStackTrace();
+        }
     }
 
     private String getCurrentTime()
