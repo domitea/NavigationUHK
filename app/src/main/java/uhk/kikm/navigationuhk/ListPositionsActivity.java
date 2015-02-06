@@ -5,12 +5,19 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import uhk.kikm.navigationuhk.model.CouchDBManager;
+import uhk.kikm.navigationuhk.model.Position;
 
 
 public class ListPositionsActivity extends ActionBarActivity {
 
     CouchDBManager dbManager;
+    List<Position> positions;
+    Map<String, String> positionsMap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,6 +26,15 @@ public class ListPositionsActivity extends ActionBarActivity {
 
         dbManager = new CouchDBManager(this);
         System.out.println("Open db connection in ListPositionsActivity");
+
+        positionsMap = new HashMap<>();
+
+        positions = dbManager.getAllPositions();
+        for (Position position : positions);
+        {
+
+            positionsMap.put()
+        }
     }
 
 

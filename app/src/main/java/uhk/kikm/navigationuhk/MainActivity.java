@@ -109,9 +109,9 @@ public class MainActivity extends ActionBarActivity {
 
         // debug....
 
-        List<Position> pos = dbManager.getAllPositions();
+        /*List<Position> pos = dbManager.getAllPositions();
         System.out.println(pos.toString());
-        dbManager.deleteAll();
+        dbManager.deleteAll();*/
     }
 
 
