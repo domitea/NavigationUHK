@@ -14,7 +14,11 @@ import com.couchbase.lite.QueryRow;
 import com.couchbase.lite.android.AndroidContext;
 
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -31,6 +35,7 @@ public class CouchDBManager {
 
     final String dbname = "scan_uhk";
     final String viewByMac = "by_mac";
+    final String dateFormat = "yyyy-MM-dd HH:mm:ss u";
 
     public CouchDBManager(Context context) {
         this.context = context;
@@ -186,6 +191,16 @@ public class CouchDBManager {
         return new ArrayList<>();
 
     }
+
+    private String getCurrentTime()
+    {
+        DateFormat df = new SimpleDateFormat(dateFormat);
+        Date today = GregorianCalendar.getInstance().getTime();
+
+        return df.format(today);
+    }
+
+
 
 
 }

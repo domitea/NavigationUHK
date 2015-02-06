@@ -1,6 +1,7 @@
 package uhk.kikm.navigationuhk.model;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * Modelova trida reprezentujici nejakou pozici
@@ -16,6 +17,8 @@ public class Position {
     int y;
     String description;
     ArrayList<Scan> scans;
+
+    Date createdDate;
 
     public Position() {
         scans = new ArrayList<>();
@@ -69,5 +72,13 @@ public class Position {
 
     public void setLevel(int level) {
         this.level = level;
+    }
+
+    public Date getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(Date createdDate) {
+        this.createdDate = createdDate;
     }
 }
