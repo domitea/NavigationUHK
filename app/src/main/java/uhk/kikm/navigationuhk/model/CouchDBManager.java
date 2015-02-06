@@ -158,7 +158,7 @@ public class CouchDBManager {
         {
             cle.printStackTrace();
         }
-        return new ArrayList<>();
+        return positions;
 
     }
 

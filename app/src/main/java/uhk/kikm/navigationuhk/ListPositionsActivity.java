@@ -5,13 +5,20 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import uhk.kikm.navigationuhk.model.CouchDBManager;
+
 
 public class ListPositionsActivity extends ActionBarActivity {
+
+    CouchDBManager dbManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_positions);
+
+        dbManager = new CouchDBManager(this);
+        System.out.println("Open db connection in ListPositionsActivity");
     }
 
 
@@ -35,5 +42,13 @@ public class ListPositionsActivity extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        dbManager.closeConnection();
+        System.out.println("Close db connection in ListPositionsActivity");
     }
 }

@@ -74,6 +74,7 @@ public class MainActivity extends ActionBarActivity {
         bleScanner = new BluetoothLEScanner(this);
 
         dbManager = new CouchDBManager(this);
+        System.out.println("Open db connection in MainActivity");
 
     }
 
@@ -109,6 +110,7 @@ public class MainActivity extends ActionBarActivity {
         // debug....
 
         List<Position> pos = dbManager.getAllPositions();
+        System.out.println(pos.toString());
         dbManager.deleteAll();
     }
 
@@ -169,9 +171,10 @@ public class MainActivity extends ActionBarActivity {
     }
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
+    protected void onStop() {
+        super.onStop();
 
         dbManager.closeConnection();
+        System.out.println("Close db connection in MainActivity");
     }
 }
