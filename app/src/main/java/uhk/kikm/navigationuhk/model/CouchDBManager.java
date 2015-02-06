@@ -230,7 +230,9 @@ public class CouchDBManager {
         // datum vytvoreni zaznamu, resp. datum skenovani
         p.setCreatedDate(getDate(doc.getProperty("createdAt").toString()));
         // nejaky balast
-        p.setDescription(doc.getProperty("description").toString());
+        Object o = doc.getProperty("description"); //TODO: Decription je "" -> Null!!!!
+        String some = o.toString();
+        p.setDescription(some);
         p.setId(doc.getProperty("_id").toString());
         // jake patro....
         p.setLevel(Integer.parseInt(doc.getProperty("level").toString()));
