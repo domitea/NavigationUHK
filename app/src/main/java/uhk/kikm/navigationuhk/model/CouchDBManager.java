@@ -197,7 +197,7 @@ public class CouchDBManager {
             Map<String, Object> scanProperties = new HashMap<>();
             scanProperties.put("ssid",s.getSSID());
             scanProperties.put("mac",s.getMAC());
-            scanProperties.put("strenght",String.valueOf(s.getStrenght()));
+            scanProperties.put("strentgh",String.valueOf(s.getStrenght()));
 
             scansArray.add(scanProperties);
         }
@@ -222,7 +222,18 @@ public class CouchDBManager {
 
         // Parsovani skenu... We need to go deeper... List<Map<String, Object>>
 
+        List<Map<String, Object>> scans = (List) doc.getProperty("Scans");
+        for (Map<String, Object> scan : scans)
+        {
+            Scan s = new Scan();
 
+            s.setMAC(scan.get("mac").toString());
+            s.setSSID(scan.get("ssid").toString());
+            s.setStrentgh(Integer.parseInt(scan.get("strentgh").toString()));
+
+            p.addScan(s);
+        }
+        return p;
     }
 
 }
