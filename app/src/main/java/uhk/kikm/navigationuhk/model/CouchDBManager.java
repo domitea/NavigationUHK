@@ -230,8 +230,8 @@ public class CouchDBManager {
         // datum vytvoreni zaznamu, resp. datum skenovani
         p.setCreatedDate(getDate(doc.getProperty("createdAt").toString()));
         // nejaky balast
-        Object o = doc.getProperty("description"); //TODO: Decription je "" -> Null!!!!
-        String some = o.toString();
+        Object o = doc.getProperty("description"); // V chapani JSON muze byt null !!
+        String some = o == null ? "" : o.toString();
         p.setDescription(some);
         p.setId(doc.getProperty("_id").toString());
         // jake patro....
@@ -239,7 +239,7 @@ public class CouchDBManager {
 
         // Parsovani skenu... We need to go deeper... List<Map<String, Object>>
 
-        List<Map<String, Object>> scans = (List) doc.getProperty("Scans");
+        List<Map<String, Object>> scans = (List) doc.getProperty("scans");
         for (Map<String, Object> scan : scans)
         {
             Scan s = new Scan();
