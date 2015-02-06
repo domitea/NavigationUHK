@@ -162,9 +162,9 @@ public class CouchDBManager {
 
     }
 
-    public void removePosition(Position p)
+    public void removePosition(String id)
     {
-        Document doc = (Document) db.getDocument(p.getId());
+        Document doc = (Document) db.getDocument(id);
         try
         {
             doc.delete();

@@ -1,7 +1,7 @@
 package uhk.kikm.navigationuhk;
 
 import android.app.AlertDialog;
-import android.app.DialogFragment;
+import android.content.DialogInterface;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -25,6 +25,9 @@ public class ListPositionsActivity extends ActionBarActivity {
     CouchDBManager dbManager;
     List<Position> positions;
     Map<String, String> positionsMap;
+    ArrayList<String> positionsStrings = new ArrayList<>();
+    ListView lv;
+    ArrayAdapter<String> adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,16 +46,17 @@ public class ListPositionsActivity extends ActionBarActivity {
               positionsMap.put(String.valueOf(p.getX()) + " " + String.valueOf(p.getY()) + " " + p.getId(), p.getId());
         }
 
-        final ArrayList<String> positionsStrings = new ArrayList<String>(positionsMap.keySet());
+        positionsStrings = new ArrayList<String>(positionsMap.keySet());
 
-        ListView lv = (ListView) findViewById(R.id.listView);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, positionsStrings);
+        lv = (ListView) findViewById(R.id.listView);
+        adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, positionsStrings);
 
         lv.setAdapter(adapter);
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 System.out.println(positionsStrings.get(position));
+                buildDialogForRemove(positionsStrings.get(position));
             }
         });
     }
@@ -88,13 +92,39 @@ public class ListPositionsActivity extends ActionBarActivity {
         System.out.println("Close db connection in ListPositionsActivity");
     }
 
-    private void deletePosition(String position)
+    private void buildDialogForRemove(final String position)
     {
         AlertDialog.Builder removeDialog = new AlertDialog.Builder(this);
 
         removeDialog.setTitle("Odstranění Pozice");
         removeDialog.setMessage("Chce odstranit vybranou pozici?");
 
+        removeDialog.setPositiveButton("Odstranit", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                System.out.println("Destroy!!! " + positionsMap.get(position));
+                removePosition(position);
+            }
+        });
 
+        removeDialog.setNegativeButton("Zrušit", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                System.out.println("not yet...");
+            }
+        });
+
+        removeDialog.create().show();
     }
+
+    private void removePosition(String position)
+    {
+        dbManager.removePosition(positionsMap.get(position));
+
+        positionsStrings.remove(position);
+        positionsMap.remove(position);
+
+        adapter.notifyDataSetChanged();
+    }
+
 }
