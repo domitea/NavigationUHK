@@ -1,5 +1,6 @@
 package uhk.kikm.navigationuhk;
 
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -98,7 +99,7 @@ public class MainActivity extends ActionBarActivity {
         {
             Toast.makeText(this, webInterface.getX() + " " + webInterface.getY(), Toast.LENGTH_LONG).show();
             webInterface.setChanged(false);
-            dbManager.savePosition(wScanner.getPosition(webInterface.getX(),webInterface.getY()));
+            dbManager.savePosition(wScanner.getPosition(webInterface.getX(), webInterface.getY()));
         }
         else
         {
@@ -130,12 +131,17 @@ public class MainActivity extends ActionBarActivity {
         if (id == R.id.action_settings) {
             return true;
         }
+        else if (id == R.id.action_about)
+        {
+            Intent intent = new Intent(this, ListPositionsActivity.class);
+            startActivity(intent);
+        }
 
         return super.onOptionsItemSelected(item);
     }
 
     /**
-     * Metoda na nacateni textu z nejakeho souboru.
+     * Metoda na nacteni textu z nejakeho souboru.
      * @param resourceID ID zdroje
      * @return String text
      */
@@ -160,5 +166,12 @@ public class MainActivity extends ActionBarActivity {
         }
         return stream.toString();
 
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        dbManager.closeConnection();
     }
 }

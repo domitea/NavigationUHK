@@ -251,4 +251,10 @@ public class CouchDBManager {
         return p;
     }
 
+    public void closeConnection()
+    {
+        db.close();
+        manager.close();
+    }
+
 }
