@@ -15,6 +15,7 @@ import com.couchbase.lite.android.AndroidContext;
 
 import java.io.IOException;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -77,25 +78,7 @@ public class CouchDBManager {
     public void savePositions(List<Position> positions)
     {
         for (Position p : positions){
-            Map<String, Object> properties = new HashMap<>();
-            properties.put("x", String.valueOf(p.getX()));
-            properties.put("y", String.valueOf(p.getY()));
-            properties.put("level", String.valueOf(p.getLevel()));
-            properties.put("description", p.getDescription());
-
-            List<Map<String, Object>> scansArray = new ArrayList<>();
-            ArrayList<Scan> scans = p.getScans();
-            for (Scan s : scans)
-            {
-                Map<String, Object> scanProperties = new HashMap<>();
-                scanProperties.put("ssid",s.getSSID());
-                scanProperties.put("mac",s.getMAC());
-                scanProperties.put("strenght",String.valueOf(s.getStrenght()));
-
-                scansArray.add(scanProperties);
-            }
-
-            properties.put("scans",scansArray);
+            Map<String, Object> properties = getMapOfDocument(p);
 
             Document doc = db.createDocument();
             try {
@@ -109,27 +92,10 @@ public class CouchDBManager {
         }
     }
 
+
     public void savePosition(Position p)
     {
-            Map<String, Object> properties = new HashMap<>();
-            properties.put("x", String.valueOf(p.getX()));
-            properties.put("y", String.valueOf(p.getY()));
-            properties.put("level", String.valueOf(p.getLevel()));
-            properties.put("description", p.getDescription());
-
-            List<Map<String, Object>> scansArray = new ArrayList<>();
-            ArrayList<Scan> scans = p.getScans();
-            for (Scan s : scans)
-            {
-                Map<String, Object> scanProperties = new HashMap<>();
-                scanProperties.put("ssid",s.getSSID());
-                scanProperties.put("mac",s.getMAC());
-                scanProperties.put("strenght",String.valueOf(s.getStrenght()));
-
-                scansArray.add(scanProperties);
-            }
-
-            properties.put("scans",scansArray);
+        Map<String, Object> properties = getMapOfDocument(p);
 
             Document doc = db.createDocument();
             try {
@@ -181,7 +147,9 @@ public class CouchDBManager {
             for (Iterator<QueryRow> it = result; it.hasNext(); )
             {
                 QueryRow row = it.next();
-                System.out.println(row.getDocument().getProperty("scans").toString()); // TODO: Dopsat parsovani...
+                Document doc = row.getDocument();
+
+
             }
         }
         catch (CouchbaseLiteException cle)
@@ -200,7 +168,42 @@ public class CouchDBManager {
         return df.format(today);
     }
 
+    private Date getDate(String date)
+    {
+        DateFormat df = new SimpleDateFormat(dateFormat);
+        try {
+            Date created = df.parse(date);
+            return created;
+        }
+        catch (ParseException pe)
+        {
+            pe.printStackTrace();
+        }
+        return new Date();
+    }
 
+    private Map<String, Object> getMapOfDocument(Position p) {
+        Map<String, Object> properties = new HashMap<>();
+        properties.put("x", String.valueOf(p.getX()));
+        properties.put("y", String.valueOf(p.getY()));
+        properties.put("level", String.valueOf(p.getLevel()));
+        properties.put("description", p.getDescription());
+        properties.put("createdAt", getCurrentTime());
 
+        List<Map<String, Object>> scansArray = new ArrayList<>();
+        ArrayList<Scan> scans = p.getScans();
+        for (Scan s : scans)
+        {
+            Map<String, Object> scanProperties = new HashMap<>();
+            scanProperties.put("ssid",s.getSSID());
+            scanProperties.put("mac",s.getMAC());
+            scanProperties.put("strenght",String.valueOf(s.getStrenght()));
+
+            scansArray.add(scanProperties);
+        }
+
+        properties.put("scans",scansArray);
+        return properties;
+    }
 
 }
