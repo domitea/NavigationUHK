@@ -3,7 +3,7 @@
 
     <string name="app_name">Navigation UHK</string>
     <string name="action_settings">Nastavení</string>
-    <string name="action_about">O programu</string>
+    <string name="action_list">Seznam pozic</string>
     <string name="write_point">Wifi bod</string>
     <string name="write_point_ble">Ble bod</string>
     <string name="title_activity_list_positions">List of Positions</string>
