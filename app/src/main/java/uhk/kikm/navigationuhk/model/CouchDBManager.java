@@ -206,4 +206,23 @@ public class CouchDBManager {
         return properties;
     }
 
+    private Position getPositionFormDocument(Document doc)
+    {
+        Position p = new Position();
+        // poloha
+        p.setX(Integer.parseInt(doc.getProperty("x").toString()));
+        p.setY(Integer.parseInt(doc.getProperty("y").toString()));
+        // datum vytvoreni zaznamu, resp. datum skenovani
+        p.setCreatedDate(getDate(doc.getProperty("createdAt").toString()));
+        // nejaky balast
+        p.setDescription(doc.getProperty("description").toString());
+        p.setId(doc.getProperty("_id").toString());
+        // jake patro....
+        p.setLevel(Integer.parseInt(doc.getProperty("level").toString()));
+
+        // Parsovani skenu... We need to go deeper... List<Map<String, Object>>
+
+
+    }
+
 }
