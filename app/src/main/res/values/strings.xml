@@ -6,5 +6,7 @@
     <string name="action_about">O programu</string>
     <string name="write_point">Wifi bod</string>
     <string name="write_point_ble">Ble bod</string>
+    <string name="title_activity_list_positions">List of Positions</string>
+    <string name="hello_world">Hello world!</string>
 
 </resources>
