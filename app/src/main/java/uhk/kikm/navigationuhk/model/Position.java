@@ -22,6 +22,7 @@ public class Position {
 
     public Position() {
         scans = new ArrayList<>();
+        description = "";
     }
 
     public void addScan(Scan s)
