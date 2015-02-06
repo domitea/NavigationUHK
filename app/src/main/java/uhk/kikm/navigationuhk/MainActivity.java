@@ -171,6 +171,14 @@ public class MainActivity extends ActionBarActivity {
     }
 
     @Override
+    protected void onRestart() {
+        super.onRestart();
+
+        dbManager = new CouchDBManager(this);
+        System.out.println("Open db connection in MainActivity");
+    }
+
+    @Override
     protected void onStop() {
         super.onStop();
 
