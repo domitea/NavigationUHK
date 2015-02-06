@@ -140,6 +140,7 @@ public class CouchDBManager {
     public List<Position> getAllPositions()
     {
         Query query = db.createAllDocumentsQuery();
+        ArrayList<Position> positions = new ArrayList<>();
 
         query.setAllDocsMode(Query.AllDocsMode.ALL_DOCS);
         try {
@@ -149,7 +150,7 @@ public class CouchDBManager {
                 QueryRow row = it.next();
                 Document doc = row.getDocument();
 
-
+                positions.add(getPositionFormDocument(doc));
             }
         }
         catch (CouchbaseLiteException cle)
