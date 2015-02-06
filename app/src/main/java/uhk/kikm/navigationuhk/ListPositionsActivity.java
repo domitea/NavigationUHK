@@ -1,5 +1,7 @@
 package uhk.kikm.navigationuhk;
 
+import android.app.AlertDialog;
+import android.app.DialogFragment;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -84,5 +86,15 @@ public class ListPositionsActivity extends ActionBarActivity {
 
         dbManager.closeConnection();
         System.out.println("Close db connection in ListPositionsActivity");
+    }
+
+    private void deletePosition(String position)
+    {
+        AlertDialog.Builder removeDialog = new AlertDialog.Builder(this);
+
+        removeDialog.setTitle("Odstranění Pozice");
+        removeDialog.setMessage("Chce odstranit vybranou pozici?");
+
+
     }
 }
