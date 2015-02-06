@@ -30,9 +30,10 @@ public class ListPositionsActivity extends ActionBarActivity {
         positionsMap = new HashMap<>();
 
         positions = dbManager.getAllPositions();
-        for (Position p : positions);
-        {
 
+        for (Position p : positions)
+        {
+              positionsMap.put(String.valueOf(p.getX()) + " " + String.valueOf(p.getY()) + " " + p.getId(), p.getId());
         }
     }
 
