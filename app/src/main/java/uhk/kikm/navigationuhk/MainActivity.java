@@ -102,6 +102,7 @@ public class MainActivity extends ActionBarActivity {
     {
         if(webInterface.isChanged())
         {
+            wScanner.findAll();
             Toast.makeText(this, webInterface.getX() + " " + webInterface.getY(), Toast.LENGTH_LONG).show();
             webInterface.setChanged(false);
             dbManager.savePosition(wScanner.getPosition(webInterface.getX(), webInterface.getY()));
@@ -196,6 +197,7 @@ public class MainActivity extends ActionBarActivity {
 
     private void findPosition()
     {
+        wScanner.findAll();
         List<ScanResult> scanResults = wScanner.getScanResults();
         ScanResult result = scanResults.get(0);
 

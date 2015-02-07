@@ -42,6 +42,7 @@ public class WifiScanner {
         context.registerReceiver(new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
+                System.out.println(wm.getScanResults().toString());
                 scanResults = wm.getScanResults();
             }
         }, new IntentFilter(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION));

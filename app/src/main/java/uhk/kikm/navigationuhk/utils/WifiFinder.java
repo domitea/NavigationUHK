@@ -21,6 +21,9 @@ public class WifiFinder {
 
     public WifiFinder(ArrayList<Position> positions) {
 
+        navigationData = new HashMap<>();
+        positionsOfScans = new HashMap<>();
+
         this.positions = positions;
         for (Position p : positions) // pro vsechny polohy patre
         {
@@ -60,7 +63,7 @@ public class WifiFinder {
                 }
                 else if (index == -1)
                 {
-                    distance += Math.pow(0 - p.getScan(index).getStrenght(), 2);
+                    distance += Math.pow(0 - s.level, 2);
                 }
             }
 
