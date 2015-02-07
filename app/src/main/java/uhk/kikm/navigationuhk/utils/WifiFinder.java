@@ -16,17 +16,21 @@ public class WifiFinder {
     private ArrayList<Position> positions;
     private HashMap<String, Position> navigationData;
     private HashMap<Scan, Position> positionsOfScans;
+    private HashMap<Float, Position> computedDistance;
 
     public WifiFinder(ArrayList<Position> positions) {
+
         this.positions = positions;
         for (Position p : positions) // pro vsechny polohy patre
         {
-            navigationData.put(String.valueOf(p.getX()) + String.valueOf(p.getY()), p); // pridej do seznamu vsechny scany s hasem polohy
+            navigationData.put(String.valueOf(p.getX()) + " " + String.valueOf(p.getY()), p); // pridej do seznamu vsechny scany s hasem polohy
             for (Scan s : p.getScans()) {
                 // Kazdy sken patri k urcite poloze... Kazdy sken je take jedinecny, hodnoty muzou byt stejne, ale je jedinencny - je to rychlejsi, nez proheledavani cyklem
                 positionsOfScans.put(s, p);
             }
         }
+
+        computedDistance = new HashMap<>();
     }
 
     public ArrayList<Position> getPositions() {
@@ -40,6 +44,8 @@ public class WifiFinder {
     public Position getPosition(List<ScanResult> scansForIdentify) {
 
         float distance = 0;
+
+        Position nearestPosition;
 
         for (Position p : positions)
         {
@@ -59,10 +65,12 @@ public class WifiFinder {
 
             distance = (float) Math.sqrt(distance);
 
+            computedDistance.put(distance,p);
+
 
         }
 
-        return new Position();
+        return nearestPosition;
     }
 
     private int containsMAC(ScanResult s, Position p)
