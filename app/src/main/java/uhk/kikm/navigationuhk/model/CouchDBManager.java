@@ -138,6 +138,32 @@ public class CouchDBManager {
         }
     }
 
+    public List<Position> getPostionsByMac(String mac)
+    {
+        ArrayList<Position> positions = new ArrayList<>();
+        Query query = db.getView(viewByMac).createQuery();
+
+        query.setStartKey(mac);
+        query.setEndKey(mac);
+
+        try
+        {
+            QueryEnumerator result = query.run();
+            for (Iterator<QueryRow> it = result; it.hasNext(); )
+            {
+                QueryRow row = it.next();
+                Document doc = row.getDocument();
+
+                positions.add(getPositionFormDocument(doc));
+            }
+        }
+        catch (CouchbaseLiteException cle)
+        {
+            cle.printStackTrace();
+        }
+        return positions;
+    }
+
     public List<Position> getAllPositions()
     {
         Query query = db.createAllDocumentsQuery();

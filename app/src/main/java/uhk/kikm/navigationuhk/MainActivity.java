@@ -1,6 +1,7 @@
 package uhk.kikm.navigationuhk;
 
 import android.content.Intent;
+import android.net.wifi.ScanResult;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -14,12 +15,14 @@ import android.widget.Toast;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.List;
 
 import uhk.kikm.navigationuhk.model.CouchDBManager;
 import uhk.kikm.navigationuhk.model.Position;
 import uhk.kikm.navigationuhk.utils.BluetoothLEScanner;
 import uhk.kikm.navigationuhk.utils.WebViewInterface;
+import uhk.kikm.navigationuhk.utils.WifiFinder;
 import uhk.kikm.navigationuhk.utils.WifiScanner;
 
 import com.couchbase.lite.*;
@@ -34,6 +37,7 @@ public class MainActivity extends ActionBarActivity {
     BluetoothLEScanner bleScanner;
     boolean scanningBle;
     CouchDBManager dbManager;
+    WebView view;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +46,7 @@ public class MainActivity extends ActionBarActivity {
 
         webInterface = new WebViewInterface(this);
 
-        WebView view = (WebView) findViewById(R.id.WebView);
+        view = (WebView) findViewById(R.id.WebView);
         view.getSettings().setJavaScriptEnabled(true);
         view.getSettings().setBuiltInZoomControls(true);
         view.getSettings().setSupportZoom(true);
@@ -192,6 +196,14 @@ public class MainActivity extends ActionBarActivity {
 
     private void findPosition()
     {
+        List<ScanResult> scanResults = wScanner.getScanResults();
+        ScanResult result = scanResults.get(0);
 
+        ArrayList<Position> positions = new ArrayList<>(dbManager.getPostionsByMac(result.BSSID));
+
+        WifiFinder finder = new WifiFinder(positions);
+        Position possiblePosition = finder.getPosition(scanResults);
+
+        view.loadUrl("javascript:setPoint("+ String.valueOf(possiblePosition.getX()) + ", " + String.valueOf(possiblePosition.getY()) + ")");
     }
 }
