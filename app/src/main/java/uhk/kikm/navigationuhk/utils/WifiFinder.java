@@ -22,6 +22,7 @@ public class WifiFinder {
         {
             navigationData.put(String.valueOf(p.getX()) + String.valueOf(p.getY()), p.getScans()); // pridej do seznamu vsechny scany s hasem polohy
             for (Scan s : p.getScans()) {
+                // Kazdy sken patri k urcite poloze... Kazdy sken je take jedinecny, hodnoty muzou byt stejne, ale je jedinencny - je to rychlejsi, nez proheledavani cyklem
                 positionsOfScans.put(s, p);
             }
         }
@@ -36,6 +37,9 @@ public class WifiFinder {
     }
 
     public Position getPosition(ScanResult scanForIdentify) {
+
+
+
         return new Position();
     }
 
