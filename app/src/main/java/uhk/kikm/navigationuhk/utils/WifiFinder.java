@@ -14,12 +14,16 @@ import uhk.kikm.navigationuhk.model.Scan;
 public class WifiFinder {
     private ArrayList<Position> positions;
     private HashMap<String, ArrayList<Scan>> navigationData;
+    private HashMap<Scan, Position> positionsOfScans;
 
     public WifiFinder(ArrayList<Position> positions) {
         this.positions = positions;
         for (Position p : positions) // pro vsechny polohy patre
         {
             navigationData.put(String.valueOf(p.getX()) + String.valueOf(p.getY()), p.getScans()); // pridej do seznamu vsechny scany s hasem polohy
+            for (Scan s : p.getScans()) {
+                positionsOfScans.put(s, p);
+            }
         }
     }
 
@@ -31,17 +35,8 @@ public class WifiFinder {
         this.positions = positions;
     }
 
-    public Position getPosition(ScanResult scanForIdentify)
-    {
-       return new Position();
+    public Position getPosition(ScanResult scanForIdentify) {
+        return new Position();
     }
 
-    private Position getPosition(Scan s)
-    {
-        for (Position p : positions)
-            if (p.getScans().contains(s)) {
-                return p;
-            }
-        return null;
-    }
 }
