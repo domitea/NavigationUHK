@@ -4,6 +4,7 @@ import android.net.wifi.ScanResult;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import uhk.kikm.navigationuhk.model.Position;
 import uhk.kikm.navigationuhk.model.Scan;
@@ -36,11 +37,29 @@ public class WifiFinder {
         this.positions = positions;
     }
 
-    public Position getPosition(ScanResult scanForIdentify) {
+    public Position getPosition(List<ScanResult> scanForIdentify) {
 
+        for (Position p : positions)
+        {
+            for (ScanResult s : scanForIdentify)
+            {
 
+            }
+        }
 
         return new Position();
+    }
+
+    private int containsMAC(Scan s, Position p)
+    {
+        for(int i = 0; i < p.getScans().size(); i++)
+        {
+            if (s.getMAC().equals(p.getScan(i).getMAC()))
+            {
+                return i;
+            }
+        }
+        return -1;
     }
 
 }

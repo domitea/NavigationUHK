@@ -82,4 +82,9 @@ public class Position {
     public void setCreatedDate(Date createdDate) {
         this.createdDate = createdDate;
     }
+
+    public Scan getScan(int index)
+    {
+        return scans.get(index);
+    }
 }
