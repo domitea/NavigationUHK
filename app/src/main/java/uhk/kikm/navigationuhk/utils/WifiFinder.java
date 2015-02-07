@@ -3,6 +3,7 @@ package uhk.kikm.navigationuhk.utils;
 import android.net.wifi.ScanResult;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
@@ -45,7 +46,7 @@ public class WifiFinder {
 
         float distance = 0;
 
-        Position nearestPosition;
+        Position nearestPosition = new Position();
 
         for (Position p : positions)
         {
@@ -65,10 +66,16 @@ public class WifiFinder {
 
             distance = (float) Math.sqrt(distance);
 
-            computedDistance.put(distance,p);
+            computedDistance.put(distance,p); // hashmapa rikajici, ze ta a ta pozice ma takovou a takovou vzdalenost
 
-
+            distance = 0;
         }
+
+        ArrayList<Float> sortedDistances = new ArrayList<>(computedDistance.keySet()); // Vezmeme pouze vzdalenosti
+
+        Collections.sort(sortedDistances); // setridime
+
+        nearestPosition = computedDistance.get(sortedDistances.get(0)); // a prvni bude nejmensi, takze podle Hash mapy mame i polohu
 
         return nearestPosition;
     }
