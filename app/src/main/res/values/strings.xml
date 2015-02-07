@@ -8,5 +8,6 @@
     <string name="write_point_ble">Ble bod</string>
     <string name="title_activity_list_positions">List of Positions</string>
     <string name="hello_world">Hello world!</string>
+    <string name="find">Hledej</string>
 
 </resources>

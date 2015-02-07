@@ -138,6 +138,10 @@ public class MainActivity extends ActionBarActivity {
             Intent intent = new Intent(this, ListPositionsActivity.class);
             startActivity(intent);
         }
+        else if (id == R.id.action_find)
+        {
+            findPosition();
+        }
 
         return super.onOptionsItemSelected(item);
     }
@@ -184,5 +188,10 @@ public class MainActivity extends ActionBarActivity {
 
         dbManager.closeConnection();
         System.out.println("Close db connection in MainActivity");
+    }
+
+    private void findPosition()
+    {
+
     }
 }
