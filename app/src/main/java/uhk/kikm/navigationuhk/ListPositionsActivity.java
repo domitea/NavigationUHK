@@ -87,6 +87,15 @@ public class ListPositionsActivity extends ActionBarActivity {
         if (id == R.id.action_settings) {
             return true;
         }
+        else if (id == R.id.action_upload)
+        {
+            dbManager.uploadDBToServer(this);
+        }
+        else if (id == R.id.action_download)
+        {
+            dbManager.downloadDBFromServer(this);
+            makeDataForView();
+        }
 
         return super.onOptionsItemSelected(item);
     }
