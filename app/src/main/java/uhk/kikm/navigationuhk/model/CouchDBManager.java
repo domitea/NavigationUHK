@@ -1,5 +1,7 @@
 package uhk.kikm.navigationuhk.model;
 
+import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 
 import com.couchbase.lite.CouchbaseLiteException;
@@ -12,8 +14,11 @@ import com.couchbase.lite.Query;
 import com.couchbase.lite.QueryEnumerator;
 import com.couchbase.lite.QueryRow;
 import com.couchbase.lite.android.AndroidContext;
+import com.couchbase.lite.replicator.Replication;
 
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -34,6 +39,7 @@ public class CouchDBManager {
     Context context;
     Manager manager;
     Database db;
+    URL serverURL;
 
     final String dbname = "scan_uhk";
     final String viewByMac = "by_mac";
@@ -73,6 +79,13 @@ public class CouchDBManager {
         catch (CouchbaseLiteException cle)
         {
             cle.printStackTrace();
+        }
+
+        try {
+            serverURL = new URL("http://ukuree.cz:4985/gw");
+        }catch (MalformedURLException mue)
+        {
+            mue.printStackTrace();
         }
     }
 
@@ -283,6 +296,32 @@ public class CouchDBManager {
     {
         db.close();
         manager.close();
+    }
+
+    public void downloadDBFromServer(Context context)
+    {
+        final Replication pull = db.createPullReplication(serverURL);
+
+        final ProgressDialog pd = ProgressDialog.show(context, "Wait....", "Sync in progess", false);
+        pull.addChangeListener(new Replication.ChangeListener() {
+            @Override
+            public void changed(Replication.ChangeEvent changeEvent) {
+                boolean active = pull.getStatus() == Replication.ReplicationStatus.REPLICATION_ACTIVE;
+                if (!active)
+                {
+                    pd.dismiss();
+                }
+                else
+                {
+                    int total = pull.getCompletedChangesCount();
+                    pd.setMax(total);
+                    pd.setProgress(pull.getChangesCount());
+                }
+            }
+        });
+        pull.start();
+
+
     }
 
 }
