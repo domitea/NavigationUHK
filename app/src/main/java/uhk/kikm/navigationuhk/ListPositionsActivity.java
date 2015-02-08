@@ -65,7 +65,6 @@ public class ListPositionsActivity extends ActionBarActivity {
         }
 
         positionsStrings = new ArrayList<String>(positionsMap.keySet());
-        adapter.notifyDataSetChanged();
     }
 
 
@@ -95,6 +94,7 @@ public class ListPositionsActivity extends ActionBarActivity {
         {
             dbManager.downloadDBFromServer(this);
             makeDataForView();
+            adapter.notifyDataSetChanged();
         }
 
         return super.onOptionsItemSelected(item);

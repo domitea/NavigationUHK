@@ -82,7 +82,7 @@ public class CouchDBManager {
         }
 
         try {
-            serverURL = new URL("http://ukuree.cz:4985/gw");
+            serverURL = new URL("http://ukuree.cz:4984/gw");
         }catch (MalformedURLException mue)
         {
             mue.printStackTrace();
