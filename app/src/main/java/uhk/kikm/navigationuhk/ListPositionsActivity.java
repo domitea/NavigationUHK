@@ -37,6 +37,8 @@ public class ListPositionsActivity extends ActionBarActivity {
         dbManager = new CouchDBManager(this);
         System.out.println("Open db connection in ListPositionsActivity");
 
+        positionsMap = new HashMap<>();
+
         makeDataForView();
 
         lv = (ListView) findViewById(R.id.listView);
@@ -53,7 +55,7 @@ public class ListPositionsActivity extends ActionBarActivity {
     }
 
     private void makeDataForView() {
-        positionsMap = new HashMap<>();
+        positionsMap.clear();
 
         positions = dbManager.getAllPositions();
 
