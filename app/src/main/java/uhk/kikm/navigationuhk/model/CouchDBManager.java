@@ -302,7 +302,7 @@ public class CouchDBManager {
     {
         final Replication pull = db.createPullReplication(serverURL);
 
-        final ProgressDialog pd = ProgressDialog.show(context, "Wait....", "Sync in progess", false);
+        final ProgressDialog pd = ProgressDialog.show(context, "Wait....", "Sync in progress", false);
         pull.addChangeListener(new Replication.ChangeListener() {
             @Override
             public void changed(Replication.ChangeEvent changeEvent) {
