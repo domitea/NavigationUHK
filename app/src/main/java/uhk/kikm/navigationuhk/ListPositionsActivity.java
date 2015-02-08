@@ -25,7 +25,7 @@ public class ListPositionsActivity extends ActionBarActivity {
     CouchDBManager dbManager;
     List<Position> positions;
     Map<String, String> positionsMap;
-    ArrayList<String> positionsStrings = new ArrayList<>();
+    ArrayList<String> positionsStrings;
     ListView lv;
     ArrayAdapter<String> adapter;
 
@@ -37,16 +37,7 @@ public class ListPositionsActivity extends ActionBarActivity {
         dbManager = new CouchDBManager(this);
         System.out.println("Open db connection in ListPositionsActivity");
 
-        positionsMap = new HashMap<>();
-
-        positions = dbManager.getAllPositions();
-
-        for (Position p : positions)
-        {
-              positionsMap.put(String.valueOf(p.getX()) + " " + String.valueOf(p.getY()) + " " + p.getId(), p.getId());
-        }
-
-        positionsStrings = new ArrayList<String>(positionsMap.keySet());
+        makeDataForView();
 
         lv = (ListView) findViewById(R.id.listView);
         adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, positionsStrings);
@@ -59,6 +50,20 @@ public class ListPositionsActivity extends ActionBarActivity {
                 buildDialogForRemove(positionsStrings.get(position));
             }
         });
+    }
+
+    private void makeDataForView() {
+        positionsMap = new HashMap<>();
+
+        positions = dbManager.getAllPositions();
+
+        for (Position p : positions)
+        {
+              positionsMap.put(String.valueOf(p.getX()) + " " + String.valueOf(p.getY()) + " " + p.getId(), p.getId());
+        }
+
+        positionsStrings = new ArrayList<String>(positionsMap.keySet());
+        adapter.notifyDataSetChanged();
     }
 
 
