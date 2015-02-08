@@ -321,7 +321,6 @@ public class CouchDBManager {
         });
         pull.start();
 
-
     }
 
 }
