@@ -25,7 +25,7 @@ public class ListPositionsActivity extends ActionBarActivity {
     CouchDBManager dbManager;
     List<Position> positions;
     Map<String, String> positionsMap;
-    ArrayList<String> positionsStrings = new ArrayList<>();
+    ArrayList<String> positionsStrings;
     ListView lv;
     ArrayAdapter<String> adapter;
 
@@ -39,14 +39,7 @@ public class ListPositionsActivity extends ActionBarActivity {
 
         positionsMap = new HashMap<>();
 
-        positions = dbManager.getAllPositions();
-
-        for (Position p : positions)
-        {
-              positionsMap.put(String.valueOf(p.getX()) + " " + String.valueOf(p.getY()) + " " + p.getId(), p.getId());
-        }
-
-        positionsStrings = new ArrayList<String>(positionsMap.keySet());
+        makeDataForView();
 
         lv = (ListView) findViewById(R.id.listView);
         adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, positionsStrings);
@@ -59,6 +52,19 @@ public class ListPositionsActivity extends ActionBarActivity {
                 buildDialogForRemove(positionsStrings.get(position));
             }
         });
+    }
+
+    private void makeDataForView() {
+        positionsMap.clear();
+
+        positions = dbManager.getAllPositions();
+
+        for (Position p : positions)
+        {
+              positionsMap.put(String.valueOf(p.getX()) + " " + String.valueOf(p.getY()) + " " + p.getId(), p.getId());
+        }
+
+        positionsStrings = new ArrayList<String>(positionsMap.keySet());
     }
 
 
@@ -79,6 +85,16 @@ public class ListPositionsActivity extends ActionBarActivity {
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
+        }
+        else if (id == R.id.action_upload)
+        {
+            dbManager.uploadDBToServer(this);
+        }
+        else if (id == R.id.action_download)
+        {
+            dbManager.downloadDBFromServer(this);
+            makeDataForView();
+            adapter.notifyDataSetChanged();
         }
 
         return super.onOptionsItemSelected(item);

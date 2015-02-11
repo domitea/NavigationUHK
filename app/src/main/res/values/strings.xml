@@ -9,5 +9,7 @@
     <string name="title_activity_list_positions">List of Positions</string>
     <string name="hello_world">Hello world!</string>
     <string name="find">Hledej</string>
+    <string name="action_download">Stáhnout DB</string>
+    <string name="action_upload">Nahrát DB</string>
 
 </resources>
