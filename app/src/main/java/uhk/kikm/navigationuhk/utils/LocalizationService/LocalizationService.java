@@ -15,7 +15,19 @@ public class LocalizationService {
         this.pointA = pointA;
         this.pointB = pointB;
 
+        float differenceX = pointB.getX() - pointA.getX();
+        float differenceY = pointB.getY() - pointA.getY();
 
+        stepX = (pointB.getLongitude() - pointA.getLongitude()) / differenceX;
+        stepY = (pointB.getLatitude() - pointB.getLatitude()) / differenceY;
+    }
+
+    public LocalizationServicePoint getPoint(LocalizationServicePoint point)
+    {
+        point.setLatitude(point.getY() * stepY);
+        point.setLongitude(point.getX() * stepX);
+
+        return point;
     }
 
 }
