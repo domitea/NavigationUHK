@@ -1,4 +1,4 @@
-package uhk.kikm.navigationuhk.utils;
+package uhk.kikm.navigationuhk.utils.LocalizationService;
 
 /**
  * Created by dominik on 26.2.15.
