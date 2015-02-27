@@ -5,4 +5,13 @@ package uhk.kikm.navigationuhk.utils.LocalizationService;
  */
 public class LocalizationService {
 
+    private LocalizationServicePoint pointA;
+    private LocalizationServicePoint pointB;
+
+    public LocalizationService(LocalizationServicePoint pointA, LocalizationServicePoint pointB) {
+        this.pointA = pointA;
+        this.pointB = pointB;
+    }
+
+
 }
