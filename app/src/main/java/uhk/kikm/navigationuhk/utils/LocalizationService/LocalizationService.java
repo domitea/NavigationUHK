@@ -8,10 +8,14 @@ public class LocalizationService {
     private LocalizationServicePoint pointA;
     private LocalizationServicePoint pointB;
 
+    private float stepX;
+    private float stepY;
+
     public LocalizationService(LocalizationServicePoint pointA, LocalizationServicePoint pointB) {
         this.pointA = pointA;
         this.pointB = pointB;
-    }
 
+
+    }
 
 }
