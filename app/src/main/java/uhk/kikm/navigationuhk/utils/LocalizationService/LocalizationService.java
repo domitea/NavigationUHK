@@ -11,6 +11,11 @@ public class LocalizationService {
     private float stepX;
     private float stepY;
 
+    /**
+     * Kosntruktor service na vypocet GPS souradnice.
+     * @param pointA Bod A
+     * @param pointB Bod B, pricemz B>A
+     */
     public LocalizationService(LocalizationServicePoint pointA, LocalizationServicePoint pointB) {
         this.pointA = pointA;
         this.pointB = pointB;
@@ -22,6 +27,11 @@ public class LocalizationService {
         stepY = (pointB.getLatitude() - pointB.getLatitude()) / differenceY;
     }
 
+    /**
+     * Vraci bod s vypocitanymi GPS souradnicemi
+     * @param point Bod bez GPS souradnic
+     * @return Bod s vypocitanimi GPS souradnicemi
+     */
     public LocalizationServicePoint getPoint(LocalizationServicePoint point)
     {
         point.setLatitude(point.getY() * stepY);
