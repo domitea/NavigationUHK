@@ -16,6 +16,8 @@ public class SensorScanner {
     private SensorManager sensorManager;
     private SensorEventListener sensorEventListener;
 
+    private float accX, accY, accZ, gyroX, gyroY, gyroZ, magX, magY, magZ;
+
     public SensorScanner(Context context) {
         this.context = context;
         sensorManager = (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
@@ -32,13 +34,19 @@ public class SensorScanner {
                 switch (sensor.getType())
                 {
                     case Sensor.TYPE_ACCELEROMETER:
-                         // TODO> Make it!
+                        accX = event.values[0];
+					    accY = event.values[1];
+					    accZ = event.values[2];
                         break;
                     case Sensor.TYPE_GYROSCOPE:
-                        // TODO> Make it!
+                        gyroX = event.values[0];
+					    gyroY = event.values[1];
+					    gyroZ = event.values[2];
                         break;
                     case Sensor.TYPE_MAGNETIC_FIELD:
-                        // TODO> Make it!
+                        magX = event.values[0];
+					    magY = event.values[1];
+					    magZ = event.values[2];
                         break;
                     default:
                         break;
