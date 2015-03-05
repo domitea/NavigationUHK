@@ -13,15 +13,12 @@ import uhk.kikm.navigationuhk.model.Position;
  */
 public class SensorScanner {
 
-    private Context context;
-
     private SensorManager sensorManager;
     private SensorEventListener sensorEventListener;
 
     private float accX, accY, accZ, gyroX, gyroY, gyroZ, magX, magY, magZ;
 
     public SensorScanner(Context context) {
-        this.context = context;
         sensorManager = (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
 
         initListeners();
