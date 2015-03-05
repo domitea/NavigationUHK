@@ -6,6 +6,8 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 
+import uhk.kikm.navigationuhk.model.Position;
+
 /**
  * Created by dominik on 5.3.15.
  */
@@ -62,5 +64,11 @@ public class SensorScanner {
 
             }
         };
+    }
+
+    public Position fillPosition(Position p)
+    {
+
+        return p;
     }
 }
