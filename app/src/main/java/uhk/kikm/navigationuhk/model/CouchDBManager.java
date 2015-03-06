@@ -329,17 +329,17 @@ public class CouchDBManager {
         p.setDeviceID(parseProperty("deviceId", doc));
 
         // Parsovani polohy zarizeni v prostoru
-        p.setAccX(Float.valueOf(doc.getProperty("accX").toString()));
-        p.setAccY(Float.valueOf(doc.getProperty("accY").toString()));
-        p.setAccZ(Float.valueOf(doc.getProperty("accZ").toString()));
+        p.setAccX(Float.valueOf(parseProperty("accX", doc)));
+        p.setAccY(Float.valueOf(parseProperty("accY", doc)));
+        p.setAccZ(Float.valueOf(parseProperty("accZ", doc)));
 
-        p.setGyroX(Float.valueOf(doc.getProperty("gyroX").toString()));
-        p.setGyroY(Float.valueOf(doc.getProperty("gyroY").toString()));
-        p.setGyroZ(Float.valueOf(doc.getProperty("gyroZ").toString()));
+        p.setGyroX(Float.valueOf(parseProperty("gyroX", doc)));
+        p.setGyroY(Float.valueOf(parseProperty("gyroY", doc)));
+        p.setGyroZ(Float.valueOf(parseProperty("gyroZ", doc)));
 
-        p.setMagX(Float.valueOf(doc.getProperty("magX").toString()));
-        p.setMagY(Float.valueOf(doc.getProperty("magY").toString()));
-        p.setMagZ(Float.valueOf(doc.getProperty("magZ").toString()));
+        p.setMagX(Float.valueOf(parseProperty("magX", doc)));
+        p.setMagY(Float.valueOf(parseProperty("magY", doc)));
+        p.setMagZ(Float.valueOf(parseProperty("magZ", doc)));
 
         // Parsovani skenu... We need to go deeper... List<Map<String, Object>>
 
@@ -362,7 +362,7 @@ public class CouchDBManager {
         Object o = doc.getProperty(property); // V chapani JSON muze byt null !!
         if (o == null)
         {
-            return "";
+            return "0";
         }
         return o.toString();
     }

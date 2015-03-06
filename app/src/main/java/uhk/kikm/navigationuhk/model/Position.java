@@ -304,5 +304,42 @@ public class Position {
         this.deviceID = deviceID;
     }
 
-
+    @Override
+    public String toString() {
+        return "Position{" +
+                "id='" + id + '\'' +
+                ", level=" + level +
+                ", x=" + x +
+                ", y=" + y +
+                ", description='" + description + '\'' +
+                ", scans=" + scans +
+                ", accX=" + accX +
+                ", accY=" + accY +
+                ", accZ=" + accZ +
+                ", gyroX=" + gyroX +
+                ", gyroY=" + gyroY +
+                ", gyroZ=" + gyroZ +
+                ", magX=" + magX +
+                ", magY=" + magY +
+                ", magZ=" + magZ +
+                ", board='" + board + '\'' +
+                ", bootloader='" + bootloader + '\'' +
+                ", brand='" + brand + '\'' +
+                ", device='" + device + '\'' +
+                ", display='" + display + '\'' +
+                ", fingerprint='" + fingerprint + '\'' +
+                ", hardware='" + hardware + '\'' +
+                ", host='" + host + '\'' +
+                ", osId='" + osId + '\'' +
+                ", manufacturer='" + manufacturer + '\'' +
+                ", model='" + model + '\'' +
+                ", product='" + product + '\'' +
+                ", serial='" + serial + '\'' +
+                ", tags='" + tags + '\'' +
+                ", type='" + type + '\'' +
+                ", user='" + user + '\'' +
+                ", deviceID='" + deviceID + '\'' +
+                ", createdDate=" + createdDate +
+                '}';
+    }
 }

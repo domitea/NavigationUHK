@@ -110,6 +110,7 @@ public class ListPositionsActivity extends ActionBarActivity {
 
     private void buildDialogForRemove(final String position)
     {
+
         AlertDialog.Builder removeDialog = new AlertDialog.Builder(this);
 
         removeDialog.setTitle("Odstranění Pozice");
