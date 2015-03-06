@@ -244,6 +244,8 @@ public class CouchDBManager {
         properties.put("description", p.getDescription());
         properties.put("createdAt", getCurrentTime());
 
+        properties.put("deviceId", p.getDeviceID());
+
         // ukladame dalsi data
         properties.put("board", p.getBoard());
         properties.put("bootloader", p.getBootloader());
@@ -301,30 +303,30 @@ public class CouchDBManager {
         // datum vytvoreni zaznamu, resp. datum skenovani
         p.setCreatedDate(getDate(doc.getProperty("createdAt").toString()));
         // nejaky balast
-        Object o = doc.getProperty("description"); // V chapani JSON muze byt null !!
-        String some = o == null ? "" : o.toString();
-        p.setDescription(some);
+        p.setDescription(parseProperty("description", doc));
         p.setId(doc.getProperty("_id").toString());
         // jake patro....
         p.setLevel(Integer.parseInt(doc.getProperty("level").toString()));
 
         // parsovani dalsich dat....
-        p.setBoard(doc.getProperty("board").toString());
-        p.setBootloader(doc.getProperty("bootloader").toString());
-        p.setBrand(doc.getProperty("brand").toString());
-        p.setDevice(doc.getProperty("device").toString());
-        p.setDisplay(doc.getProperty("display").toString());
-        p.setFingerprint(doc.getProperty("fingerprint").toString());
-        p.setHardware(doc.getProperty("hardware").toString());
-        p.setHost(doc.getProperty("host").toString());
-        p.setOsId(doc.getProperty("osId").toString());
-        p.setManufacturer(doc.getProperty("manufacturer").toString());
-        p.setModel(doc.getProperty("model").toString());
-        p.setProduct(doc.getProperty("product").toString());
-        p.setSerial(doc.getProperty("serial").toString());
-        p.setTags(doc.getProperty("tags").toString());
-        p.setType(doc.getProperty("type").toString());
-        p.setUser(doc.getProperty("userAndroid").toString());
+        p.setBoard(parseProperty("board", doc));
+        p.setBootloader(parseProperty("bootloader", doc));
+        p.setBrand(parseProperty("brand", doc));
+        p.setDevice(parseProperty("device", doc));
+        p.setDisplay(parseProperty("display", doc));
+        p.setFingerprint(parseProperty("fingerprint", doc));
+        p.setHardware(parseProperty("hardware", doc));
+        p.setHost(parseProperty("host", doc));
+        p.setOsId(parseProperty("osId", doc));
+        p.setManufacturer(parseProperty("manufacturer", doc));
+        p.setModel(parseProperty("model", doc));
+        p.setProduct(parseProperty("product", doc));
+        p.setSerial(parseProperty("serial", doc));
+        p.setTags(parseProperty("tags", doc));
+        p.setType(parseProperty("type", doc));
+        p.setUser(parseProperty("userAndroid", doc));
+
+        p.setDeviceID(parseProperty("deviceId", doc));
 
         // Parsovani polohy zarizeni v prostoru
         p.setAccX(Float.valueOf(doc.getProperty("accX").toString()));
@@ -353,6 +355,16 @@ public class CouchDBManager {
             p.addScan(s);
         }
         return p;
+    }
+
+    private String parseProperty(String property, Document doc)
+    {
+        Object o = doc.getProperty(property); // V chapani JSON muze byt null !!
+        if (o == null)
+        {
+            return "";
+        }
+        return o.toString();
     }
 
     public void closeConnection()

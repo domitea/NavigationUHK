@@ -22,6 +22,7 @@ public class DeviceInformation {
 
     public Position fillPosition(Position p)
     {
+        p.setDeviceID(telephonyManager.getDeviceId());
         p.setBoard(build.BOARD);
         p.setBootloader(build.BOOTLOADER);
         p.setBrand(build.BRAND);

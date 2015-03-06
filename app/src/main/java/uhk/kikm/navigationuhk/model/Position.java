@@ -24,6 +24,8 @@ public class Position {
     private float accX, accY, accZ, gyroX, gyroY, gyroZ, magX, magY, magZ;
     private String board, bootloader, brand, device, display, fingerprint, hardware, host, osId, manufacturer, model, product, serial, tags, type, user;
 
+    private String deviceID; // IMEI...
+
     Date createdDate;
 
     public Position() {
@@ -293,5 +295,14 @@ public class Position {
     public void setUser(String user) {
         this.user = user;
     }
+
+    public String getDeviceID() {
+        return deviceID;
+    }
+
+    public void setDeviceID(String deviceID) {
+        this.deviceID = deviceID;
+    }
+
 
 }
