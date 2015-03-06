@@ -244,6 +244,23 @@ public class CouchDBManager {
         properties.put("description", p.getDescription());
         properties.put("createdAt", getCurrentTime());
 
+        properties.put("board", p.getBoard());
+        properties.put("bootloader", p.getBootloader());
+        properties.put("brand", p.getBrand());
+        properties.put("device", p.getDevice());
+        properties.put("display", p.getDisplay());
+        properties.put("fingerprint", p.getFingerprint());
+        properties.put("hardware", p.getHardware());
+        properties.put("host", p.getHost());
+        properties.put("osId", p.getOsId());
+        properties.put("manufacturer", p.getManufacturer());
+        properties.put("model", p.getModel());
+        properties.put("product", p.getProduct());
+        properties.put("serial", p.getSerial());
+        properties.put("tags", p.getTags());
+        properties.put("type", p.getType());
+        properties.put("user", p.getUser());
+
         List<Map<String, Object>> scansArray = new ArrayList<>();
         ArrayList<Scan> scans = p.getScans();
         for (Scan s : scans)
