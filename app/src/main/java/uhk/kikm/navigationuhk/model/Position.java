@@ -22,8 +22,6 @@ public class Position {
     private float accX, accY, accZ, gyroX, gyroY, gyroZ, magX, magY, magZ;
     private String board, bootloader, brand, device, display, fingerprint, hardware, host, osId, manufacturer, model, product, serial, tags, type, user;
 
-    private String[] Supported_ABIS;
-
     Date createdDate;
 
     public Position() {
@@ -294,11 +292,4 @@ public class Position {
         this.user = user;
     }
 
-    public String[] getSupported_ABIS() {
-        return Supported_ABIS;
-    }
-
-    public void setSupported_ABIS(String[] supported_ABIS) {
-        Supported_ABIS = supported_ABIS;
-    }
 }
