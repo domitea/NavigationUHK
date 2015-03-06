@@ -65,7 +65,17 @@ public class SensorScanner {
 
     public Position fillPosition(Position p)
     {
+        p.setAccX(accX);
+        p.setAccY(accY);
+        p.setAccZ(accZ);
 
+        p.setGyroX(gyroX);
+        p.setGyroY(gyroY);
+        p.setGyroZ(gyroZ);
+
+        p.setMagX(magX);
+        p.setMagY(magY);
+        p.setMagZ(magZ);
         return p;
     }
 }
