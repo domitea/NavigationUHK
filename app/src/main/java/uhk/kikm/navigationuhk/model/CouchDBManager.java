@@ -244,6 +244,7 @@ public class CouchDBManager {
         properties.put("description", p.getDescription());
         properties.put("createdAt", getCurrentTime());
 
+        // ukladame dalsi data
         properties.put("board", p.getBoard());
         properties.put("bootloader", p.getBootloader());
         properties.put("brand", p.getBrand());
@@ -259,8 +260,22 @@ public class CouchDBManager {
         properties.put("serial", p.getSerial());
         properties.put("tags", p.getTags());
         properties.put("type", p.getType());
-        properties.put("user", p.getUser());
+        properties.put("userAndroid", p.getUser());
 
+        // poloha zarizeni v prostoru...
+        properties.put("accX", p.getAccX());
+        properties.put("accY", p.getAccY());
+        properties.put("accZ", p.getAccZ());
+
+        properties.put("gyroX", p.getGyroX());
+        properties.put("gyroY", p.getGyroY());
+        properties.put("gyroZ", p.getGyroZ());
+
+        properties.put("magX", p.getMagX());
+        properties.put("magY", p.getMagY());
+        properties.put("magZ", p.getMagZ());
+
+        // pridani skenu...
         List<Map<String, Object>> scansArray = new ArrayList<>();
         ArrayList<Scan> scans = p.getScans();
         for (Scan s : scans)
@@ -292,6 +307,37 @@ public class CouchDBManager {
         p.setId(doc.getProperty("_id").toString());
         // jake patro....
         p.setLevel(Integer.parseInt(doc.getProperty("level").toString()));
+
+        // parsovani dalsich dat....
+        p.setBoard(doc.getProperty("board").toString());
+        p.setBootloader(doc.getProperty("bootloader").toString());
+        p.setBrand(doc.getProperty("brand").toString());
+        p.setDevice(doc.getProperty("device").toString());
+        p.setDisplay(doc.getProperty("display").toString());
+        p.setFingerprint(doc.getProperty("fingerprint").toString());
+        p.setHardware(doc.getProperty("hardware").toString());
+        p.setHost(doc.getProperty("host").toString());
+        p.setOsId(doc.getProperty("osId").toString());
+        p.setManufacturer(doc.getProperty("manufacturer").toString());
+        p.setModel(doc.getProperty("model").toString());
+        p.setProduct(doc.getProperty("product").toString());
+        p.setSerial(doc.getProperty("serial").toString());
+        p.setTags(doc.getProperty("tags").toString());
+        p.setType(doc.getProperty("type").toString());
+        p.setUser(doc.getProperty("userAndroid").toString());
+
+        // Parsovani polohy zarizeni v prostoru
+        p.setAccX(Float.valueOf(doc.getProperty("accX").toString()));
+        p.setAccY(Float.valueOf(doc.getProperty("accY").toString()));
+        p.setAccZ(Float.valueOf(doc.getProperty("accZ").toString()));
+
+        p.setGyroX(Float.valueOf(doc.getProperty("gyroX").toString()));
+        p.setGyroY(Float.valueOf(doc.getProperty("gyroY").toString()));
+        p.setGyroZ(Float.valueOf(doc.getProperty("gyroZ").toString()));
+
+        p.setMagX(Float.valueOf(doc.getProperty("magX").toString()));
+        p.setMagY(Float.valueOf(doc.getProperty("magY").toString()));
+        p.setMagZ(Float.valueOf(doc.getProperty("magZ").toString()));
 
         // Parsovani skenu... We need to go deeper... List<Map<String, Object>>
 
