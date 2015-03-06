@@ -3,6 +3,8 @@ package uhk.kikm.navigationuhk.model;
 import java.util.ArrayList;
 import java.util.Date;
 
+import uhk.kikm.navigationuhk.utils.SensorScanner;
+
 /**
  * Modelova trida reprezentujici nejakou pozici
  */

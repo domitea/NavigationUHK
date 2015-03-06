@@ -21,6 +21,8 @@ import java.util.List;
 import uhk.kikm.navigationuhk.model.CouchDBManager;
 import uhk.kikm.navigationuhk.model.Position;
 import uhk.kikm.navigationuhk.utils.BluetoothLEScanner;
+import uhk.kikm.navigationuhk.utils.DeviceInformation;
+import uhk.kikm.navigationuhk.utils.SensorScanner;
 import uhk.kikm.navigationuhk.utils.WebViewInterface;
 import uhk.kikm.navigationuhk.utils.WifiFinder;
 import uhk.kikm.navigationuhk.utils.WifiScanner;
@@ -38,6 +40,8 @@ public class MainActivity extends ActionBarActivity {
     boolean scanningBle;
     CouchDBManager dbManager;
     WebView view;
+    SensorScanner sensorScanner;
+    DeviceInformation deviceInformation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,6 +77,9 @@ public class MainActivity extends ActionBarActivity {
             }
         });
 
+        sensorScanner = new SensorScanner(this);
+        deviceInformation = new DeviceInformation(this);
+
         scanningBle = false;
 
         bleScanner = new BluetoothLEScanner(this);
@@ -105,6 +112,10 @@ public class MainActivity extends ActionBarActivity {
             wScanner.findAll();
             Toast.makeText(this, webInterface.getX() + " " + webInterface.getY(), Toast.LENGTH_LONG).show();
             webInterface.setChanged(false);
+
+            Position p = wScanner.getPosition(webInterface.getX(), webInterface.getY());
+            sensorScanner.fillPosition(p);
+            deviceInformation.fillPosition(p);
             dbManager.savePosition(wScanner.getPosition(webInterface.getX(), webInterface.getY()));
         }
         else

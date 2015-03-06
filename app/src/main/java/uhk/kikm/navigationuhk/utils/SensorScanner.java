@@ -28,7 +28,7 @@ public class SensorScanner {
         sensorManager.registerListener(sensorEventListener, sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD), SensorManager.SENSOR_DELAY_FASTEST);
     }
 
-    public void initListeners()
+    private void initListeners()
     {
         sensorEventListener = new SensorEventListener() {
             @Override
