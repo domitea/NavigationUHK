@@ -387,4 +387,30 @@ public class CouchDBManager {
 
     }
 
+    public void uploadDBToServer(Context context)
+    {
+        final Replication push = db.createPushReplication(serverURL);
+
+        final ProgressDialog pd = ProgressDialog.show(context, "Wait....", "Sync in progess", false);
+        push.addChangeListener(new Replication.ChangeListener() {
+            @Override
+            public void changed(Replication.ChangeEvent changeEvent) {
+                boolean active = push.getStatus() == Replication.ReplicationStatus.REPLICATION_ACTIVE;
+                if (!active)
+                {
+                    pd.dismiss();
+                }
+                else
+                {
+                    int total = push.getCompletedChangesCount();
+                    pd.setMax(total);
+                    pd.setProgress(push.getChangesCount());
+                }
+            }
+        });
+        push.start();
+
+
+    }
+
 }
