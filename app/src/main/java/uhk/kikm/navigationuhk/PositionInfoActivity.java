@@ -5,13 +5,25 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import uhk.kikm.navigationuhk.model.CouchDBManager;
+import uhk.kikm.navigationuhk.model.Position;
+
 
 public class PositionInfoActivity extends ActionBarActivity {
+
+    String id;
+    Position position;
+    CouchDBManager dbManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_position_info);
+
+        dbManager = new CouchDBManager(this);
+
+        id = getIntent().getStringExtra("id");
+
     }
 
 
@@ -36,5 +48,12 @@ public class PositionInfoActivity extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        dbManager.closeConnection();
     }
 }
