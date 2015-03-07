@@ -33,6 +33,14 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="uhk.kikm.navigationuhk.MainActivity" />
         </activity>
+        <activity
+            android:name=".PositionInfoActivity"
+            android:label="@string/title_activity_position_info"
+            android:parentActivityName=".ListPositionsActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="uhk.kikm.navigationuhk.ListPositionsActivity" />
+        </activity>
     </application>
 
 </manifest>
