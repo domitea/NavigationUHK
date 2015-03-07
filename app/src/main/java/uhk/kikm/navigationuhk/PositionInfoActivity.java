@@ -1,5 +1,7 @@
 package uhk.kikm.navigationuhk;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -37,8 +39,34 @@ public class PositionInfoActivity extends ActionBarActivity {
             @Override
             public void onClick(View v) {
 
+                removePosition();
             }
         });
+    }
+
+    private void removePosition()
+    {
+        AlertDialog.Builder removeDialog = new AlertDialog.Builder(this);
+
+        removeDialog.setTitle("Odstranění Pozice");
+        removeDialog.setMessage("Chce odstranit vybranou pozici?");
+
+        removeDialog.setPositiveButton("Odstranit", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                System.out.println("Destroy!!! " + position.toString());
+                dbManager.removePosition(position.getId());
+            }
+        });
+
+        removeDialog.setNegativeButton("Zrušit", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                System.out.println("not yet...");
+            }
+        });
+
+        removeDialog.create().show();
     }
 
 
