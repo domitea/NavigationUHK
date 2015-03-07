@@ -425,4 +425,11 @@ public class CouchDBManager {
 
     }
 
+    public Position getPositionById(String id)
+    {
+        Document doc = db.getDocument(id);
+        Position p = getPositionFormDocument(doc);
+        return p;
+    }
+
 }
