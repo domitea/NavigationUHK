@@ -4,6 +4,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 import uhk.kikm.navigationuhk.model.CouchDBManager;
 import uhk.kikm.navigationuhk.model.Position;
@@ -21,8 +22,12 @@ public class PositionInfoActivity extends ActionBarActivity {
         setContentView(R.layout.activity_position_info);
 
         dbManager = new CouchDBManager(this);
-
         id = getIntent().getStringExtra("id");
+        position = dbManager.getPositionById(id);
+
+        TextView textView = (TextView) findViewById(R.id.textView);
+
+        textView.setText(position.toString());
 
     }
 
