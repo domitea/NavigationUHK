@@ -116,7 +116,7 @@ public class MainActivity extends ActionBarActivity {
             Position p = wScanner.getPosition(webInterface.getX(), webInterface.getY());
             sensorScanner.fillPosition(p);
             deviceInformation.fillPosition(p);
-            dbManager.savePosition(wScanner.getPosition(webInterface.getX(), webInterface.getY()));
+            dbManager.savePosition(p);
         }
         else
         {
