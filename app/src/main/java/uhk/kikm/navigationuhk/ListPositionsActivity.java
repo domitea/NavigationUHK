@@ -117,27 +117,6 @@ public class ListPositionsActivity extends ActionBarActivity {
         intent.putExtra("id", positionsMap.get(position));
         startActivity(intent);
 
-        /*AlertDialog.Builder removeDialog = new AlertDialog.Builder(this);
-
-        removeDialog.setTitle("Odstranění Pozice");
-        removeDialog.setMessage("Chce odstranit vybranou pozici?");
-
-        removeDialog.setPositiveButton("Odstranit", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                System.out.println("Destroy!!! " + positionsMap.get(position));
-                removePosition(position);
-            }
-        });
-
-        removeDialog.setNegativeButton("Zrušit", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                System.out.println("not yet...");
-            }
-        });
-
-        removeDialog.create().show();*/
     }
 
     private void removePosition(String position)
