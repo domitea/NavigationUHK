@@ -1,5 +1,7 @@
 package uhk.kikm.navigationuhk.utils.LocalizationService;
 
+import uhk.kikm.navigationuhk.model.Position;
+
 /**
  * Created by dominik on 26.2.15.
  */
@@ -29,15 +31,15 @@ public class LocalizationService {
 
     /**
      * Vraci bod s vypocitanymi GPS souradnicemi
-     * @param point Bod bez GPS souradnic
+     * @param p Bod bez GPS souradnic
      * @return Bod s vypocitanimi GPS souradnicemi
      */
-    public LocalizationServicePoint getPoint(LocalizationServicePoint point)
+    public Position getPoint(Position p)
     {
-        point.setLatitude(point.getY() * stepY);
-        point.setLongitude(point.getX() * stepX);
+        p.setLat(p.getY() * stepY);
+        p.setLon(p.getX() * stepX);
 
-        return point;
+        return p;
     }
 
 }
