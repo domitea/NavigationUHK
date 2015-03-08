@@ -25,6 +25,8 @@ public class WebViewInterface {
         this.x = x;
         this.y = y;
 
+        System.out.println(x + " " + y);
+
         changed = true;
     }
 
