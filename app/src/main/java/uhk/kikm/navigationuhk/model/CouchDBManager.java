@@ -277,6 +277,10 @@ public class CouchDBManager {
         properties.put("magY", p.getMagY());
         properties.put("magZ", p.getMagZ());
 
+        // Vypocitane GPS souradnice
+        properties.put("lat", p.getLat());
+        properties.put("lon", p.getLon());
+
         // pridani skenu...
         List<Map<String, Object>> scansArray = new ArrayList<>();
         ArrayList<Scan> scans = p.getScans();
@@ -340,6 +344,10 @@ public class CouchDBManager {
         p.setMagX(Float.valueOf(parseProperty("magX", doc)));
         p.setMagY(Float.valueOf(parseProperty("magY", doc)));
         p.setMagZ(Float.valueOf(parseProperty("magZ", doc)));
+
+        // GPS souradnice
+        p.setLat(Float.valueOf(parseProperty("lat", doc)));
+        p.setLon(Float.valueOf(parseProperty("lon", doc)));
 
         // Parsovani skenu... We need to go deeper... List<Map<String, Object>>
 
