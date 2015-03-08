@@ -22,6 +22,7 @@ import uhk.kikm.navigationuhk.model.CouchDBManager;
 import uhk.kikm.navigationuhk.model.Position;
 import uhk.kikm.navigationuhk.utils.BluetoothLEScanner;
 import uhk.kikm.navigationuhk.utils.DeviceInformation;
+import uhk.kikm.navigationuhk.utils.LocalizationService.LocalizationService;
 import uhk.kikm.navigationuhk.utils.SensorScanner;
 import uhk.kikm.navigationuhk.utils.WebViewInterface;
 import uhk.kikm.navigationuhk.utils.WifiFinder;
@@ -87,6 +88,7 @@ public class MainActivity extends ActionBarActivity {
         dbManager = new CouchDBManager(this);
         System.out.println("Open db connection in MainActivity");
 
+        LocalizationService localizationService = new LocalizationService(SettingsFactory.pointA, SettingsFactory.pointB);
     }
 
     public void writeBlePoint()

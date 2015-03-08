@@ -26,6 +26,8 @@ public class Position {
 
     private String deviceID; // IMEI...
 
+    private Float lat,lon;
+
     Date createdDate;
 
     public Position() {
@@ -304,6 +306,22 @@ public class Position {
         this.deviceID = deviceID;
     }
 
+    public Float getLat() {
+        return lat;
+    }
+
+    public void setLat(Float lat) {
+        this.lat = lat;
+    }
+
+    public Float getLon() {
+        return lon;
+    }
+
+    public void setLon(Float lon) {
+        this.lon = lon;
+    }
+
     @Override
     public String toString() {
         return "Position{" +
@@ -339,6 +357,8 @@ public class Position {
                 ", type='" + type + '\'' +
                 ", user='" + user + '\'' +
                 ", deviceID='" + deviceID + '\'' +
+                ", lat=" + lat +
+                ", lon=" + lon +
                 ", createdDate=" + createdDate +
                 '}';
     }
