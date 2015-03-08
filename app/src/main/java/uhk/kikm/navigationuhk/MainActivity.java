@@ -43,6 +43,7 @@ public class MainActivity extends ActionBarActivity {
     WebView view;
     SensorScanner sensorScanner;
     DeviceInformation deviceInformation;
+    LocalizationService localizationService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,7 +89,7 @@ public class MainActivity extends ActionBarActivity {
         dbManager = new CouchDBManager(this);
         System.out.println("Open db connection in MainActivity");
 
-        LocalizationService localizationService = new LocalizationService(SettingsFactory.pointA, SettingsFactory.pointB);
+        localizationService = new LocalizationService(SettingsFactory.pointA, SettingsFactory.pointB); // nastavujeme souradnicovy system pro vypocet GPS souradnic
     }
 
     public void writeBlePoint()
@@ -118,6 +119,7 @@ public class MainActivity extends ActionBarActivity {
             Position p = wScanner.getPosition(webInterface.getX(), webInterface.getY());
             sensorScanner.fillPosition(p);
             deviceInformation.fillPosition(p);
+            localizationService.getPoint(p);
             dbManager.savePosition(p);
         }
         else
