@@ -93,25 +93,6 @@ public class MainActivity extends ActionBarActivity {
         System.out.println("Open db connection in MainActivity");
 
         localizationService = new LocalizationService(SettingsFactory.pointA); // nastavujeme souradnicovy system pro vypocet GPS souradnic
-
-        SpinnerAdapter adapter = ArrayAdapter.createFromResource(this, R.array.actions, R.layout.support_simple_spinner_dropdown_item);
-
-        ActionBar.OnNavigationListener callback = new ActionBar.OnNavigationListener() {
-
-            String[] items = getResources().getStringArray(R.array.actions);
-
-            @Override
-            public boolean onNavigationItemSelected(int itemPosition, long itemId) {
-                System.out.println(items[itemPosition]);
-
-                return true;
-            }
-        };
-
-        ActionBar actionBar = getActionBar();
-        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
-        actionBar.setListNavigationCallbacks(adapter, callback);
-
     }
 
     public void writeBlePoint()
