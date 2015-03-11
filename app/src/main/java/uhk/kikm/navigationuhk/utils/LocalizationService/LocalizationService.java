@@ -7,26 +7,19 @@ import uhk.kikm.navigationuhk.model.Position;
  */
 public class LocalizationService {
 
-    private LocalizationServicePoint pointA;
-    private LocalizationServicePoint pointB;
 
     private float stepX;
     private float stepY;
 
     /**
      * Kosntruktor service na vypocet GPS souradnice.
-     * @param pointA Bod A
-     * @param pointB Bod B, pricemz B>A
+     * @param point Bod
+     *
      */
-    public LocalizationService(LocalizationServicePoint pointA, LocalizationServicePoint pointB) {
-        this.pointA = pointA;
-        this.pointB = pointB;
+    public LocalizationService(LocalizationServicePoint point) {
 
-        float differenceX = pointB.getX() - pointA.getX();
-        float differenceY = pointB.getY() - pointA.getY();
-
-        stepX = (pointB.getLongitude() - pointA.getLongitude()) / differenceX;
-        stepY = (pointB.getLatitude() - pointB.getLatitude()) / differenceY;
+        stepX = point.getLatitude() / point.getX();
+        stepY = point.getLongitude() / point.getY();
     }
 
     /**
