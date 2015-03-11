@@ -1,5 +1,6 @@
 package uhk.kikm.navigationuhk;
 
+import android.app.ActionBar;
 import android.content.Intent;
 import android.net.wifi.ScanResult;
 import android.support.v7.app.ActionBarActivity;
@@ -93,7 +94,19 @@ public class MainActivity extends ActionBarActivity {
 
         localizationService = new LocalizationService(SettingsFactory.pointA); // nastavujeme souradnicovy system pro vypocet GPS souradnic
 
-        SpinnerAdapter adapter = ArrayAdapter.createFromResource(this, new String[] {"1", "2", "3", "4"}, R.layout.support_simple_spinner_dropdown_item);
+        SpinnerAdapter adapter = ArrayAdapter.createFromResource(this, R.array.actions, R.layout.support_simple_spinner_dropdown_item);
+
+        ActionBar.OnNavigationListener callback = new ActionBar.OnNavigationListener() {
+
+            String[] items = getResources().getStringArray(R.array.actions);
+
+            @Override
+            public boolean onNavigationItemSelected(int itemPosition, long itemId) {
+                System.out.println(items[itemPosition]);
+
+                return true;
+            }
+        };
     }
 
     public void writeBlePoint()
