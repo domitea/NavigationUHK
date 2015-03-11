@@ -107,6 +107,11 @@ public class MainActivity extends ActionBarActivity {
                 return true;
             }
         };
+
+        ActionBar actionBar = getActionBar();
+        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
+        actionBar.setListNavigationCallbacks(adapter, callback);
+
     }
 
     public void writeBlePoint()
