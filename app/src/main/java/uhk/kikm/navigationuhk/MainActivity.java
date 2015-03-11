@@ -9,7 +9,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.SpinnerAdapter;
 import android.widget.Toast;
 
 import java.io.ByteArrayOutputStream;
@@ -89,7 +91,9 @@ public class MainActivity extends ActionBarActivity {
         dbManager = new CouchDBManager(this);
         System.out.println("Open db connection in MainActivity");
 
-        localizationService = new LocalizationService(SettingsFactory.pointA, SettingsFactory.pointB); // nastavujeme souradnicovy system pro vypocet GPS souradnic
+        localizationService = new LocalizationService(SettingsFactory.pointA); // nastavujeme souradnicovy system pro vypocet GPS souradnic
+
+        SpinnerAdapter adapter = ArrayAdapter.createFromResource(this, new String[] {"1", "2", "3", "4"}, R.layout.support_simple_spinner_dropdown_item);
     }
 
     public void writeBlePoint()
