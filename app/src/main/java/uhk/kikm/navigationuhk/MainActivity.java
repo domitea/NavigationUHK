@@ -230,9 +230,16 @@ public class MainActivity extends ActionBarActivity {
     {
         wScanner.findAll();
         List<ScanResult> scanResults = wScanner.getScanResults();
-        ScanResult result = scanResults.get(0);
+        /*ScanResult result = scanResults.get(0);
 
-        ArrayList<Position> positions = new ArrayList<>(dbManager.getPostionsByMac(result.BSSID));
+        ArrayList<Position> positions = new ArrayList<>(dbManager.getPostionsByMac(result.BSSID));*/
+
+        String[] macs = new String[scanResults.size()];
+
+        for (int i = 0; i < macs.length; i++)
+            macs[i] = scanResults.get(i).BSSID;
+
+        ArrayList<Position> positions = new ArrayList<>(dbManager.getPostionsByMacs(macs));
 
         WifiFinder finder = new WifiFinder(positions);
         Position possiblePosition = finder.getPosition(scanResults);
