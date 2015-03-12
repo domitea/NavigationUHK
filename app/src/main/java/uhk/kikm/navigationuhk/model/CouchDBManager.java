@@ -17,12 +17,14 @@ import com.couchbase.lite.android.AndroidContext;
 import com.couchbase.lite.replicator.Replication;
 
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
@@ -158,6 +160,33 @@ public class CouchDBManager {
 
         query.setStartKey(mac);
         query.setEndKey(mac);
+
+        try
+        {
+            QueryEnumerator result = query.run();
+            for (Iterator<QueryRow> it = result; it.hasNext(); )
+            {
+                QueryRow row = it.next();
+                Document doc = row.getDocument();
+
+                positions.add(getPositionFormDocument(doc));
+            }
+        }
+        catch (CouchbaseLiteException cle)
+        {
+            cle.printStackTrace();
+        }
+        return positions;
+    }
+
+    public List<Position> getPostionsByMacs(String[] macs)
+    {
+        ArrayList<Position> positions = new ArrayList<>();
+        Query query = db.getView(viewByMac).createQuery();
+
+        List<Object> objects = Arrays.asList((Object) macs);
+
+        query.setKeys(objects);
 
         try
         {

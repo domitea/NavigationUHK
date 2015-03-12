@@ -61,10 +61,10 @@ public class WifiFinder {
                 {
                     distance += Math.pow(s.level - p.getScan(index).getStrenght(), 2);
                 }
-                else if (index == -1)
+                /*else if (index == -1)
                 {
                     distance += Math.pow(0 - s.level, 2);
-                }
+                }*/
             }
 
             distance = (float) Math.sqrt(distance);
