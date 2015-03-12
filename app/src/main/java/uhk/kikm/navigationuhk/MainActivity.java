@@ -47,6 +47,7 @@ public class MainActivity extends ActionBarActivity {
     SensorScanner sensorScanner;
     DeviceInformation deviceInformation;
     LocalizationService localizationService;
+    int selectedLevel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,6 +94,8 @@ public class MainActivity extends ActionBarActivity {
         System.out.println("Open db connection in MainActivity");
 
         localizationService = new LocalizationService(SettingsFactory.pointA); // nastavujeme souradnicovy system pro vypocet GPS souradnic
+
+        selectedLevel = 2;
     }
 
     public void writeBlePoint()
@@ -120,6 +123,7 @@ public class MainActivity extends ActionBarActivity {
             webInterface.setChanged(false);
 
             Position p = wScanner.getPosition(webInterface.getX(), webInterface.getY());
+            p.setLevel(selectedLevel);
             sensorScanner.fillPosition(p);
             deviceInformation.fillPosition(p);
             localizationService.getPoint(p);
@@ -166,6 +170,14 @@ public class MainActivity extends ActionBarActivity {
         {
             findPosition();
         }
+        else if(id == R.id.action_level_1)
+            selectedLevel = 1;
+        else if(id == R.id.action_level_2)
+            selectedLevel = 2;
+        else if(id == R.id.action_level_3)
+            selectedLevel = 3;
+        else if(id == R.id.action_level_4)
+            selectedLevel = 4;
 
         return super.onOptionsItemSelected(item);
     }
