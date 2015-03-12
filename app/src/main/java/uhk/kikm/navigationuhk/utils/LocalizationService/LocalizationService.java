@@ -13,13 +13,16 @@ public class LocalizationService {
 
     /**
      * Kosntruktor service na vypocet GPS souradnice.
-     * @param point Bod
+     * @param pointA Bod
      *
      */
-    public LocalizationService(LocalizationServicePoint point) {
+    public LocalizationService(LocalizationServicePoint pointA, LocalizationServicePoint pointB) {
 
-        stepX = point.getLatitude() / point.getX();
-        stepY = point.getLongitude() / point.getY();
+        float differenceX = pointB.getX() - pointA.getX();
+        float differenceY = pointB.getY() - pointA.getY();
+
+        stepX = (pointB.getLongitude() - pointA.getLongitude()) / differenceX;
+        stepY = (pointB.getLatitude() - pointA.getLatitude()) / differenceY;
     }
 
     /**
