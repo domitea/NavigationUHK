@@ -184,7 +184,10 @@ public class CouchDBManager {
         ArrayList<Position> positions = new ArrayList<>();
         Query query = db.getView(viewByMac).createQuery();
 
-        List<Object> objects = Arrays.asList((Object) macs);
+        List<Object> objects = new ArrayList<>();
+
+        for (int i = 0; i < macs.length; i++)
+            objects.add( (Object) macs[i]);
 
         query.setKeys(objects);
 
