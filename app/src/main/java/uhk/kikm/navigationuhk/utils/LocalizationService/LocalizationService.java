@@ -39,7 +39,7 @@ public class LocalizationService {
 
         // lattitude jde od rovniku, cili pocita se opacne -> A - C misto C - A --> A>C
 
-        latDifference = pointA.getLatitude() - pointC.getLongitude();
+        latDifference = pointA.getLatitude() - pointC.getLatitude();
     }
 
     /**
