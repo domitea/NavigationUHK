@@ -8,21 +8,38 @@ import uhk.kikm.navigationuhk.model.Position;
 public class LocalizationService {
 
 
+    /**
+     * LAT = Y, LON = X
+     */
+
     private float stepX;
     private float stepY;
 
+    private float differenceX;
+    private float differenceY;
+
+    private float lonDifference;
+    private float latDifference;
+
+    private LocalizationServicePoint point;
+
     /**
      * Kosntruktor service na vypocet GPS souradnice.
-     * @param pointA Bod
      *
      */
-    public LocalizationService(LocalizationServicePoint pointA, LocalizationServicePoint pointB) {
+    public LocalizationService(LocalizationServicePoint pointA, LocalizationServicePoint pointB, LocalizationServicePoint pointC) {
 
-        float differenceX = pointB.getX() - pointA.getX();
-        float differenceY = pointB.getY() - pointA.getY();
+        this.point = pointA;
 
-        stepX = (pointB.getLongitude() - pointA.getLongitude()) / differenceX;
-        stepY = (pointB.getLatitude() - pointA.getLatitude()) / differenceY;
+        differenceX = pointB.getX() - pointA.getX();
+
+        differenceY = pointC.getY() - pointA.getY();
+
+        lonDifference = pointB.getLongitude() - pointA.getLongitude();
+
+        // lattitude jde od rovniku, cili pocita se opacne -> A - C misto C - A --> A>C
+
+        latDifference = pointA.getLatitude() - pointC.getLongitude();
     }
 
     /**
@@ -32,9 +49,12 @@ public class LocalizationService {
      */
     public Position getPoint(Position p)
     {
-        p.setLat(p.getY() * stepY);
-        p.setLon(p.getX() * stepX);
 
+        float longtitudeP = ( ( (p.getX() - point.getX()) / (differenceX) ) * lonDifference ) + point.getLongitude();
+        float latitudeP = point.getLatitude() - ( ( ( p.getY() - point.getY() ) / differenceY ) * latDifference );
+
+        p.setLon(longtitudeP);
+        p.setLat(latitudeP);
         return p;
     }
 

@@ -93,7 +93,7 @@ public class MainActivity extends ActionBarActivity {
         dbManager = new CouchDBManager(this);
         System.out.println("Open db connection in MainActivity");
 
-        localizationService = new LocalizationService(SettingsFactory.pointA); // nastavujeme souradnicovy system pro vypocet GPS souradnic
+        localizationService = new LocalizationService(SettingsFactory.pointA, SettingsFactory.pointB, SettingsFactory.pointC); // nastavujeme souradnicovy system pro vypocet GPS souradnic
 
         selectedLevel = 2;
     }
