@@ -2,6 +2,8 @@ package uhk.kikm.navigationuhk.utils;
 
 import android.net.wifi.ScanResult;
 
+import com.couchbase.lite.auth.Authenticator;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;

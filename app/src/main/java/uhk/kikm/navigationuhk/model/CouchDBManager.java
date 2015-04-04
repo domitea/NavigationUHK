@@ -14,6 +14,9 @@ import com.couchbase.lite.Query;
 import com.couchbase.lite.QueryEnumerator;
 import com.couchbase.lite.QueryRow;
 import com.couchbase.lite.android.AndroidContext;
+import com.couchbase.lite.auth.Authenticator;
+import com.couchbase.lite.auth.AuthenticatorFactory;
+import com.couchbase.lite.auth.AuthenticatorImpl;
 import com.couchbase.lite.replicator.Replication;
 
 import java.io.IOException;
