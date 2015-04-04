@@ -75,8 +75,9 @@ public class BluetoothLEScanner {
     private Runnable stopBleScan = new Runnable() {
         @Override
         public void run() {
-                bluetoothAdapter.stopLeScan(bluetoothLEScanCallback);
-                handler.postDelayed(startBleScan, INTERVAL);
+            bluetoothAdapter.stopLeScan(bluetoothLEScanCallback);
+
+            handler.postDelayed(startBleScan, INTERVAL);
         }
     };
 

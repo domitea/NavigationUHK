@@ -2,6 +2,7 @@ package uhk.kikm.navigationuhk.utils;
 
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
+import android.bluetooth.le.ScanRecord;
 
 import java.util.ArrayList;
 
@@ -21,7 +22,11 @@ public class BluetoothLEScanCallback implements BluetoothAdapter.LeScanCallback 
         if (!bleDeviceList.contains(device))
         {
             bleDeviceList.add(device);
+            for (int i = 0; i< scanRecord.length; i++)
+            {
+                System.out.print(scanRecord[i] + " ");
+            }
         }
-        System.out.println(bleDeviceList.toString());
+        System.out.println(device.getAddress() + " " + device.getName());
     }
 }

@@ -41,4 +41,13 @@ public class Scan {
     public void setStrentgh(int strenght) {
         this.strenght = strenght;
     }
+
+    @Override
+    public String toString() {
+        return "Scan{" +
+                "SSID='" + SSID + '\'' +
+                ", MAC='" + MAC + '\'' +
+                ", strenght=" + strenght +
+                '}';
+    }
 }

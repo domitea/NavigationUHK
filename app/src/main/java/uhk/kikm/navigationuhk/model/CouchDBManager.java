@@ -30,6 +30,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
@@ -454,9 +455,14 @@ public class CouchDBManager {
 
         String cookieName = sp.getString("cookie_name", "SyncGatewaySession");
         String sessionId = sp.getString("session_id", "sss");
-        long maxAge = 84600000;
 
-        push.setCookie(cookieName,sessionId, "/", maxAge, false, false);
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(new Date());
+        int dayToAdd = 1;
+        cal.add(Calendar.DATE, dayToAdd);
+        Date expires = cal.getTime();
+
+        push.setCookie(cookieName,sessionId, "/", expires, false, false);
 
         final ProgressDialog pd = ProgressDialog.show(context, "Wait....", "Sync in progess", false);
         push.addChangeListener(new Replication.ChangeListener() {
@@ -477,6 +483,7 @@ public class CouchDBManager {
         });
         push.start();
 
+        System.out.println("Sync Up");
 
     }
 
