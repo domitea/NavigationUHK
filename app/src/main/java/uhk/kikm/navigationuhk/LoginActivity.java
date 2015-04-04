@@ -7,6 +7,8 @@ import android.view.MenuItem;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
+import uhk.kikm.navigationuhk.utils.LoginWebViewInterface;
+
 
 public class LoginActivity extends ActionBarActivity {
 
@@ -15,12 +17,13 @@ public class LoginActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        LoginWebViewInterface loginInterface = new LoginWebViewInterface();
+
         WebView webView = (WebView) findViewById(R.id.webViewLogin);
         webView.setWebViewClient(new WebViewClient());
         webView.loadUrl(SettingsFactory.loginURL);
         webView.getSettings().setJavaScriptEnabled(true);
-
-
+        webView.addJavascriptInterface(loginInterface, "Android");
     }
 
 
