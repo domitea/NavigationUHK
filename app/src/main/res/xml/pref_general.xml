@@ -5,7 +5,6 @@
     <EditTextPreference
         android:key="couchbase_sync_gateway_id"
         android:title="@string/pref_title_display_name"
-        android:defaultValue="@string/pref_default_display_name"
         android:selectAllOnFocus="true"
         android:inputType="textCapWords"
         android:capitalize="words"

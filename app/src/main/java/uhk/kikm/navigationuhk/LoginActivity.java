@@ -1,5 +1,8 @@
 package uhk.kikm.navigationuhk;
 
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
+import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -35,10 +38,17 @@ public class LoginActivity extends ActionBarActivity {
         return true;
     }
 
-    public void run()
+    public void run(String cookieName, String sessionId, String expireTime, String couchBaseId)
     {
-        System.out.println("call");
-        System.out.println(this.toString());
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+
+        editor.putString("couchbase_sync_gateway_id", couchBaseId);
+        editor.putString("cookie_name", cookieName);
+        editor.putString("session_id", sessionId);
+        editor.putString("expire_time", expireTime);
+
+        NavUtils.navigateUpFromSameTask(this);
     }
 
     @Override
