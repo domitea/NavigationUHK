@@ -3,6 +3,8 @@ package uhk.kikm.navigationuhk;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -11,8 +13,11 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
+import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -90,7 +95,18 @@ public class ListPositionsActivity extends ActionBarActivity {
         }
         else if (id == R.id.action_upload)
         {
-            dbManager.uploadDBToServer(this);
+            SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
+
+            if (!sp.getBoolean("visited", false))
+            {
+                Intent intent = new Intent(this, LoginActivity.class);
+                startActivity(intent);
+            }
+            else {
+                sp.edit().putBoolean("visited", false).commit();
+                dbManager.uploadDBToServer(this);
+            }
+
         }
         else if (id == R.id.action_download)
         {

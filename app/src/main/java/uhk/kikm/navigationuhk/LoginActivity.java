@@ -48,6 +48,8 @@ public class LoginActivity extends ActionBarActivity {
         editor.putString("session_id", sessionId);
         editor.putString("expire_time", expireTime);
 
+        editor.putBoolean("visited", true);
+
         editor.commit();
 
         NavUtils.navigateUpFromSameTask(this);

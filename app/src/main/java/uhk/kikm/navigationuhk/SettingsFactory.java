@@ -11,4 +11,5 @@ public class SettingsFactory {
     public static LocalizationServicePoint pointC = new LocalizationServicePoint(26,794, new Float(50.2040850), new Float(15.8289544));
 
     public static String loginURL = "http://node.ukuree.cz";
+    public static String dbURL = "db.ukuree.cz";
 }

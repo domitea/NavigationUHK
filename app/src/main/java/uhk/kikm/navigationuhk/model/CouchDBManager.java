@@ -3,6 +3,8 @@ package uhk.kikm.navigationuhk.model;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 
 import com.couchbase.lite.CouchbaseLiteException;
 import com.couchbase.lite.Database;
@@ -36,6 +38,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.jar.JarEntry;
+
+import uhk.kikm.navigationuhk.SettingsFactory;
 
 /**
  * Trida reprezentujici komunikaci s DB vyuzivajici model (tridy Position a Scan)
@@ -87,7 +91,7 @@ public class CouchDBManager {
         }
 
         try {
-            serverURL = new URL("http://BestAdrressCreatedEver.yeah:65536");
+            serverURL = new URL(SettingsFactory.dbURL);
         }catch (MalformedURLException mue)
         {
             mue.printStackTrace();
