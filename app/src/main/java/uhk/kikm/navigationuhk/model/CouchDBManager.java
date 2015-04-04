@@ -450,6 +450,14 @@ public class CouchDBManager {
     {
         final Replication push = db.createPushReplication(serverURL);
 
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
+
+        String cookieName = sp.getString("cookie_name", "SyncGatewaySession");
+        String sessionId = sp.getString("session_id", "sss");
+        long maxAge = 84600000;
+
+        push.setCookie(cookieName,sessionId, "/", maxAge, false, false);
+
         final ProgressDialog pd = ProgressDialog.show(context, "Wait....", "Sync in progess", false);
         push.addChangeListener(new Replication.ChangeListener() {
             @Override
