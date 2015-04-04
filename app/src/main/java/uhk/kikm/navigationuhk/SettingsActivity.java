@@ -103,6 +103,8 @@ public class SettingsActivity extends PreferenceActivity {
         EditTextPreference editTextPreference = (EditTextPreference) findPreference("couchbase_sync_gateway_id");
         editTextPreference.setText(PreferenceManager.getDefaultSharedPreferences(this).getString("couchbase_sync_gateway_id", "N/A"));
 
+        System.out.println(PreferenceManager.getDefaultSharedPreferences(this).getString("couchbase_sync_gateway_id", "N/A"));
+
         // Bind the summaries of EditText/List/Dialog/Ringtone preferences to
         // their values. When their values change, their summaries are updated
         // to reflect the new value, per the Android Design guidelines.
