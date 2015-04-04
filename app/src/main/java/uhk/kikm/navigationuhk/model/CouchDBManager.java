@@ -48,7 +48,7 @@ public class CouchDBManager {
 
     final String dbname = "scan_uhk";
     final String viewByMac = "by_mac";
-    final String dateFormat = "yyyy-MM-dd HH:mm:ss"; //todo: Dodelat indikaci dne
+    final String dateFormat = "yyyy-MM-dd HH:mm:ss";
 
     public CouchDBManager(Context context) {
         this.context = context;
