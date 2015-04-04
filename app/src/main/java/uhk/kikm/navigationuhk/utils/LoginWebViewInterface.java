@@ -1,6 +1,9 @@
 package uhk.kikm.navigationuhk.utils;
 
+import android.app.Activity;
 import android.webkit.JavascriptInterface;
+
+import uhk.kikm.navigationuhk.LoginActivity;
 
 /**
  * Created by dominik on 4.4.15.
@@ -12,8 +15,10 @@ public class LoginWebViewInterface {
     private String expireTime;
     private String cookieName;
 
-    public LoginWebViewInterface() {
+    private LoginActivity activity;
 
+    public LoginWebViewInterface(LoginActivity activity) {
+        this.activity = activity;
     }
 
     @JavascriptInterface
@@ -42,5 +47,6 @@ public class LoginWebViewInterface {
     {
         this.couhBaseId = couchId;
         System.out.println(couchId);
+        activity.run();
     }
 }

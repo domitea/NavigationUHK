@@ -17,13 +17,14 @@ public class LoginActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        LoginWebViewInterface loginInterface = new LoginWebViewInterface();
+        LoginWebViewInterface loginInterface = new LoginWebViewInterface(this);
 
         WebView webView = (WebView) findViewById(R.id.webViewLogin);
         webView.setWebViewClient(new WebViewClient());
         webView.loadUrl(SettingsFactory.loginURL);
         webView.getSettings().setJavaScriptEnabled(true);
         webView.addJavascriptInterface(loginInterface, "Android");
+        System.out.println(this.toString());
     }
 
 
@@ -32,6 +33,12 @@ public class LoginActivity extends ActionBarActivity {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_login, menu);
         return true;
+    }
+
+    public void run()
+    {
+        System.out.println("call");
+        System.out.println(this.toString());
     }
 
     @Override
