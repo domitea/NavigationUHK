@@ -18,6 +18,7 @@ public class LoginActivity extends ActionBarActivity {
         WebView webView = (WebView) findViewById(R.id.webViewLogin);
         webView.setWebViewClient(new WebViewClient());
         webView.loadUrl(SettingsFactory.loginURL);
+        webView.getSettings().setJavaScriptEnabled(true);
 
 
     }
