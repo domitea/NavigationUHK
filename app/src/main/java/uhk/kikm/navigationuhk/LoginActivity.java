@@ -4,6 +4,8 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 
 
 public class LoginActivity extends ActionBarActivity {
@@ -12,6 +14,10 @@ public class LoginActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        WebView webView = (WebView) findViewById(R.id.webViewLogin);
+        webView.setWebViewClient(new WebViewClient());
+        webView.loadUrl(SettingsFactory.loginURL);
     }
 
 

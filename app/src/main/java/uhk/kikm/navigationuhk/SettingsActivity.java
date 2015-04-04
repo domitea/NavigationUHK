@@ -2,6 +2,7 @@ package uhk.kikm.navigationuhk;
 
 import android.annotation.TargetApi;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
@@ -94,6 +95,7 @@ public class SettingsActivity extends PreferenceActivity {
             @Override
             public boolean onPreferenceClick(Preference preference) {
                 System.out.println("Klik!");
+                runLoginActivity();
                 return true;
             }
         });
@@ -101,7 +103,13 @@ public class SettingsActivity extends PreferenceActivity {
         // Bind the summaries of EditText/List/Dialog/Ringtone preferences to
         // their values. When their values change, their summaries are updated
         // to reflect the new value, per the Android Design guidelines.
-        bindPreferenceSummaryToValue(findPreference("example_text"));
+        bindPreferenceSummaryToValue(findPreference("couchbase_sync_gateway_id"));
+    }
+
+    private void runLoginActivity()
+    {
+        Intent intent = new Intent(this, LoginActivity.class);
+        startActivity(intent);
     }
 
     /**
