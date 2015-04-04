@@ -5,6 +5,7 @@ import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothManager;
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.os.Handler;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -16,9 +17,17 @@ public class BluetoothLEScanner {
 
     Context context;
 
+    private final long INTERVAL = 1000; //ms
+
     BluetoothAdapter bluetoothAdapter;
 
     ArrayList<BluetoothDevice> bleDeviceList = new ArrayList<>();
+
+    BluetoothLEScanCallback bluetoothLEScanCallback = new BluetoothLEScanCallback();
+
+    private Handler handler = new Handler();
+
+    private boolean runScan = false;
 
     public BluetoothLEScanner(Context context) {
         this.context = context;
@@ -43,30 +52,35 @@ public class BluetoothLEScanner {
         }
         else
         {
-            bluetoothAdapter.startLeScan(new BluetoothAdapter.LeScanCallback() {
-                @Override
-                public void onLeScan(BluetoothDevice device, int rssi, byte[] scanRecord) {
-                    if (!bleDeviceList.contains(device))
-                    {
-                        bleDeviceList.add(device);
-                    }
-                }
-            });
+            runScan = true;
+            startBleScan.run();
         }
     }
 
     public void stopScan()
     {
-        bluetoothAdapter.stopLeScan(new BluetoothAdapter.LeScanCallback() {
-            @Override
-            public void onLeScan(BluetoothDevice device, int rssi, byte[] scanRecord) {
-                if (!bleDeviceList.contains(device))
-                {
-                    bleDeviceList.add(device);
-                }
-            }
-        });
+        runScan = false;
     }
+
+    private Runnable startBleScan = new Runnable() {
+        @Override
+        public void run() {
+            if(runScan) {
+                bluetoothAdapter.startLeScan(bluetoothLEScanCallback);
+                handler.postDelayed(stopBleScan, INTERVAL);
+            }
+        }
+    };
+
+    private Runnable stopBleScan = new Runnable() {
+        @Override
+        public void run() {
+                bluetoothAdapter.stopLeScan(bluetoothLEScanCallback);
+                handler.postDelayed(startBleScan, INTERVAL);
+        }
+    };
+
+
 
     public void clear()
     {

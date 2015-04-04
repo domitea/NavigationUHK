@@ -160,7 +160,7 @@ public class CouchDBManager {
         }
     }
 
-    public List<Position> getPostionsByMac(String mac)
+    public List<Position> getPositionsByMac(String mac)
     {
         ArrayList<Position> positions = new ArrayList<>();
         Query query = db.getView(viewByMac).createQuery();
@@ -186,7 +186,7 @@ public class CouchDBManager {
         return positions;
     }
 
-    public List<Position> getPostionsByMacs(String[] macs)
+    public List<Position> getPositionsByMacs(String[] macs)
     {
         ArrayList<Position> positions = new ArrayList<>();
         Query query = db.getView(viewByMac).createQuery();

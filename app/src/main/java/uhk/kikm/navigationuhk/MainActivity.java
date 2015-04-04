@@ -110,7 +110,6 @@ public class MainActivity extends ActionBarActivity {
         else
         {
             bleScanner.stopScan();
-            Toast.makeText(this, bleScanner.getBleDeviceList().toString(), Toast.LENGTH_LONG).show();
             bleScanner.clear();
             scanningBle = false;
         }
@@ -242,7 +241,7 @@ public class MainActivity extends ActionBarActivity {
         for (int i = 0; i < macs.length; i++)
             macs[i] = scanResults.get(i).BSSID;
 
-        ArrayList<Position> positions = new ArrayList<>(dbManager.getPostionsByMacs(macs));
+        ArrayList<Position> positions = new ArrayList<>(dbManager.getPositionsByMacs(macs));
 
         WifiFinder finder = new WifiFinder(positions);
         Position possiblePosition = finder.getPosition(scanResults);
