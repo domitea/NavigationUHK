@@ -10,6 +10,8 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import uhk.kikm.navigationuhk.model.BleScan;
+
 /** Trida reprezentujici Bluetooth skenovani
  *
  */
@@ -21,7 +23,7 @@ public class BluetoothLEScanner {
 
     BluetoothAdapter bluetoothAdapter;
 
-    ArrayList<BluetoothDevice> bleDeviceList = new ArrayList<>();
+    ArrayList<BleScan> bleDeviceList;
 
     BluetoothLEScanCallback bluetoothLEScanCallback = new BluetoothLEScanCallback();
 
@@ -76,7 +78,8 @@ public class BluetoothLEScanner {
         @Override
         public void run() {
             bluetoothAdapter.stopLeScan(bluetoothLEScanCallback);
-
+            bleDeviceList = bluetoothLEScanCallback.getBleScansList();
+            bluetoothLEScanCallback.clear();
             handler.postDelayed(startBleScan, INTERVAL);
         }
     };
@@ -88,7 +91,7 @@ public class BluetoothLEScanner {
         bleDeviceList.clear();
     }
 
-    public ArrayList<BluetoothDevice> getBleDeviceList() {
+    public ArrayList<BleScan> getBleDeviceList() {
         return bleDeviceList;
     }
 }
