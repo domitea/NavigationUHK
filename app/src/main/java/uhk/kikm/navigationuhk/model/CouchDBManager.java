@@ -335,6 +335,24 @@ public class CouchDBManager {
         }
 
         properties.put("scans",scansArray);
+
+        // pridani bluetooth scanu
+        List<Map<String, Object>> bleScansArray = new ArrayList<>();
+        ArrayList<BleScan> bleScans = p.getBleScans();
+        for (BleScan s : bleScans)
+        {
+            Map<String, Object> scanProperties = new HashMap<>();
+            scanProperties.put("address",s.getAddress());
+            scanProperties.put("rssi",String.valueOf(s.getRssi()));
+
+            
+
+            scansArray.add(scanProperties);
+        }
+
+        properties.put("bleScans",bleScansArray);
+
+
         return properties;
     }
 
