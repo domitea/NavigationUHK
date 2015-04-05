@@ -20,6 +20,8 @@ public class Position {
     String description;
     ArrayList<Scan> scans;
 
+    ArrayList<BleScan> bleScans;
+
     // other recorded stuff...
     private float accX, accY, accZ, gyroX, gyroY, gyroZ, magX, magY, magZ;
     private String board, bootloader, brand, device, display, fingerprint, hardware, host, osId, manufacturer, model, product, serial, tags, type, user;
@@ -320,6 +322,14 @@ public class Position {
 
     public void setLon(Float lon) {
         this.lon = lon;
+    }
+
+    public ArrayList<BleScan> getBleScans() {
+        return bleScans;
+    }
+
+    public void setBleScans(ArrayList<BleScan> bleScans) {
+        this.bleScans = bleScans;
     }
 
     @Override

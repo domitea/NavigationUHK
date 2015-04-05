@@ -11,6 +11,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 import uhk.kikm.navigationuhk.model.BleScan;
+import uhk.kikm.navigationuhk.model.Position;
 
 /** Trida reprezentujici Bluetooth skenovani
  *
@@ -80,11 +81,10 @@ public class BluetoothLEScanner {
             bluetoothAdapter.stopLeScan(bluetoothLEScanCallback);
             bleDeviceList = bluetoothLEScanCallback.getBleScansList();
             bluetoothLEScanCallback.clear();
+            System.out.println(bleDeviceList.toString());
             handler.postDelayed(startBleScan, INTERVAL);
         }
     };
-
-
 
     public void clear()
     {

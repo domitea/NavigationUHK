@@ -91,6 +91,7 @@ public class MainActivity extends ActionBarActivity {
         scanningBle = false;
 
         bleScanner = new BluetoothLEScanner(this);
+        bleScanner.findAll();
 
         dbManager = new CouchDBManager(this);
         System.out.println("Open db connection in MainActivity");
@@ -119,7 +120,6 @@ public class MainActivity extends ActionBarActivity {
     {
         if(webInterface.isChanged())
         {
-            wScanner.findAll();
             Toast.makeText(this, webInterface.getX() + " " + webInterface.getY(), Toast.LENGTH_LONG).show();
             webInterface.setChanged(false);
 
@@ -129,6 +129,9 @@ public class MainActivity extends ActionBarActivity {
             deviceInformation.fillPosition(p);
             localizationService.getPoint(p);
             dbManager.savePosition(p);
+            bleScanner.stopScan();
+            p.setBleScans(bleScanner.getBleDeviceList());
+            bleScanner.stopScan();
         }
         else
         {
@@ -226,6 +229,7 @@ public class MainActivity extends ActionBarActivity {
 
         dbManager.closeConnection();
         System.out.println("Close db connection in MainActivity");
+        bleScanner.stopScan();
     }
 
     private void findPosition()
