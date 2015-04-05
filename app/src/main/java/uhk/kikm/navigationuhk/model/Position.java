@@ -42,6 +42,11 @@ public class Position {
         scans.add(s);
     }
 
+    public void addBleScan(BleScan s)
+    {
+        bleScans.add(s);
+    }
+
     public ArrayList<Scan> getScans() {
         return scans;
     }
@@ -324,14 +329,6 @@ public class Position {
         this.lon = lon;
     }
 
-    public ArrayList<BleScan> getBleScans() {
-        return bleScans;
-    }
-
-    public void setBleScans(ArrayList<BleScan> bleScans) {
-        this.bleScans = bleScans;
-    }
-
     @Override
     public String toString() {
         return "Position{" +
@@ -341,6 +338,7 @@ public class Position {
                 ", y=" + y +
                 ", description='" + description + '\'' +
                 ", scans=" + scans +
+                ", bleScans=" + bleScans +
                 ", accX=" + accX +
                 ", accY=" + accY +
                 ", accZ=" + accZ +
@@ -372,4 +370,13 @@ public class Position {
                 ", createdDate=" + createdDate +
                 '}';
     }
+
+    public ArrayList<BleScan> getBleScans() {
+        return bleScans;
+    }
+
+    public void setBleScans(ArrayList<BleScan> bleScans) {
+        this.bleScans = bleScans;
+    }
+
 }

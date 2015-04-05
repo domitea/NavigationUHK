@@ -13,6 +13,9 @@ public class BleScan {
     byte[] scanRecord;
     String address;
 
+    public BleScan() {
+    }
+
     public BleScan(int rssi, byte[] scanRecord, String address) {
         this.rssi = rssi;
         this.scanRecord = scanRecord;

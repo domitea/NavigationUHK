@@ -341,17 +341,16 @@ public class CouchDBManager {
         ArrayList<BleScan> bleScans = p.getBleScans();
         for (BleScan s : bleScans)
         {
-            Map<String, Object> scanProperties = new HashMap<>();
-            scanProperties.put("address",s.getAddress());
-            scanProperties.put("rssi",String.valueOf(s.getRssi()));
+            Map<String, Object> bleScanProperties = new HashMap<>();
+            bleScanProperties.put("address",s.getAddress());
+            bleScanProperties.put("rssi",String.valueOf(s.getRssi()));
 
-            
+            bleScanProperties.put("scanRecord", s.getScanRecord());
 
-            scansArray.add(scanProperties);
+            bleScansArray.add(bleScanProperties);
         }
 
         properties.put("bleScans",bleScansArray);
-
 
         return properties;
     }
@@ -420,6 +419,28 @@ public class CouchDBManager {
 
             p.addScan(s);
         }
+
+        // parsovanui bleScanu
+        List<Map<String, Object>> bleScans = (List) doc.getProperty("bleScans");
+        for (Map<String, Object> scan : bleScans)
+        {
+            BleScan bleScan = new BleScan();
+
+            bleScan.setAddress(scan.get("address").toString());
+            bleScan.setRssi(Integer.parseInt(scan.get("rssi").toString()));
+
+            List<Byte> scanRecordList = (List) doc.getProperty("scanRecord");
+            byte[] scanRecord = new byte[scanRecordList.size()];
+
+            for (int i = 0; i < scanRecordList.size(); i++)
+            {
+                scanRecord[i] = Byte.valueOf(scanRecordList.get(i));
+            }
+            bleScan.setScanRecord(scanRecord);
+
+            p.addBleScan(bleScan);
+        }
+
         return p;
     }
 
