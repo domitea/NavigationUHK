@@ -18,6 +18,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import uhk.kikm.navigationuhk.dataLayer.BleScan;
 import uhk.kikm.navigationuhk.dataLayer.CouchDBManager;
 import uhk.kikm.navigationuhk.dataLayer.Position;
 import uhk.kikm.navigationuhk.utils.BluetoothLEScanner;
@@ -29,7 +30,7 @@ import uhk.kikm.navigationuhk.utils.WifiFinder;
 import uhk.kikm.navigationuhk.utils.WifiScanner;
 
 
-public class MainActivity extends ActionBarActivity {
+public class CollectorActivity extends ActionBarActivity {
 
     WebViewInterface webInterface;
     WifiScanner wScanner;
@@ -119,10 +120,11 @@ public class MainActivity extends ActionBarActivity {
             sensorScanner.fillPosition(p);
             deviceInformation.fillPosition(p);
             localizationService.getPoint(p);
-            dbManager.savePosition(p);
             bleScanner.stopScan();
             p.setBleScans(bleScanner.getBleDeviceList());
-            bleScanner.stopScan();
+            dbManager.savePosition(p);
+            bleScanner.clear();
+            bleScanner.findAll();
         }
         else
         {

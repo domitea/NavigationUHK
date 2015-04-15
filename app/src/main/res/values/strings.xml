@@ -13,15 +13,17 @@
     <string name="action_upload">Nahrát DB</string>
     <string name="title_activity_position_info">PositionInfoActivity</string>
     <string name="title_activity_login">LoginActivity</string>
-    <string name="title_activity_primary">PrimaryActivity</string>
+    <string name="title_activity_primary">Navigation UHK</string>
 
-    <string name="title_section1">Section 1</string>
-    <string name="title_section2">Section 2</string>
-    <string name="title_section3">Section 3</string>
+    <string name="title_level1">Patro 1</string>
+    <string name="title_level2">Patro 2</string>
+    <string name="title_level3">Patro 3</string>
+    <string name="title_level4">Patro 4</string>
+    <string name="title_collector_mode">Mód sběru dat</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
-    <string name="action_example">Example action</string>
+    <string name="action_example">Hledej</string>
 
 </resources>

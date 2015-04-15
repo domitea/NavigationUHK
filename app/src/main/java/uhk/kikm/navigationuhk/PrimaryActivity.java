@@ -1,6 +1,7 @@
 package uhk.kikm.navigationuhk;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
@@ -15,8 +16,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.support.v4.widget.DrawerLayout;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 public class PrimaryActivity extends ActionBarActivity
@@ -45,6 +49,7 @@ public class PrimaryActivity extends ActionBarActivity
         mNavigationDrawerFragment.setUp(
                 R.id.navigation_drawer,
                 (DrawerLayout) findViewById(R.id.drawer_layout));
+
     }
 
     @Override
@@ -59,15 +64,30 @@ public class PrimaryActivity extends ActionBarActivity
     public void onSectionAttached(int number) {
         switch (number) {
             case 1:
-                mTitle = getString(R.string.title_section1);
+                mTitle = getString(R.string.title_level1);
+                Toast.makeText(mNavigationDrawerFragment.getActivity() , "1. Patro", Toast.LENGTH_SHORT).show();
                 break;
             case 2:
-                mTitle = getString(R.string.title_section2);
+                mTitle = getString(R.string.title_level2);
+                Toast.makeText(mNavigationDrawerFragment.getActivity() , "2. Patro", Toast.LENGTH_SHORT).show();
                 break;
             case 3:
-                mTitle = getString(R.string.title_section3);
+                mTitle = getString(R.string.title_level3);
+                Toast.makeText(mNavigationDrawerFragment.getActivity() , "3. Patro", Toast.LENGTH_SHORT).show();
+                break;
+            case 4:
+                mTitle = getString(R.string.title_level4);
+                Toast.makeText(mNavigationDrawerFragment.getActivity() , "4. Patro", Toast.LENGTH_SHORT).show();
+                break;
+            case 5:
+                runCollectorActivity();
                 break;
         }
+    }
+
+    private void runCollectorActivity() {
+        Intent intent = new Intent(this, LoginActivity.class);
+        startActivity(intent);
     }
 
     public void restoreActionBar() {
@@ -135,6 +155,11 @@ public class PrimaryActivity extends ActionBarActivity
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_primary, container, false);
+
+            WebView webView = (WebView) rootView.findViewById(R.id.webViewPrimary);
+            webView.setWebViewClient(new WebViewClient());
+            webView.loadUrl("http://google.com");
+
             return rootView;
         }
 

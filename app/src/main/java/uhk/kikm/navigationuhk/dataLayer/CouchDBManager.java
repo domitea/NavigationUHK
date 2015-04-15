@@ -20,6 +20,7 @@ import com.couchbase.lite.replicator.Replication;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.sql.Array;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -45,6 +46,7 @@ public class CouchDBManager {
 
     final String dbname = "scan_uhk";
     final String viewByMac = "by_mac";
+    final String viewByBleMac = "by_ble_mac";
     final String dateFormat = "yyyy-MM-dd HH:mm:ss";
 
     public CouchDBManager(Context context) {
@@ -65,10 +67,25 @@ public class CouchDBManager {
             db.getView(viewByMac).setMap(new Mapper() {
                 @Override
                 public void map(Map<String, Object> document, Emitter emitter) {
-                    List<Map<String, Object>> scans = (List) document.get("scans");
-                    for (Map<String, Object> scan : scans)
-                    {
-                        emitter.emit(scan.get("mac"), document);
+                    if (document.get("type").equals("scan") || document.get("type") == null) {
+                        List<Map<String, Object>> scans = (List) document.get("scans");
+                        for (Map<String, Object> scan : scans) {
+                            emitter.emit(scan.get("mac"), document);
+                        }
+                    }
+                }
+            }, "1");
+
+            // to same, akorat pro Bluetooth Low Energy
+
+            db.getView(viewByBleMac).setMap(new Mapper() {
+                @Override
+                public void map(Map<String, Object> document, Emitter emitter) {
+                    if (document.get("type").equals("scan") || document.get("type") == null) {
+                        List<Map<String, Object>> scans = (List) document.get("bleScans");
+                        for (Map<String, Object> scan : scans) {
+                            emitter.emit(scan.get("address"), document);
+                        }
                     }
                 }
             }, "1");
@@ -270,6 +287,9 @@ public class CouchDBManager {
 
     private Map<String, Object> getMapOfDocument(Position p) {
         Map<String, Object> properties = new HashMap<>();
+
+        properties.put("type", "scan");
+
         properties.put("x", String.valueOf(p.getX()));
         properties.put("y", String.valueOf(p.getY()));
         properties.put("level", String.valueOf(p.getLevel()));
@@ -331,18 +351,25 @@ public class CouchDBManager {
         // pridani bluetooth scanu
         List<Map<String, Object>> bleScansArray = new ArrayList<>();
         ArrayList<BleScan> bleScans = p.getBleScans();
-        for (BleScan s : bleScans)
+        if (bleScans != null) {
+            for (BleScan s : bleScans) {
+                Map<String, Object> bleScanProperties = new HashMap<>();
+                bleScanProperties.put("address", s.getAddress());
+                bleScanProperties.put("rssi", String.valueOf(s.getRssi()));
+
+                bleScanProperties.put("scanRecord", s.getScanRecord());
+
+                bleScansArray.add(bleScanProperties);
+            }
+            properties.put("bleScans",bleScansArray);
+        }
+        else
         {
-            Map<String, Object> bleScanProperties = new HashMap<>();
-            bleScanProperties.put("address",s.getAddress());
-            bleScanProperties.put("rssi",String.valueOf(s.getRssi()));
-
-            bleScanProperties.put("scanRecord", s.getScanRecord());
-
-            bleScansArray.add(bleScanProperties);
+            properties.put("bleScans","[]");
         }
 
-        properties.put("bleScans",bleScansArray);
+
+
 
         return properties;
     }
@@ -413,24 +440,26 @@ public class CouchDBManager {
         }
 
         // parsovanui bleScanu
-        List<Map<String, Object>> bleScans = (List) doc.getProperty("bleScans");
-        for (Map<String, Object> scan : bleScans)
-        {
-            BleScan bleScan = new BleScan();
+        if (doc.getProperty("bleScans") != null) { // Pokud neni null
+            if (!doc.getProperty("bleScans").equals("[]")) { // nebo nebyly zaznamenany vysilace
+                List<Map<String, Object>> bleScans = (List) doc.getProperty("bleScans");
+                for (Map<String, Object> scan : bleScans) {
+                    BleScan bleScan = new BleScan();
 
-            bleScan.setAddress(scan.get("address").toString());
-            bleScan.setRssi(Integer.parseInt(scan.get("rssi").toString()));
+                    bleScan.setAddress(scan.get("address").toString());
+                    bleScan.setRssi(Integer.parseInt(scan.get("rssi").toString()));
 
-            List<Byte> scanRecordList = (List) doc.getProperty("scanRecord");
-            byte[] scanRecord = new byte[scanRecordList.size()];
+                    List<Byte> scanRecordList = (List) doc.getProperty("scanRecord") == null ? new ArrayList<>() : (List) doc.getProperty("scanRecord");
+                    byte[] scanRecord = new byte[scanRecordList.size()];
 
-            for (int i = 0; i < scanRecordList.size(); i++)
-            {
-                scanRecord[i] = Byte.valueOf(scanRecordList.get(i));
+                    for (int i = 0; i < scanRecordList.size(); i++) {
+                        scanRecord[i] = Byte.valueOf(scanRecordList.get(i));
+                    }
+                    bleScan.setScanRecord(scanRecord);
+
+                    p.addBleScan(bleScan);
+                }
             }
-            bleScan.setScanRecord(scanRecord);
-
-            p.addBleScan(bleScan);
         }
 
         return p;

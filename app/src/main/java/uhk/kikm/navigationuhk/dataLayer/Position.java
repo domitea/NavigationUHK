@@ -32,6 +32,7 @@ public class Position {
 
     public Position() {
         scans = new ArrayList<>();
+        bleScans = new ArrayList<>();
         description = "";
     }
 

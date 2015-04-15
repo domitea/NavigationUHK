@@ -2,6 +2,7 @@ package uhk.kikm.navigationuhk;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -56,6 +57,7 @@ public class PositionInfoActivity extends ActionBarActivity {
             public void onClick(DialogInterface dialog, int which) {
                 System.out.println("Destroy!!! " + position.toString());
                 dbManager.removePosition(position.getId());
+                redirectBack();
             }
         });
 
@@ -67,6 +69,12 @@ public class PositionInfoActivity extends ActionBarActivity {
         });
 
         removeDialog.create().show();
+    }
+
+    public void redirectBack()
+    {
+        Intent intent = new Intent(this, ListPositionsActivity.class);
+        startActivity(intent);
     }
 
 

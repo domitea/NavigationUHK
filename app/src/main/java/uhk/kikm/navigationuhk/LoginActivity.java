@@ -1,5 +1,6 @@
 package uhk.kikm.navigationuhk;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.support.v4.app.NavUtils;
@@ -7,6 +8,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
@@ -23,8 +25,8 @@ public class LoginActivity extends ActionBarActivity {
         LoginWebViewInterface loginInterface = new LoginWebViewInterface(this);
 
         WebView webView = (WebView) findViewById(R.id.webViewLogin);
-        webView.setWebViewClient(new WebViewClient());
         webView.loadUrl(SettingsFactory.loginURL);
+        webView.setWebChromeClient(new WebChromeClient());
         webView.getSettings().setJavaScriptEnabled(true);
         webView.addJavascriptInterface(loginInterface, "Android");
         System.out.println(this.toString());
@@ -52,7 +54,8 @@ public class LoginActivity extends ActionBarActivity {
 
         editor.commit();
 
-        NavUtils.navigateUpFromSameTask(this);
+        Intent intent = new Intent(this, CollectorActivity.class);
+        startActivity(intent);
     }
 
     @Override
