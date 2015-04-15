@@ -290,6 +290,9 @@ public class CouchDBManager {
 
         properties.put("type", "scan");
 
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
+        properties.put("couchbase_sync_gateway_id", sp.getString("couchbase_sync_gateway_id", "no_id"));
+
         properties.put("x", String.valueOf(p.getX()));
         properties.put("y", String.valueOf(p.getY()));
         properties.put("level", String.valueOf(p.getLevel()));
