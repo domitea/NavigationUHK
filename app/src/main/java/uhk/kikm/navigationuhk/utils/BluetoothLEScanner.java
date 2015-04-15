@@ -1,7 +1,6 @@
 package uhk.kikm.navigationuhk.utils;
 
 import android.bluetooth.BluetoothAdapter;
-import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothManager;
 import android.content.Context;
 import android.content.pm.PackageManager;
@@ -10,8 +9,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-import uhk.kikm.navigationuhk.model.BleScan;
-import uhk.kikm.navigationuhk.model.Position;
+import uhk.kikm.navigationuhk.dataLayer.BleScan;
 
 /** Trida reprezentujici Bluetooth skenovani
  *

@@ -4,7 +4,7 @@ import android.content.Context;
 import android.os.Build;
 import android.telephony.TelephonyManager;
 
-import uhk.kikm.navigationuhk.model.Position;
+import uhk.kikm.navigationuhk.dataLayer.Position;
 
 
 /**

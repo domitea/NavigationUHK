@@ -1,6 +1,4 @@
-package uhk.kikm.navigationuhk.model;
-
-import android.bluetooth.BluetoothDevice;
+package uhk.kikm.navigationuhk.dataLayer;
 
 import java.util.Arrays;
 

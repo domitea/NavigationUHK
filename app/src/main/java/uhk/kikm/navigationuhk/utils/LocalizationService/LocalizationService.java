@@ -1,6 +1,6 @@
 package uhk.kikm.navigationuhk.utils.LocalizationService;
 
-import uhk.kikm.navigationuhk.model.Position;
+import uhk.kikm.navigationuhk.dataLayer.Position;
 
 /**
  * Created by dominik on 26.2.15.

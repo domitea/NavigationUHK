@@ -10,8 +10,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import uhk.kikm.navigationuhk.model.CouchDBManager;
-import uhk.kikm.navigationuhk.model.Position;
+import uhk.kikm.navigationuhk.dataLayer.CouchDBManager;
+import uhk.kikm.navigationuhk.dataLayer.Position;
 
 
 public class PositionInfoActivity extends ActionBarActivity {

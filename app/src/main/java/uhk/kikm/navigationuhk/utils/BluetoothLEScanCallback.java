@@ -5,9 +5,8 @@ import android.bluetooth.BluetoothDevice;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Set;
 
-import uhk.kikm.navigationuhk.model.BleScan;
+import uhk.kikm.navigationuhk.dataLayer.BleScan;
 
 /**
  * Protoze uzasny Android nema v teto verzi plne implememntovany scanRecord, je pouzito reseni nalezene na internetu

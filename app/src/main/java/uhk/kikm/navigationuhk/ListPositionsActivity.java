@@ -1,7 +1,5 @@
 package uhk.kikm.navigationuhk;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
@@ -13,17 +11,14 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
-import java.text.DateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import uhk.kikm.navigationuhk.model.CouchDBManager;
-import uhk.kikm.navigationuhk.model.Position;
+import uhk.kikm.navigationuhk.dataLayer.CouchDBManager;
+import uhk.kikm.navigationuhk.dataLayer.Position;
 
 
 public class ListPositionsActivity extends ActionBarActivity {

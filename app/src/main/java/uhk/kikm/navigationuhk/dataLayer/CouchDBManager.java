@@ -1,6 +1,5 @@
-package uhk.kikm.navigationuhk.model;
+package uhk.kikm.navigationuhk.dataLayer;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -16,20 +15,15 @@ import com.couchbase.lite.Query;
 import com.couchbase.lite.QueryEnumerator;
 import com.couchbase.lite.QueryRow;
 import com.couchbase.lite.android.AndroidContext;
-import com.couchbase.lite.auth.Authenticator;
-import com.couchbase.lite.auth.AuthenticatorFactory;
-import com.couchbase.lite.auth.AuthenticatorImpl;
 import com.couchbase.lite.replicator.Replication;
 
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -37,8 +31,6 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
-import java.util.jar.JarEntry;
 
 import uhk.kikm.navigationuhk.SettingsFactory;
 

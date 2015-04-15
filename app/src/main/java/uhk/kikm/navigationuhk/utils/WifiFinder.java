@@ -2,15 +2,13 @@ package uhk.kikm.navigationuhk.utils;
 
 import android.net.wifi.ScanResult;
 
-import com.couchbase.lite.auth.Authenticator;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
-import uhk.kikm.navigationuhk.model.Position;
-import uhk.kikm.navigationuhk.model.Scan;
+import uhk.kikm.navigationuhk.dataLayer.Position;
+import uhk.kikm.navigationuhk.dataLayer.Scan;
 
 /**
  * Trida reprezentujici vyhledavani polohy

@@ -1,4 +1,4 @@
-package uhk.kikm.navigationuhk.model;
+package uhk.kikm.navigationuhk.dataLayer;
 
 /**
  * Modelova trida reprezentujci scan

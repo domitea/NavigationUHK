@@ -1,10 +1,7 @@
 package uhk.kikm.navigationuhk;
 
-import android.app.ActionBar;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.net.wifi.ScanResult;
-import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -12,9 +9,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.SpinnerAdapter;
 import android.widget.Toast;
 
 import java.io.ByteArrayOutputStream;
@@ -23,8 +18,8 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-import uhk.kikm.navigationuhk.model.CouchDBManager;
-import uhk.kikm.navigationuhk.model.Position;
+import uhk.kikm.navigationuhk.dataLayer.CouchDBManager;
+import uhk.kikm.navigationuhk.dataLayer.Position;
 import uhk.kikm.navigationuhk.utils.BluetoothLEScanner;
 import uhk.kikm.navigationuhk.utils.DeviceInformation;
 import uhk.kikm.navigationuhk.utils.LocalizationService.LocalizationService;
@@ -32,10 +27,6 @@ import uhk.kikm.navigationuhk.utils.SensorScanner;
 import uhk.kikm.navigationuhk.utils.WebViewInterface;
 import uhk.kikm.navigationuhk.utils.WifiFinder;
 import uhk.kikm.navigationuhk.utils.WifiScanner;
-
-import com.couchbase.lite.*;
-import com.couchbase.lite.android.AndroidContext;
-
 
 
 public class MainActivity extends ActionBarActivity {

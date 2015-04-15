@@ -6,16 +6,11 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.wifi.ScanResult;
 import android.net.wifi.WifiManager;
-import android.support.annotation.NonNull;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
 
-import uhk.kikm.navigationuhk.model.Position;
-import uhk.kikm.navigationuhk.model.Scan;
+import uhk.kikm.navigationuhk.dataLayer.Position;
+import uhk.kikm.navigationuhk.dataLayer.Scan;
 
 /** Trida reprezentujici skanovani Wifi
  *
