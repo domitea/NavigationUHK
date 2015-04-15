@@ -19,11 +19,9 @@
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="uhk.kikm.navigationuhk.PrimaryActivity" />
         </activity>
         <activity
             android:name=".ListPositionsActivity"
@@ -56,6 +54,15 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="uhk.kikm.navigationuhk.MainActivity" />
+        </activity>
+        <activity
+            android:name=".PrimaryActivity"
+            android:label="@string/title_activity_primary" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
     </application>
 
