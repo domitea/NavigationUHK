@@ -227,16 +227,6 @@ public class CollectorActivity extends ActionBarActivity {
             Log.w("debug", dbManager.getPositionsByMacs(mac).toString());
         }
 
-
-           /*
-        String[] macs = new String[scanResults.size()];
-
-        for (int i = 0; i < macs.length; i++)
-            macs[i] = scanResults.get(i).BSSID;
-
-        ArrayList<Position> positions = new ArrayList<>(dbManager.getPositionsByMacs(macs));
-        */
-
         if (positions.size() > 0) {
             WifiFinder finder = new WifiFinder(positions);
             Position possiblePosition = finder.getPosition(scanResults);

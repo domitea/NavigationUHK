@@ -19,7 +19,7 @@ public class WifiFinder {
     private HashMap<Scan, Position> positionsOfScans;
     private HashMap<Float, Position> computedDistance;
 
-    private final double SIGNAL_NO_RECIEVED = -100; // Minimalni signal, ktery dokaze WiFi prijimat - Ekvivalent "nuly"
+    private final double SIGNAL_NO_RECIEVED = -100; // Minimalni sila signalu, ktery dokaze WiFi prijimat - Ekvivalent "nuly"
 
     public WifiFinder(ArrayList<Position> positions) {
 
@@ -75,7 +75,7 @@ public class WifiFinder {
 
             distance = (float) Math.sqrt(distance);
 
-            computedDistance.put(distance, p); // hashmapa rikajici, ze ta a ta pozice ma takovou a takovou vzdalenost
+            computedDistance.put(distance, p); // hashmapa rikajici, ze ta a ta pozice ma takovou a makovou vzdalenost
 
             distance = 0;
         }
