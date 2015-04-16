@@ -7,11 +7,12 @@
     <string name="write_point">Zapsat Fingerprint</string>
     <string name="title_activity_list_positions">List of Positions</string>
     <string name="hello_world">Hello world!</string>
-    <string name="find">Hledej</string>
+    <string name="find">Wifi hledání</string>
+    <string name="find_ble">BLE hledání</string>
     <string name="action_download">Stáhnout DB</string>
     <string name="action_upload">Nahrát DB</string>
-    <string name="title_activity_position_info">PositionInfoActivity</string>
-    <string name="title_activity_login">LoginActivity</string>
+    <string name="title_activity_position_info">Informace</string>
+    <string name="title_activity_login">Přihlášení uživatele</string>
     <string name="title_activity_primary">Navigation UHK</string>
 
     <string name="title_level1">Patro 1</string>

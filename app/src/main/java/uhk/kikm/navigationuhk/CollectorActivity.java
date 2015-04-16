@@ -22,6 +22,7 @@ import java.util.List;
 import uhk.kikm.navigationuhk.dataLayer.BleScan;
 import uhk.kikm.navigationuhk.dataLayer.CouchDBManager;
 import uhk.kikm.navigationuhk.dataLayer.Position;
+import uhk.kikm.navigationuhk.utils.BluetoothFinder;
 import uhk.kikm.navigationuhk.utils.BluetoothLEScanner;
 import uhk.kikm.navigationuhk.utils.DeviceInformation;
 import uhk.kikm.navigationuhk.utils.LocalizationService.LocalizationService;
@@ -164,6 +165,9 @@ public class CollectorActivity extends ActionBarActivity {
             selectedLevel = 4;
             Toast.makeText(this , selectedLevel + ". Patro", Toast.LENGTH_SHORT).show();
         }
+        else if(id == R.id.action_find_ble) {
+            findPositionByBle();
+        }
 
         return super.onOptionsItemSelected(item);
     }
@@ -235,8 +239,41 @@ public class CollectorActivity extends ActionBarActivity {
         }
         else
         {
-            Toast.makeText(this , "Nedostatek dat", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this , "Nedostatek Wifi dat", Toast.LENGTH_SHORT).show();
         }
+
+    }
+
+    private void findPositionByBle()
+    {
+        bleScanner.stopScan();
+        List<BleScan> bleScans = bleScanner.getBleDeviceList();
+
+        bleScanner.clear();
+        bleScanner.findAll();
+
+        ArrayList<Position> BlePositions = new ArrayList<>();
+
+        for (BleScan s : bleScans)
+        {
+            String[] address = new String[] {s.getAddress()};
+            List<Position> pos = dbManager.getPositionsByBleAddresses(address);
+
+            BlePositions.addAll(pos);
+        }
+
+        if (BlePositions.size() > 0)
+        {
+            BluetoothFinder bleFinder = new BluetoothFinder(BlePositions);
+            Position possibleBlePosition = bleFinder.getPosition(bleScans);
+
+            view.loadUrl("javascript:setBlePoint(" + String.valueOf(possibleBlePosition.getX()) + ", " + String.valueOf(possibleBlePosition.getY()) + ", \"purple\"" + ")");
+        }
+        else
+        {
+            Toast.makeText(this , "Nedostatek Bluetooth dat", Toast.LENGTH_SHORT).show();
+        }
+
 
     }
 }

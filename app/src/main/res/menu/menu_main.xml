@@ -32,4 +32,6 @@
         android:orderInCategory="100" app:showAsAction="never" />
     <item android:id="@+id/action_find" android:title="@string/find"
         android:orderInCategory="100" app:showAsAction="never" />
+    <item android:id="@+id/action_find_ble" android:title="@string/find_ble"
+        android:orderInCategory="100" app:showAsAction="never" />
 </menu>

@@ -23,11 +23,19 @@
       evt.target.ownerDocument.getElementById("ball").setAttribute("cy", y + 5);
       android.setXY(x, y)
     }
+
     function setPoint(x, y, color)
     {
       document.getElementById("point").setAttribute("cx", x + 5);
       document.getElementById("point").setAttribute("cy", y + 5);
       document.getElementById("point").setAttribute("fill", color);
+    }
+
+    function setBlePoint(x, y, color)
+    {
+      document.getElementById("ble_point").setAttribute("cx", x + 5);
+      document.getElementById("ble_point").setAttribute("cy", y + 5);
+      document.getElementById("ble_point").setAttribute("fill", color);
     }
     ]]>
     </script>
@@ -475,4 +483,5 @@
     </g>
     <circle id="ball" cx="-10" cy="-10" r="10" stroke="black" fill="none" />
     <circle id="point" cx="-10" cy="-10" r="10" stroke="black" fill="red" />
+    <circle id="ble_point" cx="-10" cy="-10" r="10" stroke="black" fill="black" />
 </svg>
