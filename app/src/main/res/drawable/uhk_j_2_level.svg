@@ -23,10 +23,11 @@
       evt.target.ownerDocument.getElementById("ball").setAttribute("cy", y + 5);
       android.setXY(x, y)
     }
-    function setPoint(x,y)
+    function setPoint(x, y, color)
     {
       document.getElementById("point").setAttribute("cx", x + 5);
       document.getElementById("point").setAttribute("cy", y + 5);
+      document.getElementById("point").setAttribute("fill", color);
     }
     ]]>
     </script>

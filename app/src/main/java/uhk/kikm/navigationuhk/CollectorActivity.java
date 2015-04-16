@@ -231,7 +231,7 @@ public class CollectorActivity extends ActionBarActivity {
             WifiFinder finder = new WifiFinder(positions);
             Position possiblePosition = finder.getPosition(scanResults);
 
-            view.loadUrl("javascript:setPoint(" + String.valueOf(possiblePosition.getX()) + ", " + String.valueOf(possiblePosition.getY()) + ")");
+            view.loadUrl("javascript:setPoint(" + String.valueOf(possiblePosition.getX()) + ", " + String.valueOf(possiblePosition.getY()) + ", \"blue\"" + ")");
         }
         else
         {
