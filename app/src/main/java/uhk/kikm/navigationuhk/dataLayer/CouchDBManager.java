@@ -67,12 +67,11 @@ public class CouchDBManager {
             db.getView(viewByMac).setMap(new Mapper() {
                 @Override
                 public void map(Map<String, Object> document, Emitter emitter) {
-                    if (document.get("type").equals("scan") || document.get("type") == null) {
                         List<Map<String, Object>> scans = (List) document.get("scans");
                         for (Map<String, Object> scan : scans) {
                             emitter.emit(scan.get("mac"), document);
                         }
-                    }
+
                 }
             }, "1");
 
@@ -81,12 +80,11 @@ public class CouchDBManager {
             db.getView(viewByBleMac).setMap(new Mapper() {
                 @Override
                 public void map(Map<String, Object> document, Emitter emitter) {
-                    if (document.get("type").equals("scan") || document.get("type") == null) {
                         List<Map<String, Object>> scans = (List) document.get("bleScans");
                         for (Map<String, Object> scan : scans) {
                             emitter.emit(scan.get("address"), document);
                         }
-                    }
+
                 }
             }, "1");
 
@@ -150,7 +148,7 @@ public class CouchDBManager {
             this.db = manager.getDatabase(dbname); // Vybrani/vytvoreni DB
 
             /**
-             * "Deklarace" mapovaci fce. Popsana o na radku 45
+             * "Deklarace" mapovaci fce. Popsana na radku 45
              *
              */
             db.getView(viewByMac).setMap(new Mapper() {
@@ -161,6 +159,17 @@ public class CouchDBManager {
                     {
                         emitter.emit(scan.get("mac"), document);
                     }
+                }
+            }, "1");
+
+            db.getView(viewByBleMac).setMap(new Mapper() {
+                @Override
+                public void map(Map<String, Object> document, Emitter emitter) {
+                    List<Map<String, Object>> scans = (List) document.get("bleScans");
+                    for (Map<String, Object> scan : scans) {
+                        emitter.emit(scan.get("address"), document);
+                    }
+
                 }
             }, "1");
         }

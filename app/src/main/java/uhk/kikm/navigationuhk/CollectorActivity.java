@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.net.wifi.ScanResult;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -216,20 +217,35 @@ public class CollectorActivity extends ActionBarActivity {
     {
         wScanner.findAll();
         List<ScanResult> scanResults = wScanner.getScanResults();
-        /*ScanResult result = scanResults.get(0);
+        ArrayList<Position> positions = new ArrayList<>();
 
-        ArrayList<Position> positions = new ArrayList<>(dbManager.getPostionsByMac(result.BSSID));*/
+        for (ScanResult s : scanResults)
+        {
+            String[] mac = new String[] {s.BSSID};
+            List<Position> pos = dbManager.getPositionsByMacs(mac);
+            positions.addAll(pos);
+            Log.w("debug", dbManager.getPositionsByMacs(mac).toString());
+        }
 
+
+           /*
         String[] macs = new String[scanResults.size()];
 
         for (int i = 0; i < macs.length; i++)
             macs[i] = scanResults.get(i).BSSID;
 
         ArrayList<Position> positions = new ArrayList<>(dbManager.getPositionsByMacs(macs));
+        */
 
-        WifiFinder finder = new WifiFinder(positions);
-        Position possiblePosition = finder.getPosition(scanResults);
+        if (positions.size() > 0) {
+            WifiFinder finder = new WifiFinder(positions);
+            Position possiblePosition = finder.getPosition(scanResults);
 
-        view.loadUrl("javascript:setPoint("+ String.valueOf(possiblePosition.getX()) + ", " + String.valueOf(possiblePosition.getY()) + ")");
+            view.loadUrl("javascript:setPoint(" + String.valueOf(possiblePosition.getX()) + ", " + String.valueOf(possiblePosition.getY()) + ")");
+        }
+        else
+        {
+            Toast.makeText(this , "Nedostatek dat", Toast.LENGTH_SHORT).show();
+        }
     }
 }
