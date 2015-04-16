@@ -101,11 +101,9 @@ public class CollectorActivity extends ActionBarActivity {
             sensorScanner.fillPosition(p);  // naplnime daty ze senzoru
             deviceInformation.fillPosition(p); // naplnime infomacemi o zarizeni
             localizationService.getPoint(p); // naplnime vypocitanymi GPS souradnicemi
-            bleScanner.stopScan();
             p.setBleScans(bleScanner.getBleDeviceList()); // naplnime daty z Bluetooth
             dbManager.savePosition(p); // Ulozime pozici v DB
             bleScanner.clear();
-            bleScanner.findAll();
         }
         else
         {
@@ -246,11 +244,7 @@ public class CollectorActivity extends ActionBarActivity {
 
     private void findPositionByBle()
     {
-        bleScanner.stopScan();
         List<BleScan> bleScans = bleScanner.getBleDeviceList();
-
-        bleScanner.clear();
-        bleScanner.findAll();
 
         ArrayList<Position> BlePositions = new ArrayList<>();
 
