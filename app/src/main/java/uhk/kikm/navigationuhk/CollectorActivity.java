@@ -59,7 +59,6 @@ public class CollectorActivity extends ActionBarActivity {
         view.addJavascriptInterface(webInterface, "android");
 
         final Button newPointButton = (Button) findViewById(R.id.write_point);
-        final Button newBlePointButton = (Button) findViewById(R.id.write_point_ble);
 
         wScanner = new WifiScanner(this);
         wScanner.findAll();
@@ -68,12 +67,6 @@ public class CollectorActivity extends ActionBarActivity {
             @Override
             public void onClick(View v) {
                 writePoint();
-            }
-        });
-        newBlePointButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                writeBlePoint();
             }
         });
 
@@ -91,21 +84,7 @@ public class CollectorActivity extends ActionBarActivity {
         localizationService = new LocalizationService(SettingsFactory.pointA, SettingsFactory.pointB, SettingsFactory.pointC); // nastavujeme souradnicovy system pro vypocet GPS souradnic
 
         selectedLevel = 2;
-    }
-
-    public void writeBlePoint()
-    {
-        if (!scanningBle)
-        {
-            bleScanner.findAll();
-            scanningBle = true;
-        }
-        else
-        {
-            bleScanner.stopScan();
-            bleScanner.clear();
-            scanningBle = false;
-        }
+        Toast.makeText(this , selectedLevel + ". Patro", Toast.LENGTH_SHORT).show();
     }
 
     public void writePoint()
@@ -168,14 +147,22 @@ public class CollectorActivity extends ActionBarActivity {
         {
             findPosition();
         }
-        else if(id == R.id.action_level_1)
+        else if(id == R.id.action_level_1) {
             selectedLevel = 1;
-        else if(id == R.id.action_level_2)
+            Toast.makeText(this , selectedLevel + ". Patro", Toast.LENGTH_SHORT).show();
+        }
+        else if(id == R.id.action_level_2) {
             selectedLevel = 2;
-        else if(id == R.id.action_level_3)
+            Toast.makeText(this , selectedLevel + ". Patro", Toast.LENGTH_SHORT).show();
+        }
+        else if(id == R.id.action_level_3) {
             selectedLevel = 3;
-        else if(id == R.id.action_level_4)
+            Toast.makeText(this , selectedLevel + ". Patro", Toast.LENGTH_SHORT).show();
+        }
+        else if(id == R.id.action_level_4) {
             selectedLevel = 4;
+            Toast.makeText(this , selectedLevel + ". Patro", Toast.LENGTH_SHORT).show();
+        }
 
         return super.onOptionsItemSelected(item);
     }
