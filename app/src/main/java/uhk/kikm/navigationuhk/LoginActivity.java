@@ -25,8 +25,9 @@ public class LoginActivity extends ActionBarActivity {
         LoginWebViewInterface loginInterface = new LoginWebViewInterface(this);
 
         WebView webView = (WebView) findViewById(R.id.webViewLogin);
-        webView.loadUrl(SettingsFactory.loginURL);
         webView.setWebChromeClient(new WebChromeClient());
+        webView.loadUrl(SettingsFactory.loginURL);
+
         webView.getSettings().setJavaScriptEnabled(true);
         webView.addJavascriptInterface(loginInterface, "Android");
         System.out.println(this.toString());
