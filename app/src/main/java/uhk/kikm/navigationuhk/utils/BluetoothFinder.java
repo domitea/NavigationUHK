@@ -1,12 +1,11 @@
 package uhk.kikm.navigationuhk.utils;
 
-import android.net.wifi.ScanResult;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
+import uhk.kikm.navigationuhk.dataLayer.BleScan;
 import uhk.kikm.navigationuhk.dataLayer.Position;
 import uhk.kikm.navigationuhk.dataLayer.Scan;
 
@@ -39,7 +38,7 @@ public class BluetoothFinder {
         computedDistance = new HashMap<>();
     }
 
-    public Position getPosition(List<ScanResult> scansForIdentify) {
+    public Position getPosition(List<BleScan> scansForIdentify) {
 
         float distance = 0;
 
@@ -49,25 +48,25 @@ public class BluetoothFinder {
         {
 
             if (p.getScans().size() < scansForIdentify.size()) {
-                for (ScanResult s : scansForIdentify) {
-                    int index = containsMAC(s.BSSID, p);
+                for (BleScan s : scansForIdentify) {
+                    int index = containsAddress(s.getAddress(), p);
 
                     if (index >= 0) {
-                        distance += Math.pow(p.getScan(index).getStrenght() + s.level, 2);
+                        distance += Math.pow(p.getScan(index).getStrenght() + s.getRssi(), 2);
                     }
                     else if (index == -1)
                     {
-                        distance += Math.pow(SIGNAL_NO_RECIEVED + s.level, 2);
+                        distance += Math.pow(SIGNAL_NO_RECIEVED + s.getRssi(), 2);
                     }
                 }
             } else {
-                for (Scan s : p.getScans()) {
-                    int index = containsMAC(s.getMAC(), scansForIdentify);
+                for (BleScan s : p.getBleScans()) {
+                    int index = containsAddress(s.getAddress(), scansForIdentify);
 
                     if (index >= 0) {
-                        distance += Math.pow(scansForIdentify.get(index).level + s.getStrenght(), 2);
+                        distance += Math.pow(scansForIdentify.get(index).getRssi() + s.getRssi(), 2);
                     } else if (index == -1) {
-                        distance += Math.pow(SIGNAL_NO_RECIEVED + s.getStrenght(), 2);
+                        distance += Math.pow(SIGNAL_NO_RECIEVED + s.getRssi(), 2);
                     }
                 }
             }
@@ -89,11 +88,11 @@ public class BluetoothFinder {
         return nearestPosition;
     }
 
-    private int containsMAC(String s, Position p)
+    private int containsAddress(String s, Position p)
     {
         for(int i = 0; i < p.getScans().size(); i++)
         {
-            if (s.equals(p.getScan(i).getMAC()))
+            if (s.equals(p.getBleScans().get(i).getAddress()));
             {
                 return i;
             }
@@ -101,11 +100,11 @@ public class BluetoothFinder {
         return -1;
     }
 
-    private int containsMAC(String s, List<ScanResult> scans)
+    private int containsAddress(String s, List<BleScan> scans)
     {
         for(int i = 0; i < scans.size(); i++)
         {
-            if (s.equals(scans.get(i).BSSID))
+            if (s.equals(scans.get(i).getAddress()))
             {
                 return i;
             }

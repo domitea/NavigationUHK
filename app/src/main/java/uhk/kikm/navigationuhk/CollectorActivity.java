@@ -237,5 +237,6 @@ public class CollectorActivity extends ActionBarActivity {
         {
             Toast.makeText(this , "Nedostatek dat", Toast.LENGTH_SHORT).show();
         }
+
     }
 }
