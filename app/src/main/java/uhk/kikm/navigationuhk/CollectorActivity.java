@@ -94,14 +94,14 @@ public class CollectorActivity extends ActionBarActivity {
             Toast.makeText(this, webInterface.getX() + " " + webInterface.getY(), Toast.LENGTH_LONG).show();
             webInterface.setChanged(false);
 
-            Position p = wScanner.getPosition(webInterface.getX(), webInterface.getY());
-            p.setLevel(selectedLevel);
-            sensorScanner.fillPosition(p);
-            deviceInformation.fillPosition(p);
-            localizationService.getPoint(p);
+            Position p = wScanner.getPosition(webInterface.getX(), webInterface.getY()); // Tovarnicka na "vyrobu pozice"
+            p.setLevel(selectedLevel); // nastavime patro
+            sensorScanner.fillPosition(p);  // naplnime daty ze senzoru
+            deviceInformation.fillPosition(p); // naplnime infomacemi o zarizeni
+            localizationService.getPoint(p); // naplnime vypocitanymi GPS souradnicemi
             bleScanner.stopScan();
-            p.setBleScans(bleScanner.getBleDeviceList());
-            dbManager.savePosition(p);
+            p.setBleScans(bleScanner.getBleDeviceList()); // naplnime daty z Bluetooth
+            dbManager.savePosition(p); // Ulozime pozici v DB
             bleScanner.clear();
             bleScanner.findAll();
         }

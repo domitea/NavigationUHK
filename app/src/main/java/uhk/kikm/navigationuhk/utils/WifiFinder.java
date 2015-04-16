@@ -19,13 +19,15 @@ public class WifiFinder {
     private HashMap<Scan, Position> positionsOfScans;
     private HashMap<Float, Position> computedDistance;
 
+    private final double SIGNAL_NO_RECIEVED = -100; // Minimalni signal, ktery dokaze WiFi prijimat - Ekvivalent "nuly"
+
     public WifiFinder(ArrayList<Position> positions) {
 
         navigationData = new HashMap<>();
         positionsOfScans = new HashMap<>();
 
         this.positions = positions;
-        for (Position p : positions) // pro vsechny polohy patre
+        for (Position p : positions) // pro vsechny polohy co obsahuji MAC
         {
             navigationData.put(String.valueOf(p.getX()) + " " + String.valueOf(p.getY()), p); // pridej do seznamu vsechny scany s hasem polohy
             for (Scan s : p.getScans()) {
@@ -37,39 +39,43 @@ public class WifiFinder {
         computedDistance = new HashMap<>();
     }
 
-    public ArrayList<Position> getPositions() {
-        return positions;
-    }
-
-    public void setPositions(ArrayList<Position> positions) {
-        this.positions = positions;
-    }
-
     public Position getPosition(List<ScanResult> scansForIdentify) {
 
         float distance = 0;
 
-        Position nearestPosition = new Position();
+        Position nearestPosition;
 
         for (Position p : positions)
         {
-            for (ScanResult s : scansForIdentify)
-            {
-                int index = containsMAC(s,p);
 
-                if (index >= 0)
-                {
-                    distance += Math.pow(s.level - p.getScan(index).getStrenght(), 2);
+            if (p.getScans().size() < scansForIdentify.size()) {
+                for (ScanResult s : scansForIdentify) {
+                    int index = containsMAC(s.BSSID, p);
+
+                    if (index >= 0) {
+                        distance += Math.pow(p.getScan(index).getStrenght() - s.level, 2);
+                    }
+                    else if (index == -1)
+                    {
+                        distance += Math.pow(SIGNAL_NO_RECIEVED - s.level, 2);
+                    }
                 }
-                /*else if (index == -1)
-                {
-                    distance += Math.pow(0 - s.level, 2);
-                }*/
+            } else {
+                for (Scan s : p.getScans()) {
+                    int index = containsMAC(s.getMAC(), scansForIdentify);
+
+                    if (index >= 0) {
+                        distance += Math.pow(scansForIdentify.get(index).level - s.getStrenght(), 2);
+                    } else if (index == -1) {
+                        distance += Math.pow(SIGNAL_NO_RECIEVED - s.getStrenght(), 2);
+                    }
+                }
             }
+
 
             distance = (float) Math.sqrt(distance);
 
-            computedDistance.put(distance,p); // hashmapa rikajici, ze ta a ta pozice ma takovou a takovou vzdalenost
+            computedDistance.put(distance, p); // hashmapa rikajici, ze ta a ta pozice ma takovou a takovou vzdalenost
 
             distance = 0;
         }
@@ -83,16 +89,37 @@ public class WifiFinder {
         return nearestPosition;
     }
 
-    private int containsMAC(ScanResult s, Position p)
+    private int containsMAC(String s, Position p)
     {
         for(int i = 0; i < p.getScans().size(); i++)
         {
-            if (s.BSSID.equals(p.getScan(i).getMAC()))
+            if (s.equals(p.getScan(i).getMAC()))
             {
                 return i;
             }
         }
         return -1;
     }
+
+    private int containsMAC(String s, List<ScanResult> scans)
+    {
+        for(int i = 0; i < scans.size(); i++)
+        {
+            if (s.equals(scans.get(i).BSSID))
+            {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    public ArrayList<Position> getPositions() {
+        return positions;
+    }
+
+    public void setPositions(ArrayList<Position> positions) {
+        this.positions = positions;
+    }
+
 
 }
