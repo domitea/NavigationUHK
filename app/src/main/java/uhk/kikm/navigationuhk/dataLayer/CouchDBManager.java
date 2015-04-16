@@ -20,7 +20,6 @@ import com.couchbase.lite.replicator.Replication;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.sql.Array;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -46,7 +45,7 @@ public class CouchDBManager {
 
     final String dbname = "scan_uhk";
     final String viewByMac = "by_mac";
-    final String viewByBleMac = "by_ble_mac";
+    final String viewByBleAdress = "by_ble_mac";
     final String dateFormat = "yyyy-MM-dd HH:mm:ss";
 
     public CouchDBManager(Context context) {
@@ -77,7 +76,7 @@ public class CouchDBManager {
 
             // to same, akorat pro Bluetooth Low Energy
 
-            db.getView(viewByBleMac).setMap(new Mapper() {
+            db.getView(viewByBleAdress).setMap(new Mapper() {
                 @Override
                 public void map(Map<String, Object> document, Emitter emitter) {
                         List<Map<String, Object>> scans = (List) document.get("bleScans");
@@ -162,7 +161,7 @@ public class CouchDBManager {
                 }
             }, "1");
 
-            db.getView(viewByBleMac).setMap(new Mapper() {
+            db.getView(viewByBleAdress).setMap(new Mapper() {
                 @Override
                 public void map(Map<String, Object> document, Emitter emitter) {
                     List<Map<String, Object>> scans = (List) document.get("bleScans");
@@ -232,6 +231,38 @@ public class CouchDBManager {
         {
             cle.printStackTrace();
         }
+        return positions;
+    }
+
+    public List<Position> getPositionsByBleAddresses(String[] adresses)
+    {
+        ArrayList<Position> positions = new ArrayList<>();
+
+        Query query = db.getView(viewByBleAdress).createQuery();
+
+        List<Object> objects = new ArrayList<>();
+
+        for (int i = 0; i < adresses.length; i++)
+            objects.add( (Object) adresses[i]);
+
+        query.setKeys(objects);
+
+        try
+        {
+            QueryEnumerator result = query.run();
+            for (Iterator<QueryRow> it = result; it.hasNext(); )
+            {
+                QueryRow row = it.next();
+                Document doc = row.getDocument();
+
+                positions.add(getPositionFormDocument(doc));
+            }
+        }
+        catch (CouchbaseLiteException cle)
+        {
+            cle.printStackTrace();
+        }
+
         return positions;
     }
 
