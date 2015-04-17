@@ -6,27 +6,27 @@ import java.util.HashMap;
 import java.util.List;
 
 import uhk.kikm.navigationuhk.dataLayer.BleScan;
-import uhk.kikm.navigationuhk.dataLayer.Position;
+import uhk.kikm.navigationuhk.dataLayer.Fingerprint;
 import uhk.kikm.navigationuhk.dataLayer.Scan;
 
 /**
  * Implementace vyhledavani pomoci Bluetooth - je defacto stejna jako i WifiFinderu
  */
 public class BluetoothFinder {
-    private ArrayList<Position> positions;
-    private HashMap<String, Position> navigationData;
-    private HashMap<Scan, Position> positionsOfScans;
-    private HashMap<Float, Position> computedDistance;
+    private ArrayList<Fingerprint> fingerprints;
+    private HashMap<String, Fingerprint> navigationData;
+    private HashMap<Scan, Fingerprint> positionsOfScans;
+    private HashMap<Float, Fingerprint> computedDistance;
 
     private final double SIGNAL_NO_RECIEVED = -100; // Minimalni sila signalu, ktery dokaze Bluetooth prijimat - Ekvivalent "nuly" TODO: Overit!
 
-    public BluetoothFinder(ArrayList<Position> positions) {
+    public BluetoothFinder(ArrayList<Fingerprint> fingerprints) {
 
         navigationData = new HashMap<>();
         positionsOfScans = new HashMap<>();
 
-        this.positions = positions;
-        for (Position p : positions) // pro vsechny polohy co obsahuji adresu
+        this.fingerprints = fingerprints;
+        for (Fingerprint p : fingerprints) // pro vsechny polohy co obsahuji adresu
         {
             navigationData.put(String.valueOf(p.getX()) + " " + String.valueOf(p.getY()), p); // pridej do seznamu vsechny scany s hasem polohy
             for (Scan s : p.getScans()) {
@@ -38,13 +38,13 @@ public class BluetoothFinder {
         computedDistance = new HashMap<>();
     }
 
-    public Position getPosition(List<BleScan> scansForIdentify) {
+    public Fingerprint getPosition(List<BleScan> scansForIdentify) {
 
         float distance = 0;
 
-        Position nearestPosition;
+        Fingerprint nearestFingerprint;
 
-        for (Position p : positions)
+        for (Fingerprint p : fingerprints)
         {
 
             if (p.getScans().size() < scansForIdentify.size()) {
@@ -83,12 +83,12 @@ public class BluetoothFinder {
 
         Collections.sort(sortedDistances); // setridime
 
-        nearestPosition = computedDistance.get(sortedDistances.get(0)); // a prvni bude nejmensi, takze podle Hash mapy mame i polohu
+        nearestFingerprint = computedDistance.get(sortedDistances.get(0)); // a prvni bude nejmensi, takze podle Hash mapy mame i polohu
 
-        return nearestPosition;
+        return nearestFingerprint;
     }
 
-    private int containsAddress(String s, Position p)
+    private int containsAddress(String s, Fingerprint p)
     {
         for(int i = 0; i < p.getScans().size(); i++)
         {
@@ -112,12 +112,12 @@ public class BluetoothFinder {
         return -1;
     }
 
-    public ArrayList<Position> getPositions() {
-        return positions;
+    public ArrayList<Fingerprint> getFingerprints() {
+        return fingerprints;
     }
 
-    public void setPositions(ArrayList<Position> positions) {
-        this.positions = positions;
+    public void setFingerprints(ArrayList<Fingerprint> fingerprints) {
+        this.fingerprints = fingerprints;
     }
 
 

@@ -21,7 +21,7 @@ import java.util.List;
 
 import uhk.kikm.navigationuhk.dataLayer.BleScan;
 import uhk.kikm.navigationuhk.dataLayer.CouchDBManager;
-import uhk.kikm.navigationuhk.dataLayer.Position;
+import uhk.kikm.navigationuhk.dataLayer.Fingerprint;
 import uhk.kikm.navigationuhk.utils.BluetoothFinder;
 import uhk.kikm.navigationuhk.utils.BluetoothLEScanner;
 import uhk.kikm.navigationuhk.utils.DeviceInformation;
@@ -96,7 +96,7 @@ public class CollectorActivity extends ActionBarActivity {
             Toast.makeText(this, webInterface.getX() + " " + webInterface.getY(), Toast.LENGTH_LONG).show();
             webInterface.setChanged(false);
 
-            Position p = wScanner.getPosition(webInterface.getX(), webInterface.getY()); // Tovarnicka na "vyrobu pozice"
+            Fingerprint p = wScanner.getPosition(webInterface.getX(), webInterface.getY()); // Tovarnicka na "vyrobu pozice"
             p.setLevel(selectedLevel); // nastavime patro
             sensorScanner.fillPosition(p);  // naplnime daty ze senzoru
             deviceInformation.fillPosition(p); // naplnime infomacemi o zarizeni
@@ -219,21 +219,21 @@ public class CollectorActivity extends ActionBarActivity {
     {
         wScanner.findAll();
         List<ScanResult> scanResults = wScanner.getScanResults();
-        ArrayList<Position> positions = new ArrayList<>();
+        ArrayList<Fingerprint> fingerprints = new ArrayList<>();
 
         for (ScanResult s : scanResults)
         {
             String[] mac = new String[] {s.BSSID};
-            List<Position> pos = dbManager.getPositionsByMacs(mac);
-            positions.addAll(pos);
+            List<Fingerprint> pos = dbManager.getPositionsByMacs(mac);
+            fingerprints.addAll(pos);
             Log.w("debug", dbManager.getPositionsByMacs(mac).toString());
         }
 
-        if (positions.size() > 0) {
-            WifiFinder finder = new WifiFinder(positions);
-            Position possiblePosition = finder.getPosition(scanResults);
+        if (fingerprints.size() > 0) {
+            WifiFinder finder = new WifiFinder(fingerprints);
+            Fingerprint possibleFingerprint = finder.getPosition(scanResults);
 
-            view.loadUrl("javascript:setPoint(" + String.valueOf(possiblePosition.getX()) + ", " + String.valueOf(possiblePosition.getY()) + ", \"blue\"" + ")");
+            view.loadUrl("javascript:setPoint(" + String.valueOf(possibleFingerprint.getX()) + ", " + String.valueOf(possibleFingerprint.getY()) + ", \"blue\"" + ")");
         }
         else
         {
@@ -246,22 +246,22 @@ public class CollectorActivity extends ActionBarActivity {
     {
         List<BleScan> bleScans = bleScanner.getBleDeviceList();
 
-        ArrayList<Position> BlePositions = new ArrayList<>();
+        ArrayList<Fingerprint> bleFingerprints = new ArrayList<>();
 
         for (BleScan s : bleScans)
         {
             String[] address = new String[] {s.getAddress()};
-            List<Position> pos = dbManager.getPositionsByBleAddresses(address);
+            List<Fingerprint> pos = dbManager.getPositionsByBleAddresses(address);
 
-            BlePositions.addAll(pos);
+            bleFingerprints.addAll(pos);
         }
 
-        if (BlePositions.size() > 0)
+        if (bleFingerprints.size() > 0)
         {
-            BluetoothFinder bleFinder = new BluetoothFinder(BlePositions);
-            Position possibleBlePosition = bleFinder.getPosition(bleScans);
+            BluetoothFinder bleFinder = new BluetoothFinder(bleFingerprints);
+            Fingerprint possibleBleFingerprint = bleFinder.getPosition(bleScans);
 
-            view.loadUrl("javascript:setBlePoint(" + String.valueOf(possibleBlePosition.getX()) + ", " + String.valueOf(possibleBlePosition.getY()) + ", \"purple\"" + ")");
+            view.loadUrl("javascript:setBlePoint(" + String.valueOf(possibleBleFingerprint.getX()) + ", " + String.valueOf(possibleBleFingerprint.getY()) + ", \"purple\"" + ")");
         }
         else
         {

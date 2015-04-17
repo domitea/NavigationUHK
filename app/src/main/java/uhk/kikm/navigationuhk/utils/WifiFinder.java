@@ -7,27 +7,27 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
-import uhk.kikm.navigationuhk.dataLayer.Position;
+import uhk.kikm.navigationuhk.dataLayer.Fingerprint;
 import uhk.kikm.navigationuhk.dataLayer.Scan;
 
 /**
  * Trida reprezentujici vyhledavani polohy
  */
 public class WifiFinder {
-    private ArrayList<Position> positions;
-    private HashMap<String, Position> navigationData;
-    private HashMap<Scan, Position> positionsOfScans;
-    private HashMap<Float, Position> computedDistance;
+    private ArrayList<Fingerprint> fingerprints;
+    private HashMap<String, Fingerprint> navigationData;
+    private HashMap<Scan, Fingerprint> positionsOfScans;
+    private HashMap<Float, Fingerprint> computedDistance;
 
     private final double SIGNAL_NO_RECIEVED = -100; // Minimalni sila signalu, ktery dokaze WiFi prijimat - Ekvivalent "nuly"
 
-    public WifiFinder(ArrayList<Position> positions) {
+    public WifiFinder(ArrayList<Fingerprint> fingerprints) {
 
         navigationData = new HashMap<>();
         positionsOfScans = new HashMap<>();
 
-        this.positions = positions;
-        for (Position p : positions) // pro vsechny polohy co obsahuji MAC
+        this.fingerprints = fingerprints;
+        for (Fingerprint p : fingerprints) // pro vsechny polohy co obsahuji MAC
         {
             navigationData.put(String.valueOf(p.getX()) + " " + String.valueOf(p.getY()), p); // pridej do seznamu vsechny scany s hasem polohy
             for (Scan s : p.getScans()) {
@@ -39,13 +39,13 @@ public class WifiFinder {
         computedDistance = new HashMap<>();
     }
 
-    public Position getPosition(List<ScanResult> scansForIdentify) {
+    public Fingerprint getPosition(List<ScanResult> scansForIdentify) {
 
         float distance = 0;
 
-        Position nearestPosition;
+        Fingerprint nearestFingerprint;
 
-        for (Position p : positions)
+        for (Fingerprint p : fingerprints)
         {
 
             if (p.getScans().size() < scansForIdentify.size()) {
@@ -84,12 +84,12 @@ public class WifiFinder {
 
         Collections.sort(sortedDistances); // setridime
 
-        nearestPosition = computedDistance.get(sortedDistances.get(0)); // a prvni bude nejmensi, takze podle Hash mapy mame i polohu
+        nearestFingerprint = computedDistance.get(sortedDistances.get(0)); // a prvni bude nejmensi, takze podle Hash mapy mame i polohu
 
-        return nearestPosition;
+        return nearestFingerprint;
     }
 
-    private int containsMAC(String s, Position p)
+    private int containsMAC(String s, Fingerprint p)
     {
         for(int i = 0; i < p.getScans().size(); i++)
         {
@@ -113,12 +113,12 @@ public class WifiFinder {
         return -1;
     }
 
-    public ArrayList<Position> getPositions() {
-        return positions;
+    public ArrayList<Fingerprint> getFingerprints() {
+        return fingerprints;
     }
 
-    public void setPositions(ArrayList<Position> positions) {
-        this.positions = positions;
+    public void setFingerprints(ArrayList<Fingerprint> fingerprints) {
+        this.fingerprints = fingerprints;
     }
 
 

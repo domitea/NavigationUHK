@@ -9,7 +9,7 @@ import android.net.wifi.WifiManager;
 
 import java.util.List;
 
-import uhk.kikm.navigationuhk.dataLayer.Position;
+import uhk.kikm.navigationuhk.dataLayer.Fingerprint;
 import uhk.kikm.navigationuhk.dataLayer.Scan;
 
 /** Trida reprezentujici skanovani Wifi
@@ -50,9 +50,9 @@ public class WifiScanner {
         return scanResults;
     }
 
-    public Position getPosition(int x, int y)
+    public Fingerprint getPosition(int x, int y)
     {
-        Position p = new Position();
+        Fingerprint p = new Fingerprint();
         p.setX(x);
         p.setY(y);
 

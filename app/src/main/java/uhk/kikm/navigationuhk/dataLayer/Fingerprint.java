@@ -6,7 +6,7 @@ import java.util.Date;
 /**
  * Modelova trida reprezentujici nejakou pozici
  */
-public class Position {
+public class Fingerprint {
 
     // couchDB identificator
     String id;
@@ -30,7 +30,7 @@ public class Position {
 
     Date createdDate;
 
-    public Position() {
+    public Fingerprint() {
         scans = new ArrayList<>();
         bleScans = new ArrayList<>();
         description = "";

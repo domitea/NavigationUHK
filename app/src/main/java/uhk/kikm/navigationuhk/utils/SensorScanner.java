@@ -6,7 +6,7 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 
-import uhk.kikm.navigationuhk.dataLayer.Position;
+import uhk.kikm.navigationuhk.dataLayer.Fingerprint;
 
 /**
  * Created by dominik on 5.3.15.
@@ -63,7 +63,7 @@ public class SensorScanner {
         };
     }
 
-    public Position fillPosition(Position p)
+    public Fingerprint fillPosition(Fingerprint p)
     {
         p.setAccX(accX);
         p.setAccY(accY);

@@ -1,6 +1,6 @@
 package uhk.kikm.navigationuhk.utils.LocalizationService;
 
-import uhk.kikm.navigationuhk.dataLayer.Position;
+import uhk.kikm.navigationuhk.dataLayer.Fingerprint;
 
 /**
  * Created by dominik on 26.2.15.
@@ -47,7 +47,7 @@ public class LocalizationService {
      * @param p Bod bez GPS souradnic
      * @return Bod s vypocitanimi GPS souradnicemi
      */
-    public Position getPoint(Position p)
+    public Fingerprint getPoint(Fingerprint p)
     {
 
         float longtitudeP = ( ( (p.getX() - point.getX()) / (differenceX) ) * lonDifference ) + point.getLongitude();

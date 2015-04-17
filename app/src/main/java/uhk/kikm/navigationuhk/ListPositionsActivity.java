@@ -18,13 +18,13 @@ import java.util.List;
 import java.util.Map;
 
 import uhk.kikm.navigationuhk.dataLayer.CouchDBManager;
-import uhk.kikm.navigationuhk.dataLayer.Position;
+import uhk.kikm.navigationuhk.dataLayer.Fingerprint;
 
 
 public class ListPositionsActivity extends ActionBarActivity {
 
     CouchDBManager dbManager;
-    List<Position> positions;
+    List<Fingerprint> fingerprints;
     Map<String, String> positionsMap;
     ArrayList<String> positionsStrings;
     ListView lv;
@@ -59,9 +59,9 @@ public class ListPositionsActivity extends ActionBarActivity {
     private void makeDataForView() {
         positionsMap.clear();
 
-        positions = dbManager.getAllPositions();
+        fingerprints = dbManager.getAllPositions();
 
-        for (Position p : positions)
+        for (Fingerprint p : fingerprints)
         {
               positionsMap.put(String.valueOf(p.getX()) + " " + String.valueOf(p.getY()) + " " + p.getId(), p.getId());
         }

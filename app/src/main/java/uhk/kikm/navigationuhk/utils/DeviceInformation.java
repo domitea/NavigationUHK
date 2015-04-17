@@ -4,7 +4,7 @@ import android.content.Context;
 import android.os.Build;
 import android.telephony.TelephonyManager;
 
-import uhk.kikm.navigationuhk.dataLayer.Position;
+import uhk.kikm.navigationuhk.dataLayer.Fingerprint;
 
 
 /**
@@ -20,7 +20,7 @@ public class DeviceInformation {
         telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
     }
 
-    public Position fillPosition(Position p)
+    public Fingerprint fillPosition(Fingerprint p)
     {
         p.setDeviceID(telephonyManager.getDeviceId());
         p.setBoard(build.BOARD);

@@ -105,9 +105,9 @@ public class CouchDBManager {
         }
     }
 
-    public void savePositions(List<Position> positions)
+    public void savePositions(List<Fingerprint> fingerprints)
     {
-        for (Position p : positions){
+        for (Fingerprint p : fingerprints){
             Map<String, Object> properties = getMapOfDocument(p);
 
             Document doc = db.createDocument();
@@ -123,7 +123,7 @@ public class CouchDBManager {
     }
 
 
-    public void savePosition(Position p)
+    public void savePosition(Fingerprint p)
     {
         Map<String, Object> properties = getMapOfDocument(p);
 
@@ -178,9 +178,9 @@ public class CouchDBManager {
         }
     }
 
-    public List<Position> getPositionsByMac(String mac)
+    public List<Fingerprint> getPositionsByMac(String mac)
     {
-        ArrayList<Position> positions = new ArrayList<>();
+        ArrayList<Fingerprint> fingerprints = new ArrayList<>();
         Query query = db.getView(viewByMac).createQuery();
 
         query.setStartKey(mac);
@@ -194,19 +194,19 @@ public class CouchDBManager {
                 QueryRow row = it.next();
                 Document doc = row.getDocument();
 
-                positions.add(getPositionFormDocument(doc));
+                fingerprints.add(getPositionFormDocument(doc));
             }
         }
         catch (CouchbaseLiteException cle)
         {
             cle.printStackTrace();
         }
-        return positions;
+        return fingerprints;
     }
 
-    public List<Position> getPositionsByMacs(String[] macs)
+    public List<Fingerprint> getPositionsByMacs(String[] macs)
     {
-        ArrayList<Position> positions = new ArrayList<>();
+        ArrayList<Fingerprint> fingerprints = new ArrayList<>();
         Query query = db.getView(viewByMac).createQuery();
 
         List<Object> objects = new ArrayList<>();
@@ -224,19 +224,19 @@ public class CouchDBManager {
                 QueryRow row = it.next();
                 Document doc = row.getDocument();
 
-                positions.add(getPositionFormDocument(doc));
+                fingerprints.add(getPositionFormDocument(doc));
             }
         }
         catch (CouchbaseLiteException cle)
         {
             cle.printStackTrace();
         }
-        return positions;
+        return fingerprints;
     }
 
-    public List<Position> getPositionsByBleAddresses(String[] adresses)
+    public List<Fingerprint> getPositionsByBleAddresses(String[] adresses)
     {
-        ArrayList<Position> positions = new ArrayList<>();
+        ArrayList<Fingerprint> fingerprints = new ArrayList<>();
 
         Query query = db.getView(viewByBleAdress).createQuery();
 
@@ -255,7 +255,7 @@ public class CouchDBManager {
                 QueryRow row = it.next();
                 Document doc = row.getDocument();
 
-                positions.add(getPositionFormDocument(doc));
+                fingerprints.add(getPositionFormDocument(doc));
             }
         }
         catch (CouchbaseLiteException cle)
@@ -263,13 +263,13 @@ public class CouchDBManager {
             cle.printStackTrace();
         }
 
-        return positions;
+        return fingerprints;
     }
 
-    public List<Position> getAllPositions()
+    public List<Fingerprint> getAllPositions()
     {
         Query query = db.createAllDocumentsQuery();
-        ArrayList<Position> positions = new ArrayList<>();
+        ArrayList<Fingerprint> fingerprints = new ArrayList<>();
 
         query.setAllDocsMode(Query.AllDocsMode.ALL_DOCS);
         try {
@@ -279,14 +279,14 @@ public class CouchDBManager {
                 QueryRow row = it.next();
                 Document doc = row.getDocument();
 
-                positions.add(getPositionFormDocument(doc));
+                fingerprints.add(getPositionFormDocument(doc));
             }
         }
         catch (CouchbaseLiteException cle)
         {
             cle.printStackTrace();
         }
-        return positions;
+        return fingerprints;
 
     }
 
@@ -325,7 +325,7 @@ public class CouchDBManager {
         return new Date();
     }
 
-    private Map<String, Object> getMapOfDocument(Position p) {
+    private Map<String, Object> getMapOfDocument(Fingerprint p) {
         Map<String, Object> properties = new HashMap<>();
 
         properties.put("type", "scan");
@@ -417,9 +417,9 @@ public class CouchDBManager {
         return properties;
     }
 
-    private Position getPositionFormDocument(Document doc)
+    private Fingerprint getPositionFormDocument(Document doc)
     {
-        Position p = new Position();
+        Fingerprint p = new Fingerprint();
         // poloha
         p.setX(Integer.parseInt(doc.getProperty("x").toString()));
         p.setY(Integer.parseInt(doc.getProperty("y").toString()));
@@ -590,10 +590,10 @@ public class CouchDBManager {
 
     }
 
-    public Position getPositionById(String id)
+    public Fingerprint getPositionById(String id)
     {
         Document doc = db.getDocument(id);
-        Position p = getPositionFormDocument(doc);
+        Fingerprint p = getPositionFormDocument(doc);
         return p;
     }
 

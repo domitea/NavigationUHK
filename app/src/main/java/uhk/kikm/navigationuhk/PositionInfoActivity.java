@@ -12,13 +12,13 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import uhk.kikm.navigationuhk.dataLayer.CouchDBManager;
-import uhk.kikm.navigationuhk.dataLayer.Position;
+import uhk.kikm.navigationuhk.dataLayer.Fingerprint;
 
 
 public class PositionInfoActivity extends ActionBarActivity {
 
     String id;
-    Position position;
+    Fingerprint fingerprint;
     CouchDBManager dbManager;
 
     @Override
@@ -28,11 +28,11 @@ public class PositionInfoActivity extends ActionBarActivity {
 
         dbManager = new CouchDBManager(this);
         id = getIntent().getStringExtra("id");
-        position = dbManager.getPositionById(id);
+        fingerprint = dbManager.getPositionById(id);
 
         TextView textView = (TextView) findViewById(R.id.textView);
 
-        textView.setText(position.toString());
+        textView.setText(fingerprint.toString());
 
 
         Button button = (Button) findViewById(R.id.button);
@@ -55,8 +55,8 @@ public class PositionInfoActivity extends ActionBarActivity {
         removeDialog.setPositiveButton("Odstranit", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                System.out.println("Destroy!!! " + position.toString());
-                dbManager.removePosition(position.getId());
+                System.out.println("Destroy!!! " + fingerprint.toString());
+                dbManager.removePosition(fingerprint.getId());
                 redirectBack();
             }
         });
