@@ -6,7 +6,8 @@ import android.webkit.JavascriptInterface;
 import uhk.kikm.navigationuhk.LoginActivity;
 
 /**
- * Created by dominik on 4.4.15.
+ * Trida reprezentujici JavascriptInterface pro LoginActivity
+ * Dominik Matoulek 2015
  */
 public class LoginWebViewInterface {
 

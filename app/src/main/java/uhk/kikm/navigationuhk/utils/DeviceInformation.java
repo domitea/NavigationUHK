@@ -8,18 +8,28 @@ import uhk.kikm.navigationuhk.dataLayer.Fingerprint;
 
 
 /**
- * Created by dominik on 5.3.15.
+ * Trida ziskavajici informace o zarizeni
+ * Dominik Matoulek 2015
  */
 public class DeviceInformation {
 
     TelephonyManager telephonyManager;
     Build build;
 
+    /**
+     * Inicializuje DeviceInformation
+     * @param context context
+     */
     public DeviceInformation(Context context) {
         build = new Build();
         telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
     }
 
+    /**
+     * Naplni fingerprint daty o zarizeni, ktere fingerprint delalo
+     * @param p fingerprint vhodny k naplneni daty
+     * @return fingerprint s naplenynmi daty
+     */
     public Fingerprint fillPosition(Fingerprint p)
     {
         p.setDeviceID(telephonyManager.getDeviceId());

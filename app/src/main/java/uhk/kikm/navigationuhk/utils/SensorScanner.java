@@ -9,7 +9,8 @@ import android.hardware.SensorManager;
 import uhk.kikm.navigationuhk.dataLayer.Fingerprint;
 
 /**
- * Created by dominik on 5.3.15.
+ * Trida reprezentujici ziskavani dat ze senzoru telefonu pro zjisteni orientace v prostoru
+ * Dominik Matoulek 2015
  */
 public class SensorScanner {
 
@@ -18,6 +19,10 @@ public class SensorScanner {
 
     private float accX, accY, accZ, gyroX, gyroY, gyroZ, magX, magY, magZ;
 
+    /**
+     * Inicializuje SensorScanner
+     * @param context context
+     */
     public SensorScanner(Context context) {
         sensorManager = (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
 
@@ -28,13 +33,16 @@ public class SensorScanner {
         sensorManager.registerListener(sensorEventListener, sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD), SensorManager.SENSOR_DELAY_FASTEST);
     }
 
+    /**
+     * Inicializuje listernery
+     */
     private void initListeners()
     {
         sensorEventListener = new SensorEventListener() {
             @Override
             public void onSensorChanged(SensorEvent event) {
                 Sensor sensor = event.sensor;
-                switch (sensor.getType())
+                switch (sensor.getType()) // Pokud je typ sensoru:
                 {
                     case Sensor.TYPE_ACCELEROMETER:
                         accX = event.values[0];
@@ -63,6 +71,11 @@ public class SensorScanner {
         };
     }
 
+    /**
+     * Naplni fingerprint daty ze senzoru
+     * @param p Fingerprint k naplneni
+     * @return fingerprint naplneny daty
+     */
     public Fingerprint fillPosition(Fingerprint p)
     {
         p.setAccX(accX);
