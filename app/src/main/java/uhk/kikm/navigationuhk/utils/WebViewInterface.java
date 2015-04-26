@@ -3,8 +3,8 @@ package uhk.kikm.navigationuhk.utils;
 import android.content.Context;
 import android.webkit.JavascriptInterface;
 
-/** Trida reprezetntujici interface k WebView
- *
+/** Trida reprezetntujici interface k WebView - zde se zjistuje souradnice bodu na mape, kde uzivatel klikl
+ * Dominik Matoulek 2015
  */
 public class WebViewInterface {
 
@@ -15,6 +15,10 @@ public class WebViewInterface {
 
     boolean changed = false;
 
+    /**
+     * Inicializuje WebViewInterface
+     * @param context
+     */
     public WebViewInterface(Context context) {
         this.context = context;
     }

@@ -12,8 +12,8 @@ import java.util.List;
 import uhk.kikm.navigationuhk.dataLayer.Fingerprint;
 import uhk.kikm.navigationuhk.dataLayer.Scan;
 
-/** Trida reprezentujici skanovani Wifi
- *
+/** Trida reprezentujici skenovani Wifi
+ *  Dominik Matoulek
  */
 public class WifiScanner {
 
