@@ -18,7 +18,7 @@ public class BluetoothFinder {
     private HashMap<Scan, Fingerprint> positionsOfScans;
     private HashMap<Float, Fingerprint> computedDistance;
 
-    private final double SIGNAL_NO_RECIEVED = -100; // Minimalni sila signalu, ktery dokaze Bluetooth prijimat - Ekvivalent "nuly" TODO: Overit!
+    private final double SIGNAL_NO_RECIEVED = -100; // Minimalni sila signalu, ktery dokaze Bluetooth prijimat - Ekvivalent "nuly"
 
     public BluetoothFinder(ArrayList<Fingerprint> fingerprints) {
 
