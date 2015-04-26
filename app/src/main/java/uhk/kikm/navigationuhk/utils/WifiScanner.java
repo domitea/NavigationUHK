@@ -23,10 +23,17 @@ public class WifiScanner {
 
     WifiManager wm;
 
+    /**
+     * Inicializuje WifiScanner
+     * @param context context
+     */
     public WifiScanner(Context context) {
         this.context = context;
     }
 
+    /**
+     * Nalezne vsechny wifi site v okoli telefonu
+     */
     public void findAll()
     {
         wm = (WifiManager) context.getSystemService(context.WIFI_SERVICE);
@@ -50,6 +57,12 @@ public class WifiScanner {
         return scanResults;
     }
 
+    /**
+     * Tovarnicka na vyrobu fingerprintu
+     * @param x souradnice x ze zobrazene mapy
+     * @param y souradnice y ze zobrazene mapy
+     * @return vytvoreny prazdny fingertprint
+     */
     public Fingerprint createFingerprintLikeFactory(int x, int y)
     {
         Fingerprint p = new Fingerprint();
