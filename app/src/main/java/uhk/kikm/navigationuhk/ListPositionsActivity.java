@@ -20,6 +20,12 @@ import java.util.Map;
 import uhk.kikm.navigationuhk.dataLayer.CouchDBManager;
 import uhk.kikm.navigationuhk.dataLayer.Fingerprint;
 
+/**
+ * Aktivita urcena na zobrazeni seznamu vsech porizenych fingerprintu
+ *
+ * Dominik Matoulek 2015
+ */
+
 
 public class ListPositionsActivity extends ActionBarActivity {
 
@@ -50,12 +56,15 @@ public class ListPositionsActivity extends ActionBarActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 System.out.println(positionsStrings.get(position));
-                buildDialogForRemove(positionsStrings.get(position));
+                showDetailsOfFingerprint(positionsStrings.get(position));
 
             }
         });
     }
 
+    /**
+     * Pripravuje data pro zobrazeni
+     */
     private void makeDataForView() {
         positionsMap.clear();
 
@@ -90,17 +99,8 @@ public class ListPositionsActivity extends ActionBarActivity {
         }
         else if (id == R.id.action_upload)
         {
-            SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
+            dbManager.uploadDBToServer(this);
 
-            if (!sp.getBoolean("visited", false))
-            {
-                Intent intent = new Intent(this, LoginActivity.class);
-                startActivity(intent);
-            }
-            else {
-                sp.edit().putBoolean("visited", false).commit();
-                dbManager.uploadDBToServer(this);
-            }
 
         }
         else if (id == R.id.action_download)
@@ -121,23 +121,17 @@ public class ListPositionsActivity extends ActionBarActivity {
         System.out.println("Close db connection in ListPositionsActivity");
     }
 
-    private void buildDialogForRemove(final String position)
+    /**
+     * Zobrazi novou aktivitu obsahujici informace o fingerprintu
+     * @param position ID fingerprintu v DB
+     */
+    private void showDetailsOfFingerprint(final String position)
     {
 
         Intent intent = new Intent(this, PositionInfoActivity.class);
         intent.putExtra("id", positionsMap.get(position));
         startActivity(intent);
 
-    }
-
-    private void removePosition(String position)
-    {
-        dbManager.removeFingerprint(positionsMap.get(position));
-
-        positionsStrings.remove(position);
-        positionsMap.remove(position);
-
-        adapter.notifyDataSetChanged();
     }
 
 }

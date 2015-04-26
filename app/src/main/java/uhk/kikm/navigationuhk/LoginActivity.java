@@ -3,13 +3,10 @@ package uhk.kikm.navigationuhk;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
-import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.webkit.CookieManager;
-import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
@@ -32,7 +29,7 @@ public class LoginActivity extends ActionBarActivity {
 
         WebView webView = (WebView) findViewById(R.id.webViewLogin);
         webView.setWebViewClient(new WebViewClient());
-        webView.loadUrl(SettingsFactory.loginURL);
+        webView.loadUrl(SettingsFactory.LOGIN_URL);
         webView.getSettings().setJavaScriptEnabled(true);
         webView.addJavascriptInterface(loginInterface, "Android");
     }

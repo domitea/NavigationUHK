@@ -245,6 +245,8 @@ public class CollectorActivity extends ActionBarActivity {
             Toast.makeText(this , "Nedostatek Wifi dat", Toast.LENGTH_SHORT).show();
         }
 
+
+
     }
 
     /**

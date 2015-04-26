@@ -22,6 +22,10 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+
 
 public class PrimaryActivity extends ActionBarActivity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks {
@@ -80,7 +84,13 @@ public class PrimaryActivity extends ActionBarActivity
                 Toast.makeText(mNavigationDrawerFragment.getActivity() , "4. Patro", Toast.LENGTH_SHORT).show();
                 break;
             case 5:
+                Toast.makeText(mNavigationDrawerFragment.getActivity() , "Hledám", Toast.LENGTH_SHORT).show();
+                break;
+            case 6:
                 runCollectorActivity();
+                break;
+            case 7:
+                Toast.makeText(mNavigationDrawerFragment.getActivity() , "Stahuji", Toast.LENGTH_SHORT).show();
                 break;
         }
     }
@@ -159,7 +169,6 @@ public class PrimaryActivity extends ActionBarActivity
             WebView webView = (WebView) rootView.findViewById(R.id.webViewPrimary);
             webView.setWebViewClient(new WebViewClient());
             webView.loadUrl("http://google.com");
-
             return rootView;
         }
 
@@ -169,6 +178,35 @@ public class PrimaryActivity extends ActionBarActivity
             ((PrimaryActivity) activity).onSectionAttached(
                     getArguments().getInt(ARG_SECTION_NUMBER));
         }
+
+        /**
+         * Metoda na nacteni textu z nejakeho souboru.
+         * @param resourceID ID zdroje
+         * @return String text
+         */
+        private String readTextFromResource(int resourceID)
+        {
+            InputStream raw = getResources().openRawResource(resourceID);
+            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+            int i;
+            try
+            {
+                i = raw.read();
+                while (i != -1)
+                {
+                    stream.write(i);
+                    i = raw.read();
+                }
+                raw.close();
+            }
+            catch (IOException e)
+            {
+                e.printStackTrace();
+            }
+            return stream.toString();
+
+        }
     }
+
 
 }

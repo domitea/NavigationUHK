@@ -106,7 +106,7 @@ public class CouchDBManager {
 
         // parsujeme URL adresu
         try {
-            serverURL = new URL(SettingsFactory.dbURL);
+            serverURL = new URL(SettingsFactory.DB_URL);
         }catch (MalformedURLException mue)
         {
             mue.printStackTrace();

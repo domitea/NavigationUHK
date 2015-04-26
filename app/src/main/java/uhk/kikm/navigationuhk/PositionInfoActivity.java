@@ -14,6 +14,11 @@ import android.widget.TextView;
 import uhk.kikm.navigationuhk.dataLayer.CouchDBManager;
 import uhk.kikm.navigationuhk.dataLayer.Fingerprint;
 
+/**
+ * Aktivita zobrazujici detailni informace o fingerprintu
+ *
+ * Dominik Matoulek 2015
+ */
 
 public class PositionInfoActivity extends ActionBarActivity {
 

@@ -25,6 +25,12 @@ import android.support.v4.app.NavUtils;
 import java.util.List;
 
 /**
+ * Aktivita pripravena pro budouci moznosti nastavovani - zatim toho moc neumi
+ *
+ * Dominik Matoulek 2015
+ */
+
+/**
  * A {@link PreferenceActivity} that presents a set of application settings. On
  * handset devices, settings are presented as a single list. On tablets,
  * settings are split by category, with category headers shown to the left of

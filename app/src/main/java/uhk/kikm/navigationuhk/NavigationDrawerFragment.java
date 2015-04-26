@@ -23,6 +23,10 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 /**
+ * Dominik Matoulek 2015
+ */
+
+/**
  * Fragment used for managing interactions for and presentation of a navigation drawer.
  * See the <a href="https://developer.android.com/design/patterns/navigation-drawer.html#Interaction">
  * design guidelines</a> for a complete explanation of the behaviors implemented here.
@@ -106,7 +110,9 @@ public class NavigationDrawerFragment extends Fragment {
                         getString(R.string.title_level2),
                         getString(R.string.title_level3),
                         getString(R.string.title_level4),
+                        getString(R.string.title_find),
                         getString(R.string.title_collector_mode),
+                        getString(R.string.title_download_db),
                 }));
         mDrawerListView.setItemChecked(mCurrentSelectedPosition, true);
         return mDrawerListView;
@@ -246,11 +252,6 @@ public class NavigationDrawerFragment extends Fragment {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (mDrawerToggle.onOptionsItemSelected(item)) {
-            return true;
-        }
-
-        if (item.getItemId() == R.id.action_example) {
-            Toast.makeText(getActivity(), "Example action.", Toast.LENGTH_SHORT).show();
             return true;
         }
 
