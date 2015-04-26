@@ -3,7 +3,8 @@ package uhk.kikm.navigationuhk.dataLayer;
 import java.util.Arrays;
 
 /**
- * Created by dominik on 4.4.15.
+ * Datova trida obsahujici informace o zaznamenanem BLE zarizeni
+ * Dominik Matoulek 2015
  */
 public class BleScan {
 

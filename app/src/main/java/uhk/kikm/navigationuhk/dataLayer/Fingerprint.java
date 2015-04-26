@@ -4,7 +4,8 @@ import java.util.ArrayList;
 import java.util.Date;
 
 /**
- * Modelova trida reprezentujici nejakou pozici
+ * Modelova trida reprezentujici fingerprint
+ * Dominik Matoulek 2015
  */
 public class Fingerprint {
 

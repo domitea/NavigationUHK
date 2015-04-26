@@ -1,7 +1,8 @@
 package uhk.kikm.navigationuhk.utils.LocalizationService;
 
 /**
- * Created by dominik on 27.2.15.
+ * Datova trida urcena pro lokalizacni body pouzite v LocalizationService
+ * Dominik Matoulek
  */
 public class LocalizationServicePoint {
     private int x;

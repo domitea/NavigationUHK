@@ -1,7 +1,8 @@
 package uhk.kikm.navigationuhk.dataLayer;
 
 /**
- * Modelova trida reprezentujci scan
+ * Modelova trida reprezentujci scan Wifi site
+ * Dominik Matoulek 2015
  */
 public class Scan {
     String SSID;

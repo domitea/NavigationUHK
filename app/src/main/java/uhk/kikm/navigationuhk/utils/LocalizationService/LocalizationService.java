@@ -3,7 +3,8 @@ package uhk.kikm.navigationuhk.utils.LocalizationService;
 import uhk.kikm.navigationuhk.dataLayer.Fingerprint;
 
 /**
- * Created by dominik on 26.2.15.
+ * Trida starajici se o dopocitani GPS na zaklade souradnic bodu, kde uzivatel klikl
+ * Dominik Matoulek 2015
  */
 public class LocalizationService {
 
@@ -11,9 +12,6 @@ public class LocalizationService {
     /**
      * LAT = Y, LON = X
      */
-
-    private float stepX;
-    private float stepY;
 
     private float differenceX;
     private float differenceY;
@@ -24,8 +22,10 @@ public class LocalizationService {
     private LocalizationServicePoint point;
 
     /**
-     * Kosntruktor service na vypocet GPS souradnice.
-     *
+     * Kosntruktor service na vypocet GPS souradnice
+     * @param pointA Bod A - hlavni bod
+     * @param pointB Bod B - Bod urcujici zemepisnou delku
+     * @param pointC Bod C - Bod urcujici zemepisnou sirku
      */
     public LocalizationService(LocalizationServicePoint pointA, LocalizationServicePoint pointB, LocalizationServicePoint pointC) {
 
