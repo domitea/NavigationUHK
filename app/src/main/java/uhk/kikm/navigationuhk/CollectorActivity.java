@@ -267,7 +267,7 @@ public class CollectorActivity extends ActionBarActivity {
         if (bleFingerprints.size() > 0) // Pokud jsou nejake fingerprinty nalezene, muzeme prohledavat
         {
             BluetoothFinder bleFinder = new BluetoothFinder(bleFingerprints);
-            Fingerprint possibleBleFingerprint = bleFinder.getPosition(bleScans);
+            Fingerprint possibleBleFingerprint = bleFinder.computePossiblePosition(bleScans);
 
             // zobrazime na mape
             view.loadUrl("javascript:setBlePoint(" + String.valueOf(possibleBleFingerprint.getX()) + ", " + String.valueOf(possibleBleFingerprint.getY()) + ", \"purple\"" + ")");

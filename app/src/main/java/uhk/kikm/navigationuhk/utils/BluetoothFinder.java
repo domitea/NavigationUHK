@@ -18,7 +18,7 @@ public class BluetoothFinder {
     private HashMap<Scan, Fingerprint> positionsOfScans;
     private HashMap<Float, Fingerprint> computedDistance;
 
-    private final double SIGNAL_NO_RECIEVED = -100; // Minimalni sila signalu, ktery dokaze Bluetooth prijimat - Ekvivalent "nuly"
+    private final double SIGNAL_NO_RECIEVED = -100; // Minimalni sila signalu, ktery dokaze Bluetooth prijimat
 
     public BluetoothFinder(ArrayList<Fingerprint> fingerprints) {
 
@@ -38,7 +38,12 @@ public class BluetoothFinder {
         computedDistance = new HashMap<>();
     }
 
-    public Fingerprint getPosition(List<BleScan> scansForIdentify) {
+    /**
+     * Najde nejblizsi pozici pomoci BLE podle kNN - k=1
+      * @param scansForIdentify Seznam aktualne nalezenych vysilacu
+     * @return nejblizsi fingerprint
+     */
+    public Fingerprint computePossiblePosition(List<BleScan> scansForIdentify) {
 
         float distance = 0;
 
@@ -83,11 +88,17 @@ public class BluetoothFinder {
 
         Collections.sort(sortedDistances); // setridime
 
-        nearestFingerprint = computedDistance.get(sortedDistances.get(0)); // a prvni bude nejmensi, takze podle Hash mapy mame i polohu
+        nearestFingerprint = computedDistance.get(sortedDistances.get(0)); // a prvni bude nejmensi, takze podle Hash mapy mame i fingerprint
 
         return nearestFingerprint;
     }
 
+    /**
+     * Zjistuje pokud dana bluetooth adresa je ve Fingerprintu zanznamenana. Pokud je, vrati jeji index.
+     * @param s adresa ve stringu
+     * @param p Fingerprint
+     * @return Index zaznamenane adresy, pokud neni nalezena, vraci -1
+     */
     private int containsAddress(String s, Fingerprint p)
     {
         for(int i = 0; i < p.getScans().size(); i++)
@@ -100,6 +111,12 @@ public class BluetoothFinder {
         return -1;
     }
 
+    /**
+     *Zjistuje pokud dana bleutooth adresa je v seznamu ScaResultu zanznamenana. Pokud je, vrati jeji index.
+     * @param s adresa ve stringu
+     * @param scans seznam ScanResultu
+     * @return Index zaznamenane adresy, pokud neni nalezena, vraci -1
+     */
     private int containsAddress(String s, List<BleScan> scans)
     {
         for(int i = 0; i < scans.size(); i++)
