@@ -8,12 +8,18 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.webkit.CookieManager;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 import uhk.kikm.navigationuhk.utils.LoginWebViewInterface;
 
+/**
+ * Aktivita zajistujici prihlasovani uzivatelu
+ *
+ * Dominik Matoulek 2015
+ */
 
 public class LoginActivity extends ActionBarActivity {
 
@@ -29,7 +35,6 @@ public class LoginActivity extends ActionBarActivity {
         webView.loadUrl(SettingsFactory.loginURL);
         webView.getSettings().setJavaScriptEnabled(true);
         webView.addJavascriptInterface(loginInterface, "Android");
-        System.out.println(this.toString());
     }
 
 
@@ -40,19 +45,26 @@ public class LoginActivity extends ActionBarActivity {
         return true;
     }
 
+    /**
+     * Metoda volana z loginInterface
+     * @param cookieName Jmeno cookie
+     * @param sessionId id Session
+     * @param expireTime Cas vyprseni
+     * @param couchBaseId id uzivatele - Pro ulozeni k porizovanemu Fingerprintu
+     */
     public void run(String cookieName, String sessionId, String expireTime, String couchBaseId)
     {
+        // ulozeni dat na perzistentni misto - SharedPreferences, ktere jsou poskytovany kazde aplikaci
+
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         SharedPreferences.Editor editor = sharedPreferences.edit();
 
-        editor.putString("couchbase_sync_gateway_id", couchBaseId);
+        editor.putString("couchbase_sync_gateway_id", couchBaseId); // vlozeni dat
         editor.putString("cookie_name", cookieName);
         editor.putString("session_id", sessionId);
         editor.putString("expire_time", expireTime);
 
-        editor.putBoolean("visited", true);
-
-        editor.commit();
+        editor.commit(); // ulozeni dat
 
         Intent intent = new Intent(this, CollectorActivity.class);
         startActivity(intent);
