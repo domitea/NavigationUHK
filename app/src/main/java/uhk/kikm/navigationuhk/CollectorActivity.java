@@ -31,6 +31,11 @@ import uhk.kikm.navigationuhk.utils.WebViewInterface;
 import uhk.kikm.navigationuhk.utils.WifiFinder;
 import uhk.kikm.navigationuhk.utils.WifiScanner;
 
+/**
+ * Activita určená na tvorbu fingerprintů a příležitostné hlednání
+ *
+ * Dominik Matoulek 2015
+ */
 
 public class CollectorActivity extends ActionBarActivity {
 
@@ -53,17 +58,17 @@ public class CollectorActivity extends ActionBarActivity {
         webInterface = new WebViewInterface(this);
 
         view = (WebView) findViewById(R.id.WebView);
-        view.getSettings().setJavaScriptEnabled(true);
-        view.getSettings().setBuiltInZoomControls(true);
+        view.getSettings().setJavaScriptEnabled(true); // povoleni JS
+        view.getSettings().setBuiltInZoomControls(true); // Zapnuti zoom controls
         view.getSettings().setSupportZoom(true);
         view.setWebViewClient(new WebViewClient());
-        view.loadData(readTextFromResource(R.drawable.uhk_j_2_level), null, "UTF-8");
-        view.addJavascriptInterface(webInterface, "android");
+        view.loadData(readTextFromResource(R.drawable.uhk_j_2_level), null, "UTF-8"); // nacteni souboru do prohlizece
+        view.addJavascriptInterface(webInterface, "android"); // nastaveni JS interface
 
         final Button newPointButton = (Button) findViewById(R.id.write_point);
 
-        wScanner = new WifiScanner(this);
-        wScanner.findAll();
+        wScanner = new WifiScanner(this); // inicializace WifiScanneru - Skenuje okolni Wifi sítě
+        wScanner.findAll(); // zacni skenovat
 
         newPointButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,15 +77,15 @@ public class CollectorActivity extends ActionBarActivity {
             }
         });
 
-        sensorScanner = new SensorScanner(this);
-        deviceInformation = new DeviceInformation(this);
+        sensorScanner = new SensorScanner(this); //inicializace SensorScanneru - Snima polohu zarizeni v prostoru
+        deviceInformation = new DeviceInformation(this); // inicializace DeviceInfromation - ziskava informace o telefonu
 
         scanningBle = false;
 
-        bleScanner = new BluetoothLEScanner(this);
-        bleScanner.findAll();
+        bleScanner = new BluetoothLEScanner(this); // inicializace BLEScanneru - snima okoli pro pripadne BLE beacony
+        bleScanner.findAll(); // zacni skenovat
 
-        dbManager = new CouchDBManager(this);
+        dbManager = new CouchDBManager(this); // inicializace DB managera
         System.out.println("Open db connection in MainActivity");
 
         localizationService = new LocalizationService(SettingsFactory.pointA, SettingsFactory.pointB, SettingsFactory.pointC); // nastavujeme souradnicovy system pro vypocet GPS souradnic
@@ -91,12 +96,12 @@ public class CollectorActivity extends ActionBarActivity {
 
     public void writePoint()
     {
-        if(webInterface.isChanged())
+        if(webInterface.isChanged()) // pokud se ziskane souradnice u webinterface zmenily, muzeme to zaznamenat
         {
             Toast.makeText(this, webInterface.getX() + " " + webInterface.getY(), Toast.LENGTH_LONG).show();
             webInterface.setChanged(false);
 
-            Fingerprint p = wScanner.getPosition(webInterface.getX(), webInterface.getY()); // Tovarnicka na "vyrobu pozice"
+            Fingerprint p = wScanner.createFingerprintLikeFactory(webInterface.getX(), webInterface.getY()); // Tovarnicka na "vyrobu" fingerprintu
             p.setLevel(selectedLevel); // nastavime patro
             sensorScanner.fillPosition(p);  // naplnime daty ze senzoru
             deviceInformation.fillPosition(p); // naplnime infomacemi o zarizeni
@@ -110,11 +115,7 @@ public class CollectorActivity extends ActionBarActivity {
             Toast.makeText(this, "Musi byt jine souradnice", Toast.LENGTH_SHORT).show();
         }
 
-        // debug....
 
-        /*List<Position> pos = dbManager.getAllFingerprints();
-        System.out.println(pos.toString());
-        dbManager.deleteAll();*/
     }
 
 
@@ -134,36 +135,36 @@ public class CollectorActivity extends ActionBarActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_settings) { // nastaveni
             Intent intent = new Intent(this, SettingsActivity.class);
             startActivity(intent);
         }
-        else if (id == R.id.action_about)
+        else if (id == R.id.action_about) // Seznam fingerprintů
         {
             Intent intent = new Intent(this, ListPositionsActivity.class);
             startActivity(intent);
         }
-        else if (id == R.id.action_find)
+        else if (id == R.id.action_find) // Wifi hledani
         {
             findPosition();
         }
-        else if(id == R.id.action_level_1) {
+        else if(id == R.id.action_level_1) { // 1. patro
             selectedLevel = 1;
             Toast.makeText(this , selectedLevel + ". Patro", Toast.LENGTH_SHORT).show();
         }
-        else if(id == R.id.action_level_2) {
+        else if(id == R.id.action_level_2) { // 2. patro
             selectedLevel = 2;
             Toast.makeText(this , selectedLevel + ". Patro", Toast.LENGTH_SHORT).show();
         }
-        else if(id == R.id.action_level_3) {
+        else if(id == R.id.action_level_3) { // 3. patro
             selectedLevel = 3;
             Toast.makeText(this , selectedLevel + ". Patro", Toast.LENGTH_SHORT).show();
         }
-        else if(id == R.id.action_level_4) {
+        else if(id == R.id.action_level_4) { // 4. patro
             selectedLevel = 4;
             Toast.makeText(this , selectedLevel + ". Patro", Toast.LENGTH_SHORT).show();
         }
-        else if(id == R.id.action_find_ble) {
+        else if(id == R.id.action_find_ble) { // BLE hledani
             findPositionByBle();
         }
 
@@ -215,13 +216,16 @@ public class CollectorActivity extends ActionBarActivity {
         bleScanner.stopScan();
     }
 
+    /**
+     * Hledani pozice z ulozenych fingerprintu na zaklade wifi dat
+     */
     private void findPosition()
     {
         wScanner.findAll();
-        List<ScanResult> scanResults = wScanner.getScanResults();
+        List<ScanResult> scanResults = wScanner.getScanResults(); // Ziskej nalezene Wifi site
         ArrayList<Fingerprint> fingerprints = new ArrayList<>();
 
-        for (ScanResult s : scanResults)
+        for (ScanResult s : scanResults) // ziskani dat z db
         {
             String[] mac = new String[] {s.BSSID};
             List<Fingerprint> pos = dbManager.getFingerprintsByMacs(mac);
@@ -229,10 +233,11 @@ public class CollectorActivity extends ActionBarActivity {
             Log.w("debug", dbManager.getFingerprintsByMacs(mac).toString());
         }
 
-        if (fingerprints.size() > 0) {
+        if (fingerprints.size() > 0) { // pokud je jich vic jak 0, muzeme je predat na prohledani
             WifiFinder finder = new WifiFinder(fingerprints);
             Fingerprint possibleFingerprint = finder.computePossibleFingerprint(scanResults);
 
+            // zobrazime na mape
             view.loadUrl("javascript:setPoint(" + String.valueOf(possibleFingerprint.getX()) + ", " + String.valueOf(possibleFingerprint.getY()) + ", \"blue\"" + ")");
         }
         else
@@ -242,13 +247,16 @@ public class CollectorActivity extends ActionBarActivity {
 
     }
 
+    /**
+     * Hledani pozice z ulozenych fingerprintu na zaklade BLE dat
+     */
     private void findPositionByBle()
     {
-        List<BleScan> bleScans = bleScanner.getBleDeviceList();
+        List<BleScan> bleScans = bleScanner.getBleDeviceList(); // ziskani nalezenych ble vysilacu
 
         ArrayList<Fingerprint> bleFingerprints = new ArrayList<>();
 
-        for (BleScan s : bleScans)
+        for (BleScan s : bleScans)// ziskani dat z db
         {
             String[] address = new String[] {s.getAddress()};
             List<Fingerprint> pos = dbManager.getPositionsByBleAddresses(address);
@@ -256,11 +264,12 @@ public class CollectorActivity extends ActionBarActivity {
             bleFingerprints.addAll(pos);
         }
 
-        if (bleFingerprints.size() > 0)
+        if (bleFingerprints.size() > 0) // Pokud jsou nejake fingerprinty nalezene, muzeme prohledavat
         {
             BluetoothFinder bleFinder = new BluetoothFinder(bleFingerprints);
             Fingerprint possibleBleFingerprint = bleFinder.getPosition(bleScans);
 
+            // zobrazime na mape
             view.loadUrl("javascript:setBlePoint(" + String.valueOf(possibleBleFingerprint.getX()) + ", " + String.valueOf(possibleBleFingerprint.getY()) + ", \"purple\"" + ")");
         }
         else

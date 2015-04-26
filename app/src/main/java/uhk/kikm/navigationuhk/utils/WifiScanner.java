@@ -50,7 +50,7 @@ public class WifiScanner {
         return scanResults;
     }
 
-    public Fingerprint getPosition(int x, int y)
+    public Fingerprint createFingerprintLikeFactory(int x, int y)
     {
         Fingerprint p = new Fingerprint();
         p.setX(x);

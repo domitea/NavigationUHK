@@ -3,7 +3,7 @@
 
     <string name="app_name">Navigation UHK</string>
     <string name="action_settings">Nastavení</string>
-    <string name="action_list">Seznam pozic</string>
+    <string name="action_list">Seznam fingerprintů</string>
     <string name="write_point">Zapsat Fingerprint</string>
     <string name="title_activity_list_positions">List of Positions</string>
     <string name="hello_world">Hello world!</string>
