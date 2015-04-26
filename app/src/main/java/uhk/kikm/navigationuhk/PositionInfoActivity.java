@@ -28,7 +28,7 @@ public class PositionInfoActivity extends ActionBarActivity {
 
         dbManager = new CouchDBManager(this);
         id = getIntent().getStringExtra("id");
-        fingerprint = dbManager.getPositionById(id);
+        fingerprint = dbManager.getFingerprintById(id);
 
         TextView textView = (TextView) findViewById(R.id.textView);
 
@@ -56,7 +56,7 @@ public class PositionInfoActivity extends ActionBarActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 System.out.println("Destroy!!! " + fingerprint.toString());
-                dbManager.removePosition(fingerprint.getId());
+                dbManager.removeFingerprint(fingerprint.getId());
                 redirectBack();
             }
         });

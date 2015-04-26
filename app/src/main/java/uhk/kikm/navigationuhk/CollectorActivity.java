@@ -112,7 +112,7 @@ public class CollectorActivity extends ActionBarActivity {
 
         // debug....
 
-        /*List<Position> pos = dbManager.getAllPositions();
+        /*List<Position> pos = dbManager.getAllFingerprints();
         System.out.println(pos.toString());
         dbManager.deleteAll();*/
     }
@@ -224,9 +224,9 @@ public class CollectorActivity extends ActionBarActivity {
         for (ScanResult s : scanResults)
         {
             String[] mac = new String[] {s.BSSID};
-            List<Fingerprint> pos = dbManager.getPositionsByMacs(mac);
+            List<Fingerprint> pos = dbManager.getFingerprintsByMacs(mac);
             fingerprints.addAll(pos);
-            Log.w("debug", dbManager.getPositionsByMacs(mac).toString());
+            Log.w("debug", dbManager.getFingerprintsByMacs(mac).toString());
         }
 
         if (fingerprints.size() > 0) {

@@ -59,7 +59,7 @@ public class ListPositionsActivity extends ActionBarActivity {
     private void makeDataForView() {
         positionsMap.clear();
 
-        fingerprints = dbManager.getAllPositions();
+        fingerprints = dbManager.getAllFingerprints();
 
         for (Fingerprint p : fingerprints)
         {
@@ -132,7 +132,7 @@ public class ListPositionsActivity extends ActionBarActivity {
 
     private void removePosition(String position)
     {
-        dbManager.removePosition(positionsMap.get(position));
+        dbManager.removeFingerprint(positionsMap.get(position));
 
         positionsStrings.remove(position);
         positionsMap.remove(position);
