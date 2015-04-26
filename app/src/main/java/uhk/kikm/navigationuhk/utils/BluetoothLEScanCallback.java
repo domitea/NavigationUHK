@@ -9,10 +9,8 @@ import java.util.HashMap;
 import uhk.kikm.navigationuhk.dataLayer.BleScan;
 
 /**
- * Protoze uzasny Android nema v teto verzi plne implememntovany scanRecord, je pouzito reseni nalezene na internetu
- * http://blog.conjure.co.uk/2014/08/ibeacons-and-android-parsing-the-uuid-major-and-minor-values/
- *
- *
+ * Callback pouzity u BluetoothLEScanner
+ * Dominik Matoulek 2015
  */
 public class BluetoothLEScanCallback implements BluetoothAdapter.LeScanCallback {
 
@@ -24,7 +22,7 @@ public class BluetoothLEScanCallback implements BluetoothAdapter.LeScanCallback 
 
     @Override
     public void onLeScan(BluetoothDevice device, int rssi, byte[] scanRecord) {
-        if (bleDeviceList.containsKey(device.getAddress())) // pokud uz v seznamu je, aktualizujeme data
+        if (bleDeviceList.containsKey(device.getAddress())) // pokud zarizeni uz v seznamu je, aktualizujeme data
         {
             bleDeviceList.remove(device.getAddress());
             bleDeviceList.put(device.getAddress(), new BleScan(rssi, scanRecord, device.getAddress()));
