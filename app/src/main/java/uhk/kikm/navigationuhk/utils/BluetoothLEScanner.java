@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import uhk.kikm.navigationuhk.dataLayer.BleScan;
 
 /** Trida reprezentujici Bluetooth skenovani
- *
+ * Dominik Matoulek 2015
  */
 public class BluetoothLEScanner {
 
@@ -30,6 +30,10 @@ public class BluetoothLEScanner {
 
     private boolean runScan = false;
 
+    /**
+     * Inicializuje BluetoothLEScanner
+     * @param context context
+     */
     public BluetoothLEScanner(Context context) {
         this.context = context;
 
@@ -45,6 +49,9 @@ public class BluetoothLEScanner {
         }
     }
 
+    /**
+     * Nalezne vsechny zarzeni v okoli telefonu vysilajici na BLE
+     */
     public void findAll()
     {
         if (!bluetoothAdapter.isEnabled())
@@ -58,11 +65,19 @@ public class BluetoothLEScanner {
         }
     }
 
+    /**
+     * Ukonci skenovani
+     */
     public void stopScan()
     {
         runScan = false;
     }
 
+    /**
+     * Kvuli ruznorode implemetaci netody onLeScan je nutne zajistit akualni data
+     *
+     * Proto tu jsou tyto dva Runnble abjekty. Cyklicky zapinaji a vypinaji skenovani, aby byly vzdy dostupne nejaktualnejsi infomace
+     */
     private Runnable startBleScan = new Runnable() {
         @Override
         public void run() {
