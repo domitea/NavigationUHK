@@ -37,7 +37,7 @@ import uhk.kikm.navigationuhk.SettingsFactory;
 /**
  * Trida reprezentujici komunikaci s DB vyuzivajici model (tridy Fingerprint, Scan a BleScan)
  *
- * Dominik Matoulek
+ * Dominik Matoulek 2015
  */
 public class CouchDBManager {
     Context context;

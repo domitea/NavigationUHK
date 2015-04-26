@@ -231,7 +231,7 @@ public class CollectorActivity extends ActionBarActivity {
 
         if (fingerprints.size() > 0) {
             WifiFinder finder = new WifiFinder(fingerprints);
-            Fingerprint possibleFingerprint = finder.getPosition(scanResults);
+            Fingerprint possibleFingerprint = finder.computePossibleFingerprint(scanResults);
 
             view.loadUrl("javascript:setPoint(" + String.valueOf(possibleFingerprint.getX()) + ", " + String.valueOf(possibleFingerprint.getY()) + ", \"blue\"" + ")");
         }

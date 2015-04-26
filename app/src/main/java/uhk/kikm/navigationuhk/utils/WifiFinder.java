@@ -12,6 +12,8 @@ import uhk.kikm.navigationuhk.dataLayer.Scan;
 
 /**
  * Trida reprezentujici vyhledavani polohy
+ *
+ * Dominik Matoulek 2015
  */
 public class WifiFinder {
     private ArrayList<Fingerprint> fingerprints;
@@ -21,6 +23,10 @@ public class WifiFinder {
 
     private final double SIGNAL_NO_RECIEVED = -100; // Minimalni sila signalu, ktery dokaze WiFi prijimat - Ekvivalent "nuly"
 
+    /**
+     * Vytvari novou instaci WifiFinderu
+     * @param fingerprints Fingreprinty, ktere maji byt pouzity k urceni polohy
+     */
     public WifiFinder(ArrayList<Fingerprint> fingerprints) {
 
         navigationData = new HashMap<>();
@@ -39,11 +45,16 @@ public class WifiFinder {
         computedDistance = new HashMap<>();
     }
 
-    public Fingerprint getPosition(List<ScanResult> scansForIdentify) {
+    /**
+     * Vypocita moznou pozici zarizeni. Je pozivan algorimus kNN a k = 3
+     * @param scansForIdentify Seznam aktualnich scanu z WifiManageru
+     * @return "umely fingerprint" obsahujici pouze pozici a patro
+     */
+    public Fingerprint computePossibleFingerprint(List<ScanResult> scansForIdentify) {
 
         float distance = 0;
 
-        Fingerprint nearestFingerprint;
+        Fingerprint nearestFingerprint = new Fingerprint();
 
         for (Fingerprint p : fingerprints)
         {
@@ -84,11 +95,31 @@ public class WifiFinder {
 
         Collections.sort(sortedDistances); // setridime
 
-        nearestFingerprint = computedDistance.get(sortedDistances.get(0)); // a prvni bude nejmensi, takze podle Hash mapy mame i polohu
+        if (sortedDistances.size() > 2) { // Pokud je vic jak dva fingerprinty, vypocitame fingerprint = teziste trouhelniku tvoreneho tremi nejblizsimi fingerprinty
+            Fingerprint firstFingerprint = computedDistance.get(sortedDistances.get(0));
+            Fingerprint secondFingerprint = computedDistance.get(sortedDistances.get(1));
+            Fingerprint thirdFingerprint = computedDistance.get(sortedDistances.get(2));
+
+            int computedX = (firstFingerprint.getX() + secondFingerprint.getX() + thirdFingerprint.getX()) / 3;
+            int computedY = (firstFingerprint.getY() + secondFingerprint.getY() + thirdFingerprint.getY()) / 3;
+
+            nearestFingerprint.setX(computedX);
+            nearestFingerprint.setY(computedY);
+        }
+        else // pokud je jich =< 2, tak k = 1
+        {
+            nearestFingerprint = computedDistance.get(sortedDistances.get(0));
+        }
 
         return nearestFingerprint;
     }
 
+    /**
+     * Zjistuje pokud dana MAC adresa je ve Fingerprintu zanznamenana. Pokud je, vrati jeji index.
+     * @param s MAC ve stringu
+     * @param p Fingerprint
+     * @return Index zaznamenane MAC, pokud neni nalezena, vraci -1
+     */
     private int containsMAC(String s, Fingerprint p)
     {
         for(int i = 0; i < p.getScans().size(); i++)
@@ -101,6 +132,12 @@ public class WifiFinder {
         return -1;
     }
 
+    /**
+     *Zjistuje pokud dana MAC adresa je v seznamu ScaResultu zanznamenana. Pokud je, vrati jeji index.
+     * @param s MAC ve stringu
+     * @param scans seznam ScanResultu
+     * @return Index zaznamenane MAC, pokud neni nalezena, vraci -1
+     */
     private int containsMAC(String s, List<ScanResult> scans)
     {
         for(int i = 0; i < scans.size(); i++)
