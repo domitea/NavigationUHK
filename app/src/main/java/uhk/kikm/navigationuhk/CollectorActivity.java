@@ -267,7 +267,7 @@ public class CollectorActivity extends ActionBarActivity {
             Fingerprint possibleFingerprint = finder.computePossibleFingerprint(scanResults);
 
             // zobrazime na mape
-            view.loadUrl("javascript:setPoint(" + String.valueOf(possibleFingerprint.getX()) + ", " + String.valueOf(possibleFingerprint.getY()) + ", \"blue\"" + ")");
+           showPoint(possibleFingerprint.getX(), possibleFingerprint.getY(), possibleFingerprint.getLevel());
         }
         else
         {
@@ -276,6 +276,30 @@ public class CollectorActivity extends ActionBarActivity {
 
 
 
+    }
+
+    /**
+     * Zobrazi bod na mape o urcite barve, ktera je vyhodnocena z patra porizeni
+     * @param x x bodu
+     * @param y y bodu
+     * @param level cislo patra
+     */
+    private void showPoint(int x, int y, int level)
+    {
+        switch (level) {
+            case 1:
+                view.loadUrl("javascript:setPoint(" + String.valueOf(x) + ", " + String.valueOf(y) + ", \"red\"" + ")");
+                break;
+            case 2:
+                view.loadUrl("javascript:setPoint(" + String.valueOf(x) + ", " + String.valueOf(y) + ", \"blue\"" + ")");
+                break;
+            case 3:
+                view.loadUrl("javascript:setPoint(" + String.valueOf(x) + ", " + String.valueOf(y) + ", \"green\"" + ")");
+                break;
+            case 4:
+                view.loadUrl("javascript:setPoint(" + String.valueOf(x) + ", " + String.valueOf(y) + ", \"yellow\"" + ")");
+                break;
+        }
     }
 
     /**

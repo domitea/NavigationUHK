@@ -113,6 +113,30 @@ public class PrimaryActivity extends ActionBarActivity {
 
 
     /**
+     * Zobrazi bod na mape o urcite barve, ktera je vyhodnocena z patra porizeni
+     * @param x x bodu
+     * @param y y bodu
+     * @param level cislo patra
+     */
+    private void showPoint(int x, int y, int level)
+    {
+        switch (level) {
+            case 1:
+                view.loadUrl("javascript:setPoint(" + String.valueOf(x) + ", " + String.valueOf(y) + ", \"red\"" + ")");
+                break;
+            case 2:
+                view.loadUrl("javascript:setPoint(" + String.valueOf(x) + ", " + String.valueOf(y) + ", \"blue\"" + ")");
+                break;
+            case 3:
+                view.loadUrl("javascript:setPoint(" + String.valueOf(x) + ", " + String.valueOf(y) + ", \"green\"" + ")");
+                break;
+            case 4:
+                view.loadUrl("javascript:setPoint(" + String.valueOf(x) + ", " + String.valueOf(y) + ", \"yellow\"" + ")");
+                break;
+        }
+    }
+
+    /**
      * Spusti CollectorActivity pres LoginActivity kvuli prihlaseni
      */
     private void runCollectorActivity() {
@@ -121,7 +145,7 @@ public class PrimaryActivity extends ActionBarActivity {
     }
 
     /**
-     * Vzhledava pozici
+     * Vyhledava pozici - detailnejsi popis je u CollectorActivity
      */
     private void findPosition() {
         if (!dbManager.existDB()) // pokud DB neexstuje, je nutne stahnout data
@@ -146,7 +170,7 @@ public class PrimaryActivity extends ActionBarActivity {
                 WifiFinder finder = new WifiFinder(fingerprints);
                 Fingerprint possibleFingerprint = finder.computePossibleFingerprint(scanResults);
 
-                view.loadUrl("javascript:setPoint(" + String.valueOf(possibleFingerprint.getX()) + ", " + String.valueOf(possibleFingerprint.getY()) + ", \"blue\"" + ")");
+                showPoint(possibleFingerprint.getX(), possibleFingerprint.getY(), possibleFingerprint.getLevel());
             }
             else
                 Toast.makeText(this , "Nedostatek Wifi dat", Toast.LENGTH_SHORT).show();
