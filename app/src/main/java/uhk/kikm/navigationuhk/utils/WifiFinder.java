@@ -105,6 +105,15 @@ public class WifiFinder {
 
             nearestFingerprint.setX(computedX);
             nearestFingerprint.setY(computedY);
+
+            // zjisteni spravneho patra, pokud je vsude rozdilne, dame 2. patro
+            if (firstFingerprint.getLevel() == secondFingerprint.getLevel()
+                    || secondFingerprint.getLevel() == thirdFingerprint.getLevel())
+                nearestFingerprint.setLevel(secondFingerprint.getLevel());
+             else if (firstFingerprint.getLevel() == thirdFingerprint.getLevel())
+                nearestFingerprint.setLevel(firstFingerprint.getLevel());
+            else
+                nearestFingerprint.setLevel(2);
         }
         else // pokud je jich =< 2, tak k = 1
         {
