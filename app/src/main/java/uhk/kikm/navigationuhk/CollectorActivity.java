@@ -260,7 +260,6 @@ public class CollectorActivity extends ActionBarActivity {
             String[] mac = new String[] {s.BSSID};
             List<Fingerprint> pos = dbManager.getFingerprintsByMacs(mac);
             fingerprints.addAll(pos);
-            Log.w("debug", dbManager.getFingerprintsByMacs(mac).toString());
         }
 
         if (fingerprints.size() > 0) { // pokud je jich vic jak 0, muzeme je predat na prohledani

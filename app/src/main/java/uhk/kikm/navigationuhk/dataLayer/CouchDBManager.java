@@ -679,4 +679,11 @@ public class CouchDBManager {
         return p;
     }
 
+    public boolean existDB(){
+        if (db.exists())
+            return true;
+        else
+            return false;
+    }
+
 }
