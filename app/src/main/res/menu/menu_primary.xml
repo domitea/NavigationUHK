@@ -1,0 +1,19 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="uhk.kikm.navigationuhk.PrimaryActivity">
+    <item android:id="@+id/action_find" android:title="@string/title_find"
+        android:orderInCategory="100" app:showAsAction="ifRoom|never" />
+    <item android:id="@+id/action_level_1" android:title="@string/title_level1"
+        android:orderInCategory="100" app:showAsAction="never" />
+    <item android:id="@+id/action_level_2" android:title="@string/title_level2"
+        android:orderInCategory="100" app:showAsAction="never" />
+    <item android:id="@+id/action_level_3" android:title="@string/title_level3"
+        android:orderInCategory="100" app:showAsAction="never" />
+    <item android:id="@+id/action_level_4" android:title="@string/title_level4"
+        android:orderInCategory="100" app:showAsAction="never" />
+    <item android:id="@+id/action_download" android:title="@string/title_download_db"
+        android:orderInCategory="100" app:showAsAction="never" />
+    <item android:id="@+id/action_change_mode" android:title="@string/title_collector_mode"
+        android:orderInCategory="100" app:showAsAction="never" />
+</menu>

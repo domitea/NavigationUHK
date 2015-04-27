@@ -18,7 +18,7 @@
         android:theme="@style/AppTheme" >
         <activity
             android:name=".CollectorActivity"
-            android:label="@string/app_name">
+            android:label="@string/app_name" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="uhk.kikm.navigationuhk.PrimaryActivity" />
@@ -26,8 +26,8 @@
         <activity
             android:name=".ListPositionsActivity"
             android:label="@string/title_activity_list_positions"
-            android:parentActivityName=".CollectorActivity"
-            android:noHistory="true">
+            android:noHistory="true"
+            android:parentActivityName=".CollectorActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".CollectorActivity" />
@@ -35,8 +35,8 @@
         <activity
             android:name=".PositionInfoActivity"
             android:label="@string/title_activity_position_info"
-            android:parentActivityName=".ListPositionsActivity"
-            android:noHistory="true">
+            android:noHistory="true"
+            android:parentActivityName=".ListPositionsActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="uhk.kikm.navigationuhk.ListPositionsActivity" />
@@ -44,8 +44,8 @@
         <activity
             android:name=".SettingsActivity"
             android:label="@string/title_activity_settings"
-            android:parentActivityName=".CollectorActivity"
-            android:noHistory="true">
+            android:noHistory="true"
+            android:parentActivityName=".CollectorActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".CollectorActivity" />
@@ -53,15 +53,15 @@
         <activity
             android:name=".LoginActivity"
             android:label="@string/title_activity_login"
-            android:parentActivityName=".CollectorActivity"
-            android:noHistory="true">
+            android:noHistory="true"
+            android:parentActivityName=".CollectorActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".CollectorActivity" />
         </activity>
         <activity
             android:name=".PrimaryActivity"
-            android:label="@string/title_activity_primary">
+            android:label="@string/title_activity_primary" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

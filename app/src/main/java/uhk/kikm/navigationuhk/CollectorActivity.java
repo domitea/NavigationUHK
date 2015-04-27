@@ -151,24 +151,54 @@ public class CollectorActivity extends ActionBarActivity {
         else if(id == R.id.action_level_1) { // 1. patro
             selectedLevel = 1;
             Toast.makeText(this , selectedLevel + ". Patro", Toast.LENGTH_SHORT).show();
+            changeLevel(selectedLevel);
         }
         else if(id == R.id.action_level_2) { // 2. patro
             selectedLevel = 2;
             Toast.makeText(this , selectedLevel + ". Patro", Toast.LENGTH_SHORT).show();
+            changeLevel(selectedLevel);
         }
         else if(id == R.id.action_level_3) { // 3. patro
             selectedLevel = 3;
             Toast.makeText(this , selectedLevel + ". Patro", Toast.LENGTH_SHORT).show();
+            changeLevel(selectedLevel);
         }
         else if(id == R.id.action_level_4) { // 4. patro
             selectedLevel = 4;
             Toast.makeText(this , selectedLevel + ". Patro", Toast.LENGTH_SHORT).show();
+            changeLevel(selectedLevel);
         }
         else if(id == R.id.action_find_ble) { // BLE hledani
             findPositionByBle();
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    /**
+     * Reloaduje obrazek patra
+     * @param level cislo patra
+     */
+    private void changeLevel(int level) {
+        switch (level) {
+            case 1:
+                view.loadData(readTextFromResource(R.drawable.uhk_j_1_level), null, "UTF-8"); // nacteni souboru do prohlizece
+                view.reload();
+                break;
+            case 2:
+                view.loadData(readTextFromResource(R.drawable.uhk_j_2_level), null, "UTF-8"); // nacteni souboru do prohlizece
+                view.reload();
+                break;
+            case 3:
+                view.loadData(readTextFromResource(R.drawable.uhk_j_3_level), null, "UTF-8"); // nacteni souboru do prohlizece
+                view.reload();
+                break;
+            case 4:
+                view.loadData(readTextFromResource(R.drawable.uhk_j_4_level), null, "UTF-8"); // nacteni souboru do prohlizece
+                view.reload();
+                break;
+
+        }
     }
 
     /**

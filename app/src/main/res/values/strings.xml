@@ -20,13 +20,8 @@
     <string name="title_level3">Patro 3</string>
     <string name="title_level4">Patro 4</string>
     <string name="title_collector_mode">Mód sběru dat</string>
-    <string name="title_find">Najdi pozici</string>
+    <string name="title_find">Hledej</string>
     <string name="title_download_db">Stáhnout DB</string>
 
-
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
-
-    <string name="action_example">Hledej</string>
 
 </resources>
